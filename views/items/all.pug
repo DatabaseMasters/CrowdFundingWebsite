@@ -1,0 +1,40 @@
+extends ../shared/_master
+
+block scripts
+    script(src="/static/js/all.js")
+
+block main    
+    .jumbotron
+        .container.text-center
+            h1 Category name
+            p Description, filters
+    .container-fluid.bg-3.text-center
+        h3 Featured in category/latest/ or another filter type
+        br
+        .row
+            each project in model
+                .col-sm-3
+                    a(href="/items/" + project.id)
+                        img.img-responsive(src=project.coverImg, style='width:100%', alt='Image')
+                    p 
+                        a(href="/items/" + project.id)
+                            =project.name 
+                            | : 
+                        =project.description
+    br
+    .container-fluid.bg-3.text-center
+        .row
+            .col-sm-3
+                img.img-responsive(src='/static/images/FacetheSunShadowCseeker.jpg', style='width:100%', alt='Image')
+                p Some text..
+            .col-sm-3
+                img.img-responsive(src='/static/images/Climbers-shadow.jpg', style='width:100%', alt='Image')
+                p Some text..
+            .col-sm-3
+                img.img-responsive(src='/static/images/Flickr_-_schmuela_-_more_sun_and_shadows.jpg', style='width:100%', alt='Image')
+                p Some text..
+            .col-sm-3
+                img.img-responsive(src='/static/images/children-bubbles.jpg', style='width:100%', alt='Image')
+                p Some text..
+    br
+    br

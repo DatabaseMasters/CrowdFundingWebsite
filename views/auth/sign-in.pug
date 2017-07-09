@@ -1,0 +1,12 @@
+extends ../shared/_master
+
+block main
+    form(action='/auth/sign-in', method='post')
+        div
+            label Username:
+            input(type='text', name='username')
+        div
+            label Password:
+            input(type='password', name='password')
+        button.btn.btn-success
+            | Sign in

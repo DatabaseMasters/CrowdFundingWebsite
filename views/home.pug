@@ -1,0 +1,52 @@
+extends shared/_master
+
+block main
+    div#myCarousel.carousel.slide(data-ride='carousel')
+        // Indicators
+        ol.carousel-indicators
+            li.active(data-target='#myCarousel', data-slide-to='0')
+            li(data-target='#myCarousel', data-slide-to='1')
+            li(data-target='#myCarousel', data-slide-to='2')
+        // Wrapper for slides
+        div.carousel-inner(role='listbox')
+            .item.active
+                img(src='/static/images/FacetheSunShadowCseeker.jpg', alt='Image')
+                .carousel-caption
+                    h3 Face the Shadow Seeker
+                    p contemporaryseeker.com
+            .item
+                img(src='/static/images/Flickr_-_schmuela_-_more_sun_and_shadows.jpg', alt='Image')
+                .carousel-caption
+                    h3 More Sun and Shadows
+                    p Flickr Schmuela
+            .item
+                img(src='/static/images/Climbers-shadow.jpg', alt='Image')
+                .carousel-caption
+                    h3 Climbing shadow
+                    p Photography
+        // Left and right controls
+        a.left.carousel-control(href='#myCarousel', role='button', data-slide='prev')
+            span.glyphicon.glyphicon-chevron-left(aria-hidden='true')
+            span.sr-only Previous
+        a.right.carousel-control(href='#myCarousel', role='button', data-slide='next')
+            span.glyphicon.glyphicon-chevron-right(aria-hidden='true')
+            span.sr-only Next
+    // Featured projects
+    div.container.text-center
+        h3 Featured 
+        br
+        div.row
+            .col-sm-4
+                img.img-responsive(src='/static/images/Climbers-shadow.jpg', style='width:100%', alt='Image')
+                p Current Project
+            .col-sm-4
+                img.img-responsive(src='/static/images/Flickr_-_schmuela_-_more_sun_and_shadows.jpg', style='width:100%', alt='Image')
+                p Project 2
+            .col-sm-4
+                .well
+                    p Some text..
+                .well
+                    p Some text..
+    br
+
+
