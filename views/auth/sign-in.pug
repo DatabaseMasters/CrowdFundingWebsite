@@ -10,3 +10,21 @@ block main
             input(type='password', name='password')
         button.btn.btn-success
             | Sign in
+
+    div#login-form.container.modal
+        div.modal-content.col-xs-12.col-sm-6.col-sm-offset-3.col-lg-3.col-lg-offset-4
+            span.close &times;
+            h2.panel-heading Welcome back.
+            input#input-email.form-control.chat-input(type='email', placeholder='email')
+            br
+            input#input-password.form-control.chat-input(type='password', placeholder='password')
+            br
+            .wrapper
+                span.group-btn
+                    a#login.btn.btn-primary.btn-md
+                        | login 
+                        span.fa.glyphicon.glyphicon-log-in
+            br
+            p.wrapper
+                | New user? 
+                a#register Create an account
