@@ -1,17 +1,17 @@
 const { Router } = require('express');
 
-const items = [{
-    id: 1,
-    name: 'Cuki',
-}];
+// const items = [{
+//     id: 1,
+//     name: 'Cuki',
+// }];
 
-const attachRoutes = (app) => {
+const attachRoutes = (app, data) => {
     const router = new Router();
 
     router
         .get('/:id', (req, res) => {
             const id = parseInt(req.params.id, 10);
-            const item = items.find((i) => i.id === id);
+            const item = data.items.find((i) => i.id === id);
             if (!item) {
                 return res.status(404)
                     .send({
@@ -25,10 +25,10 @@ const attachRoutes = (app) => {
             page = parseInt(page, 10) || 1;
             size = parseInt(size, 10) || 10;
 
-            let result = items;
+            let result = data.items;
             if (q) {
                 q = q.toLowerCase();
-                result = items.filter((item) => {
+                result = data.items.filter((item) => {
                     return item.name.toLocaleLowerCase().includes(q);
                 });
             }
@@ -38,9 +38,9 @@ const attachRoutes = (app) => {
         // test with Postaman
         .post('/', (req, res) => {
             const item = req.body;
-            item.id = items.length + 1;
+            item.id = data.items.length + 1;
             // hash password
-            items.push(item);
+            data.items.push(item);
             res.status(201)
                 .send(item);
         });

@@ -47,4 +47,4 @@ const configAuth = (app, { users }) => {
     });
 };
 
-module.exports = configAuth;
+module.exports = { configAuth };

@@ -8,9 +8,23 @@ Globally installed
 - yarn
 - gulp
 
+Installed MongoDB server from [website](https://www.mongodb.com/) (until uploaded to cloud)
+
+
 ## Getting started
-1. Restore dependencies with command `yarn`
-2. Start up development envirnoment with `gulp dev`
+| #   | Command      | Description                |
+| --- | ------------ | -------------------------- |
+| 1.  | `> yarn`     | Restore dependencies       |
+| 2.  | `> mongod`   | Start local mongodb server |
+| 3.  | `> gulp dev` | Start up dev environment   |
+
+MongoDB commands:
+- `$ mongod` starts server
+- `$ mongo` starts client (for CLI commands)
+- `$ show dbs` list databases
+- `$ use items-db` select database (where 'items-db' is a database)
+- `$ show collections` list tables
+- `$ db.items.find()` list data (where 'items' is a collection)
 
 ## To do
 Features:

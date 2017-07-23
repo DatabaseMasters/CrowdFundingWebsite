@@ -17,7 +17,8 @@ const configApp = (app) => {
     // enables (post) requests body parsing for form data
     app.use(bodyParser.urlencoded({ extended: true }));
 
-    // calculates execution time of requests
+    // Middleware sample: calculates execution time of requests
+    // REVIEW: do we need this
     app.use((req, res, done) => {
         const start = new Date();
 
@@ -32,13 +33,13 @@ const configApp = (app) => {
     // serves public files
     app.use('/static',
         express.static(
-            path.join(__dirname, '../../static'))
+            path.join(__dirname, '../static'))
     );
 
     // serves libraries
     app.use('/libs',
         express.static(
-            path.join(__dirname, '../../node_modules')
+            path.join(__dirname, '../node_modules')
         ));
 
     // makes favicon.ico visible. Check if ok?
@@ -48,4 +49,4 @@ const configApp = (app) => {
         ));
 };
 
-module.exports = configApp;
+module.exports = { configApp };
