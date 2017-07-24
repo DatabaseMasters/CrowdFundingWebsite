@@ -6,7 +6,7 @@
     "scripts": {
         "start": "node server.js",
         "dev": "./node_modules/.bin/nodemon server.js",
-		"mong": "mongod --dbpath  ./mongodb"
+        "mong": "mongod --dbpath  \"./mongodb\""
     },
     "dependencies": {
         "body-parser": "^1.17.2",
