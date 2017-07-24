@@ -12,11 +12,12 @@ Installed MongoDB server from [website](https://www.mongodb.com/) (until uploade
 
 
 ## Getting started
-| #   | Command      | Description                |
-| --- | ------------ | -------------------------- |
-| 1.  | `> yarn`     | Restore dependencies       |
-| 2.  | `> mongod`   | Start local mongodb server |
-| 3.  | `> gulp dev` | Start up dev environment   |
+| #   | Command                 | Description                |
+| --- | ----------------------- | -------------------------- |
+| 1.  | `> yarn`                | Restore dependencies       |
+| 2.  | `> npm run mong`        | Start local mongodb server |
+| 3.  | `> gulp dev`            | Start up dev environment   |
+| 4.  | `http://localhost:3001` | Open website               |
 
 MongoDB commands:
 - `$ mongod` starts server
