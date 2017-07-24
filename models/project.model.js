@@ -2,7 +2,7 @@ class Project {
     static isValid(model) {
         // data layer validation
         // not implemented
-        //return typeof model === 'undefined';
+        // return typeof model === 'undefined';
         return true;
     }
 
