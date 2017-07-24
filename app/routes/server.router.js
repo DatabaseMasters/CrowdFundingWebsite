@@ -1,5 +1,6 @@
 const { Router } = require('express');
 
+// TODO remove when database is working
 // const projects = [{
 //         id: 1,
 //         name: 'Book: Climbing Injuries Solved',
