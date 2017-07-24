@@ -34,6 +34,9 @@ const attachRoutes = (app, data) => {
         .get('/form', (req, res) => {
             return res.render('items/form');
         })
+        .get('/newproject', (req, res) => {
+            return res.render('items/newproject');
+        })
         .get('/:id', (req, res) => {
             const id = parseInt(req.params.id, 10);
             const project = data.projects.find((i) => i.id === id);
