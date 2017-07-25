@@ -22,17 +22,17 @@ mixin nav()
                             span.caret
                         ul.dropdown-menu
                             li
-                                a(href='#') Category 1
-                            li
-                                a(href='#') Category 2
-                            li
-                                a(href='#') Category 3
+                                a(href='/items') All
                             li.divider(role='separator')
                             li
-                                a(href='#') Category 4
+                                a(href='/items/:health') Health
+                            li
+                                a(href='#') Animal
+                            li
+                                a(href='#') Culture
                             li.divider(role='separator')
                             li
-                                a(href='#') Category 5
+                                a(href='#') Other
                     li.active
                         a(href='/items/newproject') Start a project 
                     li

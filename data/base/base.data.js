@@ -7,8 +7,9 @@ class BaseData {
         this.collection = this.db.collection(this.collectionName);
     }
 
-    getAll() {
-        const filter = {};
+    getAll(filter) {
+        const defaultFilter = {};
+        filter = filter || defaultFilter;
         const options = {};
         const result = this.collection
             .find(filter, options)
@@ -27,7 +28,7 @@ class BaseData {
         return result;
     }
 
-    // TODO: create method is called in server.router
+    // create method is called in server.router
     // model comes from req.body
     create(model) {
         // data layer validation
