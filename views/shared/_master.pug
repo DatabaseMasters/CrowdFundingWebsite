@@ -1,4 +1,5 @@
 include _nav
+include _footer
 
 <!DOCTYPE html>
 html(lang="en")
@@ -6,7 +7,7 @@ head
     meta(charset="UTF-8")
     link(rel="stylesheet", href="/libs/bootstrap/dist/css/bootstrap.min.css")
     link(rel="stylesheet", href="/static/css/curlean-bootstrap.min.css")
-    <link href='https://fonts.googleapis.com/css?family=Cookie' rel='stylesheet' type='text/css'>
+    link(href='https://fonts.googleapis.com/css?family=Cookie' rel='stylesheet' type='text/css')
     link(rel="stylesheet", href="/static/css/main.css")
     block additionlCSS
     link(rel="shortcut icon", type="image/ico," href="/static/favicon.ico")
@@ -18,12 +19,9 @@ block body
 
     block subnav
     block main
-    block footer
-        footer.container-fluid.text-center
-            p Footer Text
+    +footer
     
     div#popup
-
     script(src="/libs/jquery/dist/jquery.min.js")
     script(src="/libs/bootstrap/dist/js/bootstrap.min.js")
     script(src="/static/js/menus.js")

@@ -1,0 +1,50 @@
+block append additionlCSS
+    link(rel="stylesheet", href="/static/css/footer.css")
+    link(rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css")
+
+mixin footer()
+    footer#footer
+        .footer-top.container
+            .footer-left
+                ul#main-navigation
+                    li
+                        a(href='/')
+                            | Home 
+                    li
+                        a(href='/about')
+                            | About 
+                    li
+                        a(href='/contact')
+                            | Contact Us 
+            .footer-right
+                .newsletter-box
+                    form#subscribe-form(action='#/newsletter', method='post')
+                        p.subscribe-text
+                            i.fa.fa-paper-plane(aria-hidden='true')
+                            |  Subscribe to our weekly newsletter:
+                        input#newsletter_signup_email(type='email', required='required', name='newsletter_signup[email]', placeholder='Your email address')
+                        button.btn.btn-default(type='submit')
+                            | Subscribe 
+                
+                .social-container
+                    ul.social
+                        li
+                            a(href='https://www.facebook.com/')
+                            i.fa.fa-facebook    
+                        li
+                            a(href='https://twitter.com/')
+                            i.fa.fa-twitter    
+                        li
+                            a(href='https://plus.google.com/')
+                            i.fa.fa-google-plus    
+                        li
+                            a(href='https://www.youtube.com')
+                            i.fa.fa-youtube    
+                        li
+                            a(href='https://www.linkedin.com')
+                            i.fa.fa-linkedin    
+                        li
+                            a(href='https://github.com/TelerikTeamBasilisk/StockWatch')
+                            i.fa.fa-github    
+        .footer-bottom
+            | © Created By Team Vencedores 2017
