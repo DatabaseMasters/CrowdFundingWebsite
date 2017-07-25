@@ -6,7 +6,8 @@
     "scripts": {
         "start": "node server.js",
         "dev": "./node_modules/.bin/nodemon server.js",
-        "mong": "mongod --dbpath  ./mongodb"
+        "mong": "mongod --dbpath  ../mongodb",
+        "populate": "mongo mongodb://localhost/crowdfunding-db ./config/populateData.js"
     },
     "dependencies": {
         "body-parser": "^1.17.2",
