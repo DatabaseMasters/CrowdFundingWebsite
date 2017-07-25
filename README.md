@@ -10,6 +10,10 @@ Globally installed
 
 Installed MongoDB server from [website](https://www.mongodb.com/) (until uploaded to cloud)
 
+Robo 3T (Robomongo) - to browse local db (need to have mongodb server started to connect)
+
+Initial database populate data with `> npm run populate` (need to have mongodb server started first)
+
 
 ## Getting started
 | #   | Command                 | Description                |
@@ -20,12 +24,13 @@ Installed MongoDB server from [website](https://www.mongodb.com/) (until uploade
 | 4.  | `http://localhost:3001` | Open website               |
 
 MongoDB commands:
-- `$ mongod` starts server
+- `$ mongod` start connection
 - `$ mongo` starts client (for CLI commands)
 - `$ show dbs` list databases
 - `$ use items-db` select database (where 'items-db' is a database)
 - `$ show collections` list tables
 - `$ db.items.find()` list data (where 'items' is a collection)
+- `$ mongod --shutdown` close connection or Ctrl+C
 
 ## To do
 Features:
