@@ -23,7 +23,6 @@
     border-radius: 0 !important;
     padding: 0 3%;
 }
-
 .submitbtn
 {
     margin: 4% 0;
@@ -51,6 +50,12 @@
     -moz-transition: none !important;
     -webkit-transition: none !important;
 } 
+
+#description
+{
+    height: 20%;
+    margin-bottom: 10%;
+}
 
 .darktext{
     color: #2196f3;
