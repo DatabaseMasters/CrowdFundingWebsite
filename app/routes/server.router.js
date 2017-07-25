@@ -39,16 +39,22 @@ const attachRoutes = (app, data) => {
         })
         .get('/:id', (req, res) => {
             const id = parseInt(req.params.id, 10);
-            const project = data.projects.find((i) => i.id === id);
-            if (!project) {
-                // here we can use redirect
-                // because we're not doing ajax
-                console.log('----- WRONG ID -----');
-                return res.redirect('/404');
-            }
-            return res.render('items/details', {
-                model: project,
-            });
+            data.projects.getAll({ id: id })
+                .then((projects) => {
+                    if (!projects) {
+                        // here we can use redirect
+                        // because we're not doing ajax
+                        console.log('----- WRONG ID -----');
+                        return res.redirect('/404');
+                    }
+                    return res.render('items/details', {
+                        model: projects[0],
+                    });
+                });
+        })
+        .get('/category', (req, res) => {
+            const category = req.params.category;
+            const projects = data.projects.find((p) => p.category === category).toArray();
         })
         .post('/', (req, res) => {
             const item = req.body;
