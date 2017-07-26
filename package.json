@@ -5,8 +5,8 @@
     "license": "MIT",
     "scripts": {
         "start": "node server.js",
-        "dev": "./node_modules/.bin/nodemon server.js",
         "mong": "mongod --dbpath  ../mongodb",
+        "dev": "./node_modules/.bin/nodemon -e js server.js",
         "populate": "mongo mongodb://localhost/crowdfunding-db ./config/populateData.js"
     },
     "dependencies": {

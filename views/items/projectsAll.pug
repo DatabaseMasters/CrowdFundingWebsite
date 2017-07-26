@@ -1,5 +1,45 @@
-extends _master
-include _projects
+extends ../shared/_master
+include _projectsList
 
-block projects
-    +projects
+block main    
+    .jumbotron
+        .container.text-center
+            h1#title Explore projects
+            p#description Find projects which you can help now
+block subnav
+    div.container.marketing.text-center
+        div.row
+            div.col-sm-6
+                ul.nav.navbar-nav
+                    li.dropdown
+                        a.exploreFilter.dropdown-toggle(data-toggle='dropdown', role='button')
+                            | Categories 
+                            span.glyphicon.glyphicon-chevron-down
+                        ul.dropdown-menu
+                            li
+                                a#explore(href='#explore') All
+                            li.divider(role='separator')
+                            li
+                                a#medical(href='#medical') Medical
+                            li
+                                a#animals(href='#animals') Animals
+                            li
+                                a#culture(href='#culture') Culture
+                            li
+                                a#other(href='#other') Other
+            div.col-sm-6
+                a.col-sm-4.exploreFilter.active(href="#")
+                    p New
+                a.col-sm-4.exploreFilter(href="#")
+                    p Most funded
+                a.col-sm-4.exploreFilter(href="#")
+                    p Most active
+
+    div.container#projects
+        block projects
+            +projects
+        
+block append scripts
+    script(src="/static/js/requester.js")
+    script(src="/static/js/all.js")
+    script(src="/static/js/menus.js")
