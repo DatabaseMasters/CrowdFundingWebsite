@@ -37,6 +37,9 @@ const attachRoutes = (app, data) => {
         .get('/newproject', (req, res) => {
             return res.render('items/newproject');
         })
+        .get('/project', (req, res) => {
+            return res.render('items/project'); 
+        })
         .get('/:id', (req, res) => {
             const id = parseInt(req.params.id, 10);
             data.projects.getAll({ id: id })
