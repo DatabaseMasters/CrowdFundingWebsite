@@ -1,14 +1,12 @@
 extends ../shared/_master
 
-block scripts
-    script(src="/static/js/all.js")
 
 block main    
     .jumbotron
         .container.text-center
             h1 Category name
             p Description, filters
-    // Categories row
+block subnav
     div.container.marketing.text-center
         div.row
             div.col-sm-6
@@ -22,13 +20,13 @@ block main
                                 a(href='/items') All
                             li.divider(role='separator')
                             li
-                                a(href='/items/:health') Health
+                                a(href='/api/items?category=medical') Medical
                             li
-                                a(href='#') Animal
+                                a(href='/api/items?category=animal') Animal
                             li
-                                a(href='#') Culture
+                                a(href='/api/items?category=culture') Culture
                             li
-                                a(href='#') Other
+                                a(href='/api/items?category=other') Other
             div.col-sm-6
                 a.col-sm-4.exploreFilter.active(href="#")
                     p New
@@ -36,17 +34,10 @@ block main
                     p Most funded
                 a.col-sm-4.exploreFilter(href="#")
                     p Most active
-    .container-fluid.bg-3.text-center
-        h3 Featured in category/latest/ or another filter type
-        br
-        .row
-            each project in model
-                .col-sm-3
-                    a(href="/items/" + project.id)
-                        img.img-responsive(src=project.coverImg, style='width:100%', alt='Image')
-                    p 
-                        a(href="/items/" + project.id)
-                            =project.name 
-                            | : 
-                        =project.description
-    br
+
+    div.container#projects
+        block projects
+        
+block append scripts
+    script(src="/static/js/all.js")
+    script(src="/static/js/menus.js")

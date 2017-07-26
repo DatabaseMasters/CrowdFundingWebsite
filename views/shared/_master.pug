@@ -11,17 +11,16 @@ head
     link(rel="stylesheet", href="/static/css/main.css")
     block additionlCSS
     link(rel="shortcut icon", type="image/ico," href="/static/favicon.ico")
-    block scripts
     title Test 1 Crowd Funding
 
 block body
     +nav
 
-    block subnav
     block main
+    block subnav
     +footer
     
-    div#popup
     script(src="/libs/jquery/dist/jquery.min.js")
     script(src="/libs/bootstrap/dist/js/bootstrap.min.js")
-    script(src="/static/js/menus.js")
+
+    block scripts
