@@ -4,13 +4,15 @@ const { Strategy } = require('passport-local');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
 
+const MongoStore = require('connect-mongo')(session);
+const dbConfig = require('./server.config');
+
 const hashPass = (password) => {
     return '!' + password + '!';
 };
 
 const configAuth = (app, { users }) => {
-    passport.use(new Strategy(
-        (username, password, done) => {
+    passport.use(new Strategy((username, password, done) => {
             return users.findByUsername(username)
                 .then((user) => {
                     if (hashPass(user.password) !== hashPass(password)) {
@@ -26,16 +28,22 @@ const configAuth = (app, { users }) => {
 
     app.use(cookieParser());
     // set up key storing
-    app.use(session({ secret: 'Purple unicorn' }));
+    app.use(session({
+        store: new MongoStore({ url: dbConfig.connectionString }),
+        secret: dbConfig.sessionSecret,
+        resave: true,
+        saveUninitialized: true,
+    }));
+
     app.use(passport.initialize());
     app.use(passport.session());
 
     passport.serializeUser((user, done) => {
-        done(null, user.id);
+        done(null, user.username);
     });
 
-    passport.deserializeUser((id, done) => {
-        return users.findById(id)
+    passport.deserializeUser((username, done) => {
+        return users.findByUsername(username)
             .then((user) => {
                 done(null, user);
             })
