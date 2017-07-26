@@ -24,7 +24,7 @@ const attachRoutes = (app, data) => {
         .get('/', (req, res) => {
             return data.projects.getAll()
                 .then((projects) => {
-                    res.render('items/all', {
+                    res.render('items/projectsAll', {
                         model: projects,
                     });
                 });
