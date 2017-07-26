@@ -1,11 +1,15 @@
 extends ../shared/_master
 
 block main
-    form(action="/items", method="POST")
+    form(action="/auth/register", method="POST")
         p
             label
-                | Name: 
-                input(type="text", name="name")
+                | Username: 
+                input(type="text", name="username")
+        p
+            label
+                | Password: 
+                input(type="password", name="password")
         p    
             label
                 | Interests: 
