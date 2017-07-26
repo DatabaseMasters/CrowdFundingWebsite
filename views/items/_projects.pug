@@ -1,0 +1,16 @@
+mixin projects()
+    block projects
+        .container-fluid.bg-3.text-center
+            h3 Featured in category/latest/ or another filter type
+            br
+            .row
+                each project in model
+                    .col-sm-3
+                        a(href="/items/" + project.id)
+                            img.img-responsive(src=project.coverImg, style='width:100%', alt='Image')
+                        p 
+                            a(href="/items/" + project.id)
+                                =project.name 
+                                | : 
+                            =project.description
+        br
