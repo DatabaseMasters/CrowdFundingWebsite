@@ -22,14 +22,16 @@ const attachRoutes = (app, data) => {
         })
         .get('/', (req, res) => {
             let { category, filter } = req.query;
-            category = category || {};
-            filter = filter || {};
+            //filter = filter || {};
             // TODO add filter by newest, popular, most funded
-            console.log(category);
-            data.projects.getAll({ category: category.toLowerCase() })
+            category = !category ? {} : { category: category };
+
+            data.projects.getAll(category)
                 .then((projects) => {
-                    console.log(projects);
-                    res.render('items/projects', { model: projects }, (err, html) => {
+                    if (projects.length === 0) {
+                        res.send('<h3>No projects in category ' + category.category.charAt(0).toUpperCase() + category.category.slice(1) + '</h3>');
+                    }
+                    res.render('items/projectsContainer', { model: projects }, (err, html) => {
                         res.send(html);
                     });
                 })
