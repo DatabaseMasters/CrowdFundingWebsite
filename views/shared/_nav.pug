@@ -16,23 +16,7 @@ mixin nav()
             div#bs-example-navbar-collapse-1.collapse.navbar-collapse
                 ul.nav.navbar-nav
                     li.dropdown
-                        // hover events are not good for mobile
-                        a.dropdown-toggle.disabled(href='/items', data-toggle='dropdown')
-                            | Explore 
-                            span.caret
-                        ul.dropdown-menu
-                            li
-                                a(href='/items') All
-                            li.divider(role='separator')
-                            li
-                                a(href='/items/:health') Health
-                            li
-                                a(href='#') Animal
-                            li
-                                a(href='#') Culture
-                            li.divider(role='separator')
-                            li
-                                a(href='#') Other
+                        a(href='/items') Explore
                     li.active
                         a(href='/items/newproject') Start a project 
                     li

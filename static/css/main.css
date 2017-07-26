@@ -1,5 +1,4 @@
-*
-{
+* {
     margin: 0;
     padding: 0;
 }
@@ -10,4 +9,60 @@ body {
 
 h1 {
     color: blueviolet;
+}
+
+.carousel,
+.jumbotron {
+    margin-bottom: 10px;
+}
+
+
+/*home page*/
+
+.marketing .row {
+    margin-top: 10px;
+}
+
+.marketing .btn {
+    font-size: 2em;
+}
+
+.homeCategories {
+    display: inline-block;
+    width: 120px;
+    height: 100px;
+    font-size: 1.5em;
+    vertical-align: middle;
+    padding: 5px;
+}
+
+.homeCategories .glyphicon {
+    font-size: 2em;
+}
+
+.homeCategories>* {
+    margin-top: 5px;
+}
+
+
+/* explore page */
+
+.exploreFilter {
+    display: inline-block;
+    font-size: 1.5em;
+    text-transform: uppercase;
+    padding: 5px;
+    height: 100px;
+}
+
+
+/*categories centering - does not work*/
+
+.exploreFilter p {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.exploreFilter.active p {
+    border-bottom: 2px solid #2fa4e7;
 }
