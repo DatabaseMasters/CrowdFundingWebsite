@@ -26,27 +26,43 @@ block main
                     p Photography
         // Left and right controls
         a.left.carousel-control(href='#myCarousel', role='button', data-slide='prev')
-            span.glyphicon.glyphicon-chevron-left(aria-hidden='true')
+            span.glyphicon.glyphicon-chevron-left
             span.sr-only Previous
         a.right.carousel-control(href='#myCarousel', role='button', data-slide='next')
-            span.glyphicon.glyphicon-chevron-right(aria-hidden='true')
+            span.glyphicon.glyphicon-chevron-right
             span.sr-only Next
-    // Featured projects
+    // Categories row
+    div.container.marketing.text-center
+        div.row
+            div.col-sm-6.vertical-center
+                button.btn.btn-primary Start a project
+            div.col-sm-6
+                a.homeCategories(href="#")
+                    span.glyphicon.glyphicon-heart-empty  
+                    p Medical
+                a.homeCategories(href="#")
+                    span.glyphicon.glyphicon-star
+                    p Animals
+                a.homeCategories(href="#")
+                    span.glyphicon.glyphicon-grain
+                    p Community
+                a.homeCategories(href="#")
+                    span.glyphicon.glyphicon-th-large
+                    p Other
+    // Featured projects row
     div.container.text-center
-        h3 Featured 
+        h3 Popular 
         br
         div.row
-            .col-sm-4
+            div.col-sm-4
                 img.img-responsive(src='/static/images/Climbers-shadow.jpg', style='width:100%', alt='Image')
                 p Current Project
-            .col-sm-4
+            div.col-sm-4
                 img.img-responsive(src='/static/images/Flickr_-_schmuela_-_more_sun_and_shadows.jpg', style='width:100%', alt='Image')
                 p Project 2
-            .col-sm-4
-                .well
-                    p Some text..
-                .well
-                    p Some text..
+            div.col-sm-4
+                img.img-responsive(src='/static/images/children-bubbles.jpg', style='width:100%', alt='Image')
+                p Project 2
     br
 
 

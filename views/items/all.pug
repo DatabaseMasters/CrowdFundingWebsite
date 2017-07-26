@@ -8,6 +8,34 @@ block main
         .container.text-center
             h1 Category name
             p Description, filters
+    // Categories row
+    div.container.marketing.text-center
+        div.row
+            div.col-sm-6
+                ul.nav.navbar-nav
+                    li.dropdown
+                        a.exploreFilter.dropdown-toggle(data-toggle='dropdown', role='button')
+                            | Explore 
+                            span.glyphicon.glyphicon-chevron-down
+                        ul.dropdown-menu
+                            li
+                                a(href='/items') All
+                            li.divider(role='separator')
+                            li
+                                a(href='/items/:health') Health
+                            li
+                                a(href='#') Animal
+                            li
+                                a(href='#') Culture
+                            li
+                                a(href='#') Other
+            div.col-sm-6
+                a.col-sm-4.exploreFilter.active(href="#")
+                    p New
+                a.col-sm-4.exploreFilter(href="#")
+                    p Most funded
+                a.col-sm-4.exploreFilter(href="#")
+                    p Most active
     .container-fluid.bg-3.text-center
         h3 Featured in category/latest/ or another filter type
         br
