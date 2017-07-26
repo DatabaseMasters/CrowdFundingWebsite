@@ -38,12 +38,10 @@ class UsersData extends BaseData {
     // REVIEW: This is a demo method, test, modify as needed        
     findByUsername(username) {
         return this.collection
-            .findOne({ username })
-            .then((user) => {
-                if (!user) {
-                    throw new Error('Invalid username');
-                }
-            });
+            .findOne({ username });
+            // .then((user) => {
+            //     return user;
+            // });
     }
 
     _isModelValid(model) {
