@@ -35,6 +35,7 @@ MongoDB commands:
 ## To do
 Features:
 - Breadcrumbs
+- User profile page
 
 Fixes:
 - Dropdown on hover doesn't work when on explore page

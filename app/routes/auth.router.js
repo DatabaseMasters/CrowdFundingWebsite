@@ -10,7 +10,7 @@ const attachRoutes = (app, data) => {
         })
         .post('/log-in',
         passport.authenticate('local', {
-            successRedirect: '/',
+            successReturnToOrRedirect: '/',
             failureRedirect: '/auth/log-in',
             failureFlash: true,
             successFlash: 'Welcome!',

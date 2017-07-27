@@ -18,12 +18,12 @@ const configAuth = (app, { users }) => {
                 return done(err);
             }
             if (!user) {
-                return done(null, false);
+                return done(null, false, { message: 'No such user!' });
             }
             // TODO
             // add logic for hash password
             if (user.password !== password) {
-                return done(null, false);
+                return done(null, false, { message: 'Wrong password!' });
             }
             return done(null, user);
         });
@@ -66,6 +66,12 @@ const configAuth = (app, { users }) => {
             }
             return done(null, user);
         });
+    });
+
+    app.use((req, res, next) => {
+        res.locals.messages = require('express-messages')(req, res);
+        res.locals.user = req.user;
+        next();
     });
 };
 
