@@ -13,6 +13,7 @@ const attachRoutes = (app, data) => {
             successRedirect: '/',
             failureRedirect: '/auth/log-in',
             failureFlash: true,
+            successFlash: 'Welcome!',
         })
         )
         .get('/log-out', (req, res) => {
@@ -25,20 +26,21 @@ const attachRoutes = (app, data) => {
         .post('/register', (req, res) => {
             const bodyUser = req.body;
 
-            data.users.findByUsername(bodyUser.username)
-                .then((dbUser) => {
-                    if (dbUser) {
-                        throw new Error('User already exists');
-                    }
+            if (bodyUser.username === '' || bodyUser.password === '') {
+                req.flash('error', 'Fill both input forms');
+                res.redirect('/auth/register');
+            }
 
-                    return data.users.create(bodyUser);
-                })
-                .then((dbUser) => {
-                    return res.redirect('/auth/log-in');
-                })
-                .catch((err) => {
-                    req.flash('error', err);
-                });
+            data.users.findByUsername(bodyUser.username, (err, user) => {
+                if (user) {
+                    req.flash('error', 'There is user with this username!');
+                    res.redirect('/auth/register');
+                } else {
+                    data.users.create(bodyUser);
+                    req.flash('Success!');
+                    res.redirect('/auth/log-in');
+                }
+            });
         });
 
     app.use('/auth', router);
