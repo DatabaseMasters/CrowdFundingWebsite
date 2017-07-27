@@ -2,10 +2,11 @@
 class User {
     static isValid(model) {
         // data layer validation
-        // TODO: Understand where text property comes from
         return typeof model !== 'undefined' &&
-            typeof model.text === 'string' &&
-            model.text > 3;
+            typeof model.password === 'string' &&
+            model.password.length > 3 &&
+            typeof model.username === 'string' &&
+            model.username.length > 3;
     }
 
     get id() {
