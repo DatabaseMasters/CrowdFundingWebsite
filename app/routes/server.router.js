@@ -56,10 +56,6 @@ const attachRoutes = (app, data) => {
                     });
                 });
         })
-        .get('/category', (req, res) => {
-            const category = req.params.category;
-            const projects = data.projects.find((p) => p.category === category).toArray();
-        })
         .post('/', (req, res) => {
             const item = req.body;
             console.log(item);
