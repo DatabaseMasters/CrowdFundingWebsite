@@ -1,8 +1,4 @@
 (function () {
-		
-   //////////////////////
-	// Utils
-  //////////////////////
     function throttle(fn, delay, scope) {
         // Default delay
         delay = delay || 250;
@@ -32,14 +28,6 @@
         }
         return destination;
     }
-  
-   //////////////////////
-	// END Utils
-  //////////////////////
-  
-   //////////////////////
-   // Scroll Module
-   //////////////////////
 
     var ScrollManager = (function () {
 
@@ -175,14 +163,6 @@
             }
         }
     })();
-     //////////////////////
-     // END scroll Module
-     //////////////////////
-  
-  
-    //////////////////////
-    // APP init
-    //////////////////////
 
     var scrollToTopBtn = document.querySelector('.Scroll-to-top'),
         steps = document.querySelectorAll('.js-scroll-step'),
@@ -192,40 +172,7 @@
 
     ScrollManager.init({
         steps: steps,
-        scrollToTopBtn: scrollToTopBtn,
         navigationContainer: navigationContainer,
         links: links,
-      
-        // Customize onScroll behavior
-        onScroll: function () {
-            var percentage = ScrollManager.scrollPercentage();
-            percentage >= 90 ? scrollToTopBtn.classList.add('visible') : scrollToTopBtn.classList.remove('visible');
-
-            if (percentage >= 10) {
-                progressIndicator.innerHTML = percentage + "%";
-                progressIndicator.classList.add('visible');
-            } else {
-                progressIndicator.classList.remove('visible');
-            }
-        },
-      
-		// Behavior when a step changes
-		// default : highlight links 
-      
-		// onStepChange: function (step) {},
-      
-		// Customize the animation with jQuery, GSAP or velocity 
-     // default : jQuery animate()
-     // Eg with GSAP scrollTo plugin
-      
-		//smoothScrollAnimation: function (target) {
-		//		TweenLite.to(window, 2, {scrollTo:{y:target}, ease:Power2.easeOut});
-  	 //}
-      
     });
-  
-    //////////////////////
-    // END APP init
-    //////////////////////
-
 })();

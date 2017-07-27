@@ -31,14 +31,15 @@ const attachRoutes = (app, data) => {
         })
         // form can be shown dynamically 
         // as modal window with javascript - api.router?
-        .get('/form', (req, res) => {
-            return res.render('items/form');
-        })
+        // TODO delete
+        // .get('/form', (req, res) => {
+        //     return res.render('items/form');
+        // })
         .get('/newproject', (req, res) => {
             return res.render('items/newproject');
         })
         .get('/project', (req, res) => {
-            return res.render('items/project'); 
+            return res.render('items/project');
         })
         .get('/:id', (req, res) => {
             const id = parseInt(req.params.id, 10);
@@ -50,7 +51,7 @@ const attachRoutes = (app, data) => {
                         console.log('----- WRONG ID -----');
                         return res.redirect('/404');
                     }
-                    return res.render('items/details', {
+                    return res.render('items/project', {
                         model: projects[0],
                     });
                 });

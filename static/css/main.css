@@ -7,15 +7,9 @@ body {
     padding-top: 50px;
 }
 
-h1 {
-    color: blueviolet;
-}
-
-.carousel,
-.jumbotron {
+.carousel, .jumbotron {
     margin-bottom: 10px;
 }
-
 
 /*home page*/
 
