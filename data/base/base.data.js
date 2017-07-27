@@ -22,7 +22,11 @@ class BaseData {
                 return models
                     .map((model) => this.ModelClass
                         .toViewModel(model));
-            });
+            })
+                .catch((err) => {
+                    console.log('base.data.js error');
+                    console.log(err);
+                });
         }
 
         return result;
@@ -37,7 +41,11 @@ class BaseData {
         }
         // insert
         return this.collection.insert(model)
-            .then(() => this.ModelClass.toViewModel(model));
+            .then(() => this.ModelClass.toViewModel(model))
+            .catch((err) => {
+                console.log('base.data.js create method')
+                console.log(err);
+            });
     }
 
     _isModelValid(model) {

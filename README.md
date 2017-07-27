@@ -27,9 +27,9 @@ MongoDB commands:
 - `$ mongod` start connection
 - `$ mongo` starts client (for CLI commands)
 - `$ show dbs` list databases
-- `$ use items-db` select database (where 'items-db' is a database)
+- `$ use crowdfunding-db` select database (where 'crowdfunding-db' is a database)
 - `$ show collections` list tables
-- `$ db.items.find()` list data (where 'items' is a collection)
+- `$ db.projects.find()` list data (where 'projects' is a collection)
 - `$ mongod --shutdown` close connection or Ctrl+C
 
 ## To do

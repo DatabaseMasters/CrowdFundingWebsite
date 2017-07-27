@@ -13,18 +13,35 @@ const hashPass = (password) => {
 
 const configAuth = (app, { users }) => {
     passport.use(new Strategy((username, password, done) => {
-            return users.findByUsername(username)
-                .then((user) => {
-                    if (hashPass(user.password) !== hashPass(password)) {
-                        done(new Error('Invalid password'));
-                    }
-                    return done(null, user);
-                })
-                .catch((err) => {
-                    return done(err);
-                });
-        }
-    ));
+        users.findByUsername(username, (err, user) => {
+            if (err) {
+                return done(err);
+            }
+            if (!user) {
+                return done(null, false);
+            }
+            // TODO
+            // add logic for hash password
+            if (user.password !== password) {
+                return done(null, false);
+            }
+            return done(null, user);
+        });
+        // .then((user) => {
+        //     if (!user) {
+        //         return done('Invalid user', false, { message: 'Incorrect password.' });
+        //     }
+
+        //     if (hashPass(user.password) !== hashPass(password)) {
+        //         return done(new Error('Invalid password'), false, { message: 'Incorrect password.' });
+        //     }
+
+        //     return done(null, user);
+        // })
+        // .catch((err) => {
+        //     return done(err, false, { message: 'Incorrect password.' });
+        // });
+    }));
 
     app.use(cookieParser());
     // set up key storing
@@ -43,15 +60,12 @@ const configAuth = (app, { users }) => {
     });
 
     passport.deserializeUser((username, done) => {
-        return users.findByUsername(username)
-            .then((user) => {
-                done(null, user);
-            })
-            // here we can pass directly done
-            // in the above function it wasn't possible
-            // but why?
-            // here "it will catch if there is an error"
-            .catch(done);
+        users.findByUsername(username, (err, user) => {
+            if (err) {
+                return done(err);
+            }
+            return done(null, user);
+        });
     });
 };
 
