@@ -7,6 +7,11 @@ Promise.resolve()
     .then((app) => {
         app.listen(serverConfig.port, () =>
             console.log(`--- Server working at ${serverConfig.port} ---`));
+    })
+    .catch((err) => {
+        console.log('Error in server.js');
+        console.log(err);
+        console.log('--- end error ---');
     });
 
 
