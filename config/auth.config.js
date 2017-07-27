@@ -67,6 +67,12 @@ const configAuth = (app, { users }) => {
             return done(null, user);
         });
     });
+
+    app.use((req, res, next) => {
+        res.locals.messages = require('express-messages')(req, res);
+        res.locals.user = req.user;
+        next();
+    });
 };
 
 module.exports = { configAuth };
