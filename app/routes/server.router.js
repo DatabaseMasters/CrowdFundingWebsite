@@ -1,5 +1,5 @@
 const { Router } = require('express');
-
+const login = require('connect-ensure-login');
 // TODO remove when database is working
 // const projects = [{
 //         id: 1,
@@ -38,7 +38,7 @@ const attachRoutes = (app, data) => {
         // .get('/form', (req, res) => {
         //     return res.render('items/form');
         // })
-        .get('/newproject', (req, res) => {
+        .get('/newproject', login.ensureLoggedIn('/auth/log-in'), (req, res) => {
             return res.render('items/newproject');
         })
         .get('/project', (req, res) => {
