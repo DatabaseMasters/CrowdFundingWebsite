@@ -41,6 +41,9 @@ const attachRoutes = (app, data) => {
                     res.redirect('/auth/log-in');
                 }
             });
+        })
+        .get('/profile', (req, res) => {
+            res.render('auth/profile');
         });
 
     app.use('/auth', router);
