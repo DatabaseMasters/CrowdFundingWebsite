@@ -1,24 +1,20 @@
 const { Router } = require('express');
 
-// const items = [{
-//     id: 1,
-//     name: 'Cuki',
-// }];
-
 const attachRoutes = (app, data) => {
     const router = new Router();
 
     router
+    // REVIEW: This is a demo method, modify as needed
         .get('/:id', (req, res) => {
             const id = parseInt(req.params.id, 10);
-            const item = data.items.find((i) => i.id === id);
-            if (!item) {
+            const project = data.projects.find((i) => i.id === id);
+            if (!project) {
                 return res.status(404)
                     .send({
                         error: 'Not found',
                     });
             }
-            return res.send(item);
+            return res.send(project);
         })
         .get('/', (req, res) => {
             let { category, filter } = req.query;
@@ -32,7 +28,7 @@ const attachRoutes = (app, data) => {
                     if (projects.length === 0) {
                         res.send('<h3>No projects in category ' + category.category.charAt(0).toUpperCase() + category.category.slice(1) + '</h3>');
                     } else {
-                        res.render('items/projectsContainer', { model: projects },
+                        res.render('projects/projectsContainer', { model: projects },
                             (err, html) => {
                                 res.send(html);
                             });
@@ -48,27 +44,29 @@ const attachRoutes = (app, data) => {
         //     page = parseInt(page, 10) || 1;
         //     size = parseInt(size, 10) || 10;
 
-    //     let result = data.items;
+    //     let result = data.projects;
     //     if (q) {
     //         q = q.toLowerCase();
-    //         result = data.items.filter((item) => {
-    //             return item.name.toLocaleLowerCase().includes(q);
+    //         result = data.projects.filter((project) => {
+    //             return project.name.toLocaleLowerCase().includes(q);
     //         });
     //     }
     //     result = result.slice((page - 1) * size, page * size);
     //     res.send(result);
     // })
     // test with Postaman
+
+    // REVIEW: This is a demo method, modify as needed
     .post('/', (req, res) => {
-        const item = req.body;
-        item.id = data.items.length + 1;
+        const project = req.body;
+        project.id = data.projects.length + 1;
         // hash password
-        data.items.push(item);
+        data.projects.push(project);
         res.status(201)
-            .send(item);
+            .send(project);
     });
 
-    app.use('/api/items', router);
+    app.use('/api/projects', router);
 };
 
 module.exports = attachRoutes;

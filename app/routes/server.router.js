@@ -24,7 +24,7 @@ const attachRoutes = (app, data) => {
         .get('/', (req, res) => {
             return data.projects.getAll()
                 .then((projects) => {
-                    res.render('items/projectsAll', {
+                    res.render('projects/projectsAll', {
                         model: projects,
                     });
                 })
@@ -36,13 +36,13 @@ const attachRoutes = (app, data) => {
         // as modal window with javascript - api.router?
         // TODO delete
         // .get('/form', (req, res) => {
-        //     return res.render('items/form');
+        //     return res.render('projects/form');
         // })
         .get('/newproject', login.ensureLoggedIn('/auth/log-in'), (req, res) => {
-            return res.render('items/newproject');
+            return res.render('projects/newproject');
         })
         .get('/project', (req, res) => {
-            return res.render('items/project');
+            return res.render('projects/project');
         })
         .get('/:id', (req, res) => {
             const id = parseInt(req.params.id, 10);
@@ -54,7 +54,7 @@ const attachRoutes = (app, data) => {
                         console.log('----- WRONG ID -----');
                         return res.redirect('/404');
                     }
-                    return res.render('items/project', {
+                    return res.render('projects/project', {
                         model: projects[0],
                     });
                 })
@@ -63,16 +63,16 @@ const attachRoutes = (app, data) => {
                 });
         })
         .post('/', (req, res) => {
-            const item = req.body;
-            console.log(item);
+            const project = req.body;
+            console.log(project);
             // create method is in base.data.js
-            data.projects.create(item);
+            data.projects.create(project);
             return res
                 .status(201)
-                .redirect('/items');
+                .redirect('/projects');
         });
 
-    app.use('/items', router);
+    app.use('/projects', router);
 };
 
 module.exports = attachRoutes;
