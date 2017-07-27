@@ -47,16 +47,17 @@ class UsersData extends BaseData {
     }
 
     // REVIEW: This is a demo method, test, modify as needed        
-    findByUsername(username) {
+    findByUsername(username, cb) {
         return this.collection
-            .findOne({ username })
+            .findOne({ username: username })
             .then((user) => {
-                return user;
+                if (!user) {
+                    return cb(null, null);
+                }
+                return cb(null, user);
             })
             .catch((err) => {
-                console.log('Error in users.data.js -> findByUsername! Error message:');
-                console.log(err);
-                console.log('--- End error message ---');
+                cb(null, null);
             });
     }
 
