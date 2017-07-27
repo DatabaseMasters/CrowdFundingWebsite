@@ -1,22 +1,5 @@
 const { Router } = require('express');
 
-// TODO remove when database is working
-// const projects = [{
-//         id: 1,
-//         name: 'Book: Climbing Injuries Solved',
-//         description: 'A Book on Climbing-Focused Injury Prevention and Care.',
-//         creator: 'Dr. Lisa Erikson DC',
-//         coverImg: '/static/images/climber-sea.jpg',
-//     },
-//     {
-//         id: 2,
-//         name: 'OneFam - Preserve Your Family Story',
-//         description: 'OneFam is a family social networking application which enables family members to create, share and preserve their family history.',
-//         creator: 'Thomas O\'Donoghue',
-//         coverImg: '/static/images/family-shadow-sea.jpg',
-//     },
-// ];
-
 const attachRoutes = (app, data) => {
     const router = new Router();
 

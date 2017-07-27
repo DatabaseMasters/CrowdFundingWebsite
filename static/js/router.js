@@ -1,10 +1,8 @@
-class ClientRouter {
-    constructor() {
-        this._routes = [];
-    }
+var clientRouter = (function() {
+    var routes = [];
 
-    on(targetUrl, callback) {
-        this._routes.push({
+    function on(targetUrl, callback) {
+        this.routes.push({
             targetUrl,
             callback
         });
@@ -12,13 +10,13 @@ class ClientRouter {
         return this;
     }
 
-    navigate() {
-        const currentUrl = location.hash.slice(1);
+    function navigate() {
+        var currentUrl = location.hash.slice(1);
 
-        // Destructuring assignment
-        for (const { targetUrl, callback }
-            of this._routes) {
-            const params = ClientRouter.matchUrls(currentUrl, targetUrl);
+        for (var route of this.routes) {
+            var targetUrl = route.targetUrl;
+            var callback = route.callback;
+            var params = matchUrls(currentUrl, targetUrl);
             if (params) {
                 callback(params);
                 break;
@@ -26,18 +24,16 @@ class ClientRouter {
         }
     }
 
-    // For UT purposes it's better that 
-    // both current and target Urls be passed as params to the function
-    static matchUrls(currentUrl, targetUrl) {
-        const currentUrlParts = currentUrl.split(/\//g);
-        const targetUrlParts = targetUrl.split(/\//g);
+    function matchUrls(currentUrl, targetUrl) {
+        var currentUrlParts = currentUrl.split(/\//g);
+        var targetUrlParts = targetUrl.split(/\//g);
 
         if (targetUrlParts.length !== currentUrlParts.length) {
             return false;
         }
 
-        const params = {};
-        const len = currentUrlParts.length;
+        var params = {};
+        var len = currentUrlParts.length;
         // Loop and extract only parts starting with colon
         for (var i = 0; i < len; i++) {
             if (targetUrlParts[i][0] !== ':') {
@@ -46,11 +42,17 @@ class ClientRouter {
                 }
             } else {
                 // Remove colon
-                const paramName = targetUrlParts[i].slice(1);
+                var paramName = targetUrlParts[i].slice(1);
                 params[paramName] = currentUrlParts[i];
             }
         }
 
         return params;
     }
-}
+
+    return {
+        routes: routes,
+        on: on,
+        navigate: navigate
+    };
+}());

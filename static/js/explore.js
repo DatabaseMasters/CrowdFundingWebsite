@@ -1,7 +1,4 @@
-/* globals $ requester router*/
-window.onload = function() {
-    console.log('--- Client JS loaded ---');
-};
+/* globals $ requester clientRouter*/
 
 var descriptions = {
     'explore projects': 'Find projects which you can help now',
@@ -21,21 +18,25 @@ var images = {
 
 // filter projects by selected category
 
-const router = new ClientRouter();
-
-router
-    .on('category/:category', (params) => load(params));
+clientRouter
+    .on('category/:category', function(params) {
+        return load(params)
+    });
 
 //$(window).on('load', () => console.log(router._routes));
-$(window).on('hashchange', () => router.navigate());
+$(window).on('hashchange', function() {
+    return clientRouter.navigate()
+});
 
 var load = function(params) {
-    let name = params.category;
-    const url = '/api/projects?category=' + name;
-    console.log(url);
+    var name = params.category;
+    var url = '/api/projects?category=' + name;
+
+    // Set name when empty (getting all projects)
     if (name === '') {
         name = 'explore projects'
     }
+
     // Update title, description and cover image
     $('#title').text(name.charAt(0).toUpperCase() + name.slice(1));
     $('#description').text(descriptions[name]);
@@ -57,4 +58,3 @@ var load = function(params) {
 var updateHTML = function(html) {
     $('#projects').html(html);
 };
-z
