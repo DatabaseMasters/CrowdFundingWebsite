@@ -24,19 +24,22 @@ const attachRoutes = (app, data) => {
             let { category, filter } = req.query;
             //filter = filter || {};
             // TODO add filter by newest, popular, most funded
-            category = !category ? {} : { category: category };
+            // check if request contains a category, assign empty object if not
+            category = category ? { category: category } : {};
 
             data.projects.getAll(category)
                 .then((projects) => {
                     if (projects.length === 0) {
                         res.send('<h3>No projects in category ' + category.category.charAt(0).toUpperCase() + category.category.slice(1) + '</h3>');
+                    } else {
+                        res.render('items/projectsContainer', { model: projects },
+                            (err, html) => {
+                                res.send(html);
+                            });
                     }
-                    res.render('items/projectsContainer', { model: projects }, (err, html) => {
-                        res.send(html);
-                    });
                 })
                 .catch((err) => {
-                    console.log('--- ERROR --- ' + err);
+                    console.log('--- ERROR in api.router.js getAll --- ' + err);
                 });
         })
         // Pagination

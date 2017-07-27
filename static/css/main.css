@@ -58,7 +58,7 @@ h1 {
 .jumbotron {
     content: "";
     background: linear-gradient(rgba(0, 0, 0, 0.20), rgba(0, 0, 0, 0.20)), url('../images/children-bubbles.jpg');
-    background-repeat: no-repeat;
+    background-repeat: repeat;
     background-position: center center, center;
     color: #FFF;
 }
