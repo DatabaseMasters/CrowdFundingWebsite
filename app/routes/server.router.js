@@ -38,7 +38,7 @@ const attachRoutes = (app, data) => {
         // .get('/form', (req, res) => {
         //     return res.render('projects/form');
         // })
-        .get('/newproject', login.ensureLoggedIn('/auth/log-in'), (req, res) => {
+        .get('/new', login.ensureLoggedIn('/auth/log-in'), (req, res) => {
             return res.render('projects/new');
         })
         .get('/project', (req, res) => {
