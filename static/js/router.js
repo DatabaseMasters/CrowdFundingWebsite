@@ -13,7 +13,7 @@ var clientRouter = (function() {
     function navigate() {
         var currentUrl = location.hash.slice(1);
 
-        for (var route of this.routes) {
+        for (var route of routes) {
             var targetUrl = route.targetUrl;
             var callback = route.callback;
             var params = matchUrls(currentUrl, targetUrl);

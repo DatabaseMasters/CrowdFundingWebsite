@@ -5,15 +5,7 @@ const attachRoutes = (app, data) => {
 
     router
         .get('/', (req, res) => {
-            return data.projects.getAll()
-                .then((projects) => {
-                    res.render('projects/projectsAll', {
-                        model: projects,
-                    });
-                })
-                .catch((err) => {
-                    req.flash('error', err);
-                });
+            res.render('projects/projectsAll');
         })
         // form can be shown dynamically 
         // as modal window with javascript - api.router?

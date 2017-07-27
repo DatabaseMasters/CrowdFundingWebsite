@@ -18,17 +18,7 @@ var images = {
 
 // filter projects by selected category
 
-clientRouter
-    .on('category/:category', function(params) {
-        return load(params)
-    });
-
-//$(window).on('load', () => console.log(router._routes));
-$(window).on('hashchange', function() {
-    return clientRouter.navigate()
-});
-
-var load = function(params) {
+function load(params) {
     var name = params.category;
     var url = '/api/projects?category=' + name;
 
@@ -37,7 +27,19 @@ var load = function(params) {
         name = 'explore projects'
     }
 
-    // Update title, description and cover image
+    // Get processed html, change title, change projects
+    requester.get(url)
+        .then(function(response) {
+            refreshTitle(name);
+            refreshProjects(response);
+        })
+        .catch(function(err) {
+            console.log('--- GET URL ERROR ---' + err);
+        })
+};
+
+// Update title, description and cover image
+function refreshTitle(name) {
     $('#title').text(name.charAt(0).toUpperCase() + name.slice(1));
     $('#description').text(descriptions[name]);
     $('.jumbotron').css({
@@ -46,15 +48,20 @@ var load = function(params) {
         'background-position': 'center center, center',
         'color': '#FFF'
     });
+}
 
-    // Get processed html and insert it in place of old html
-    requester.get(url)
-        .then(updateHTML)
-        .catch((err) => {
-            console.log('--- GET URL ERROR ---' + err);
-        })
-};
-
-var updateHTML = function(html) {
+function refreshProjects(html) {
     $('#projects').html(html);
 };
+
+
+clientRouter
+    .on('category/:category', function(params) {
+        return load(params)
+    });
+
+$(window).on('load', clientRouter.navigate);
+$(window).on('hashchange', function() {
+    console.log(clientRouter.routes);
+    return clientRouter.navigate()
+});

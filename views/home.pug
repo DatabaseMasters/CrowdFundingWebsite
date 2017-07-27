@@ -38,16 +38,16 @@ block main
             div.col-sm-6.vertical-center
                 button.btn.btn-primary Start a project
             div.col-sm-6
-                a.homeCategories(href="#")
+                a.homeCategories(href="projects#category/medical")
                     span.glyphicon.glyphicon-heart-empty  
                     p Medical
-                a.homeCategories(href="#")
+                a.homeCategories(href="projects#category/animals")
                     span.glyphicon.glyphicon-star
                     p Animals
-                a.homeCategories(href="#")
+                a.homeCategories(href="projects#category/culture")
                     span.glyphicon.glyphicon-grain
                     p Community
-                a.homeCategories(href="#")
+                a.homeCategories(href="projects#category/other")
                     span.glyphicon.glyphicon-th-large
                     p Other
     // Featured projects row
@@ -66,4 +66,7 @@ block main
                 p Project 2
     br
 
-
+block append scripts
+    script(src="/static/js/requester.js")
+    script(src="/static/js/router.js")
+    script(src="/static/js/explore.js")
