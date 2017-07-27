@@ -27,6 +27,9 @@ const attachRoutes = (app, data) => {
                     res.render('items/projectsAll', {
                         model: projects,
                     });
+                })
+                .catch((err) => {
+                    req.flash('error', err);
                 });
         })
         // form can be shown dynamically 
@@ -50,6 +53,9 @@ const attachRoutes = (app, data) => {
                     return res.render('items/details', {
                         model: projects[0],
                     });
+                })
+                .catch((err) => {
+                    req.flash('error', err);
                 });
         })
         .post('/', (req, res) => {

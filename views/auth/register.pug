@@ -1,6 +1,7 @@
 extends ../shared/_master
 
 block main
+    != messages()
     form(action="/auth/register", method="POST")
         p
             label

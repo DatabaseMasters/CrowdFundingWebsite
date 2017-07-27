@@ -21,6 +21,11 @@ class UsersData extends BaseData {
                 }
 
                 return true;
+            })
+            .catch((err) => {
+                console.log('Error in users.data.js -> checkPassword! Error message:');
+                console.log(err);
+                console.log('--- End error message ---');
             });
     }
 
@@ -32,16 +37,27 @@ class UsersData extends BaseData {
                 if (!user) {
                     throw new Error('Invalid id');
                 }
+                return user;
+            })
+            .catch((err) => {
+                console.log('Error in users.data.js -> findById! Error message:');
+                console.log(err);
+                console.log('--- End error message ---');
             });
     }
 
     // REVIEW: This is a demo method, test, modify as needed        
     findByUsername(username) {
         return this.collection
-            .findOne({ username });
-            // .then((user) => {
-            //     return user;
-            // });
+            .findOne({ username })
+            .then((user) => {
+                return user;
+            })
+            .catch((err) => {
+                console.log('Error in users.data.js -> findByUsername! Error message:');
+                console.log(err);
+                console.log('--- End error message ---');
+            });
     }
 
     _isModelValid(model) {

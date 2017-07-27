@@ -3,6 +3,7 @@ const bodyParser = require('body-parser');
 const express = require('express');
 const morgan = require('morgan');
 const path = require('path');
+const flash = require('connect-flash');
 
 const configApp = (app) => {
     // defines the view engine
@@ -17,6 +18,12 @@ const configApp = (app) => {
     // enables (post) requests body parsing for form data
     app.use(bodyParser.urlencoded({ extended: true }));
 
+    // flash messages config
+    app.use(flash());
+    app.use((req, res, next) => {
+        res.locals.messages = require('express-messages')(req, res);
+        next();
+    });
     // Middleware sample: calculates execution time of requests
     // REVIEW: do we need this
     app.use((req, res, done) => {
