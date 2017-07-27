@@ -1,9 +1,9 @@
 const express = require('express');
 const app = express();
 
-const init = async (data) => {
+const init = (data) => {
     require('../config/app.config').configApp(app);
-    await require('../config/auth.config').configAuth(app, data);
+    require('../config/auth.config').configAuth(app, data);
     require('./routes')(app, data);
 
     app.use((req, res, next) => {
@@ -24,7 +24,5 @@ const init = async (data) => {
 
     return Promise.resolve(app);
 };
-
-init();
 
 module.exports = { init };
