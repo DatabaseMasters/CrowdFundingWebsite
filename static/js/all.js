@@ -1,4 +1,4 @@
-/* globals $ */
+/* globals $ requester*/
 window.onload = function() {
     console.log('--- Client JS loaded ---');
 };
@@ -23,35 +23,39 @@ var images = {
 
 $('.dropdown-menu').click(function(event) {
     var clickedId = event.target.id;
+    // Change title, description and cover image
     $('#title').text(clickedId.charAt(0).toUpperCase() + clickedId.slice(1));
     $('#description').text(descriptions[clickedId]);
     // changing background - doesn't work
     //$(this).find('.jumbotron').css('background', 'linear-gradient(rgba(0, 0, 0, 0.20), rgba(0, 0, 0, 0.20)), url(' + images[clickedId] + ')');
     $('.jumbotron').css({
         'background': 'linear-gradient(rgba(0, 0, 0, 0.20), rgba(0, 0, 0, 0.20)),url(' + images[clickedId] + ')',
-        'background-repeat': 'no-repeat',
+        'background-repeat': 'repeat',
         'background-position': 'center center, center',
         'color': '#FFF'
     });
 
-    if (clickedId === 'all') {
-        requester.get('/api/items?category=')
-            .then(reloadProjects);
+    if (clickedId === 'explore') {
+        load('/api/items?category=');
     } else if (clickedId === 'medical') {
-        requester.get('/api/items?category=medical')
-            .then(reloadProjects);
+        load('/api/items?category=medical');
     } else if (clickedId === 'animals') {
-        requester.get('/api/items?category=animals')
-            .then(reloadProjects);
+        load('/api/items?category=animals');
     } else if (clickedId === 'culture') {
-        requester.get('/api/items?category=culture')
-            .then(reloadProjects);
+        load('/api/items?category=culture');
     } else if (clickedId === 'other') {
-        requester.get('/api/items?category=other')
-            .then(reloadProjects);
+        load('/api/items?category=other');
     }
 });
 
-var reloadProjects = function(html) {
+var load = function(url) {
+    requester.get(url)
+        .then(updateHTML)
+        .catch((err) => {
+            console.log('--- GET URL ERROR ---' + err);
+        })
+};
+
+var updateHTML = function(html) {
     $('#projects').html(html);
 };
