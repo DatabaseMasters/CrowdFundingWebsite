@@ -31,7 +31,7 @@ $(window).on('hashchange', () => router.navigate());
 
 var load = function(params) {
     let name = params.category;
-    const url = '/api/items?category=' + name;
+    const url = '/api/projects?category=' + name;
     console.log(url);
     if (name === '') {
         name = 'explore projects'
