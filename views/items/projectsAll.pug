@@ -17,16 +17,16 @@ block subnav
                             span.glyphicon.glyphicon-chevron-down
                         ul.dropdown-menu
                             li
-                                a#explore(href='#explore') All
+                                a#explore(href='#category/') All
                             li.divider(role='separator')
                             li
-                                a#medical(href='#medical') Medical
+                                a#medical(href='#category/medical') Medical
                             li
-                                a#animals(href='#animals') Animals
+                                a#animals(href='#category/animals') Animals
                             li
-                                a#culture(href='#culture') Culture
+                                a#culture(href='#category/culture') Culture
                             li
-                                a#other(href='#other') Other
+                                a#other(href='#category/other') Other
             div.col-sm-6
                 a.col-sm-4.exploreFilter.active(href="#")
                     p New
@@ -41,5 +41,5 @@ block subnav
         
 block append scripts
     script(src="/static/js/requester.js")
-    script(src="/static/js/all.js")
+    script(src="/static/js/router.js")
     script(src="/static/js/menus.js")
