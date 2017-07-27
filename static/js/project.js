@@ -168,7 +168,7 @@
         steps = document.querySelectorAll('.js-scroll-step'),
         navigationContainer = document.querySelector('.Quick-navigation'),
         links = navigationContainer.querySelectorAll('a');
-
+        
     ScrollManager.init({
         steps: steps,
         navigationContainer: navigationContainer,

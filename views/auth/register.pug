@@ -1,29 +1,19 @@
 extends ../shared/_master
 
+append additionlCSS
+    link(rel="stylesheet", href="/static/css/newproject.css")
+    
 block main
     != messages()
-    form(action="/auth/register", method="POST")
-        p
-            label
-                | Username: 
-                input(type="text", name="username")
-        p
-            label
-                | Password: 
-                input(type="password", name="password")
-        p    
-            label
-                | Interests: 
-                select(name="interests", multiple)
-                    each value in [1, 2, 3, 4, 5, 6]
-                        option(value=value)
-                            =value
-        p
-            label
-                | Interests 2: 
-                each value in [1, 2, 3, 4, 5, 6]
-                    label
-                        =value
-                        input(type="checkbox" value=value, name="int2")
-        button
-            | Create
+
+    .modal-dialog.newproject
+        .modal-content.content
+            .modal-header
+                h3.headerSign.col-md-6.type
+                    | Join the gang
+            form(action='/auth/register', method='post').form
+                input#title.form-control(type='text', name='username', placeholder='Username')
+                input#title.form-control(type='password', name='password', placeholder='Password')
+                .modal-footer
+                    button.submitbtn.btn.btn-secondary(type='submit') 
+                        | Register
