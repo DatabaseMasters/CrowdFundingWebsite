@@ -16,16 +16,16 @@ block subnav
                             span.glyphicon.glyphicon-chevron-down
                         ul.dropdown-menu
                             li
-                                a#explore(href='#category/') All
+                                a#explore(href='#/') All
                             li.divider(role='separator')
                             li
-                                a#medical(href='#category/medical') Medical
+                                a#medical(href='#/medical') Medical
                             li
-                                a#animals(href='#category/animals') Animals
+                                a#animals(href='#/animals') Animals
                             li
-                                a#culture(href='#category/culture') Culture
+                                a#culture(href='#/culture') Culture
                             li
-                                a#other(href='#category/other') Other
+                                a#other(href='#/other') Other
             div.col-sm-6
                 a.col-sm-4.exploreFilter.active(href="#")
                     p New
@@ -36,9 +36,18 @@ block subnav
 
     div.container#projects
         div.loader
-        
+    
+    //- TODO not completed
+    div.container#pageNum
+
+    div.container
+        .row
+            ul#pagination.pagination-sm
+
 block append scripts
     script(src="/static/js/requester.js")
     script(src="/static/js/router.js")
     script(src="/static/js/explore.js")
     script(src="/static/js/menus.js")
+    script(src="/static/js/jquery.twbsPagination.js")
+    script(src="/static/js/pagination.js")

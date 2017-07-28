@@ -5,7 +5,7 @@ var requester = (function() {
     function request(method, url, options) {
         options = options || {};
         var headers = options.headers || {};
-        var body = options.data || {};
+        var data = options.data || {};
 
         promise = new Promise(function(resolve, reject) {
             $.ajax({
@@ -13,7 +13,7 @@ var requester = (function() {
                 method: method,
                 contentType: 'text/html', //'application/json',
                 headers: headers,
-                data: body, //JSON.stringify(data),
+                data: data, //JSON.stringify(data),
                 success: function(res) {
                     resolve(res);
                 },

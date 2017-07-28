@@ -36,22 +36,24 @@ function refreshProjects(html) {
 // Load all projects
 // TODO: add filtering by rating
 function loadMain(params) {
-    var name = params.category;
-    var url = '/api/projects?category=' + name;
-
+    var options = {
+        data: {
+            category: params.category || '',
+            page: params.page || 1,
+        }
+    };
     // Set name when empty (getting all projects)
-    if (name === '') {
-        name = 'explore projects'
-    }
+    var name = params.category || 'explore projects';
 
     // Get processed html, change title, change projects
-    return requester.get(url)
+    return requester.get('/api/projects', options)
         .then(function(response) {
             refreshProjects(response);
             return name;
         })
         .catch(function(err) {
-            console.log('--- GET URL ERROR ---' + err);
+            console.log('--- GET URL ERROR ---');
+            console.log(err);
         })
 }
 
@@ -65,18 +67,22 @@ function loadCategory(params) {
 
 clientRouter
     .on('', function(params) {
-        params.category = '';
         console.log('EMPTY # PARAMS');
-        console.log(window.location.pathname);
         console.log(params);
-        return loadMain(params);
+        loadMain(params);
     })
-    .on('category/:category', function(params) {
+    .on('/:category', function(params) {
         console.log('HAS # CATEGORY');
-        console.log(window.location.pathname);
         console.log(params);
-        return loadCategory(params);
+        loadCategory(params);
+    })
+    .on('/:category/:page', function(params) {
+        console.log('HAS # PAGE');
+        console.log(params);
+        loadCategory(params);
     });
 
 $(window).on('load', clientRouter.navigate);
-$(window).on('hashchange', clientRouter.navigate);
+$(window).on('hashchange', function() {
+    clientRouter.navigate();
+});

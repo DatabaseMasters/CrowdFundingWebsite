@@ -1,13 +1,23 @@
-.container-fluid.bg-3.text-center
+div.container-fluid.bg-3
     br
-    .row
+    div.row
         each project in model
             .col-sm-3
                 a(href="/projects/" + project.id)
                     img.img-responsive(src=project.coverImg, style='width:100%', alt='Image')
-                p 
+                h4.text-center 
                     a(href="/projects/" + project.id)
                         =project.name 
-                        | : 
+                div.hideLong 
                     =project.description
+
+    //- TODO Pagination not completed
+    .row
+        nav
+            ul.pager
+                li
+                    a(href='#/' + model[0].category + '/1') Previous 
+                li
+                    a(href='#/'+ model[0].category +'/2') Next
+
 br

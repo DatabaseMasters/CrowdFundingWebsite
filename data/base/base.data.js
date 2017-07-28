@@ -7,22 +7,24 @@ class BaseData {
         this.collection = this.db.collection(this.collectionName);
     }
 
-    getAll(filter) {
+    getAll(filter, options) {
         const defaultFilter = {};
+        // filter format { category: value, }
         filter = filter || defaultFilter;
-        const options = {};
+        // options format { limit: value } - not finished
+        options = options || {};
         const result = this.collection
-            .find(filter, options)
+            .find(filter)
             .toArray();
 
         // Ensure the ModelClass has a toViewModel()
         // otherwise will throw errors
         if (this.ModelClass.toViewModel) {
             result.then((models) => {
-                return models
-                    .map((model) => this.ModelClass
-                        .toViewModel(model));
-            })
+                    return models
+                        .map((model) => this.ModelClass
+                            .toViewModel(model));
+                })
                 .catch((err) => {
                     console.log('base.data.js error');
                     console.log(err);

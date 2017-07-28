@@ -17,17 +17,22 @@ const attachRoutes = (app, data) => {
             return res.send(project);
         })
         .get('/', (req, res) => {
-            let { category, filter } = req.query;
-            //filter = filter || {};
-            // TODO add filter by newest, popular, most funded
-            // check if request contains a category, assign empty object if not
+            let { category, page } = req.query;
+            // TODO add filter/options by newest, popular, most funded
+            // REVIEW remove page parsing?
+            page = parseInt(page, 10) || 1;
+            const size = 4;
+
+            // Checks if request contains a category, assign empty object if not
             category = category ? { category: category } : {};
 
             data.projects.getAll(category)
                 .then((projects) => {
-                    if (projects.length === 0) {
+                    if (projects.length < 1) {
                         res.send('<h3>No projects in category ' + category.category.charAt(0).toUpperCase() + category.category.slice(1) + '</h3>');
                     } else {
+                        // TODO: consider limiting the number of projects returned from db
+                        projects = projects.slice((page - 1) * size, page * size);
                         res.render('projects/projects', { model: projects },
                             (err, html) => {
                                 res.send(html);
