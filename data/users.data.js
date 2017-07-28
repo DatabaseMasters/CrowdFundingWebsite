@@ -59,6 +59,10 @@ class UsersData extends BaseData {
             .catch();
     }
 
+    addProjectToFavourites(username, project) {
+        this.collection.findOne(username).insert(project);
+    }
+
     _isModelValid(model) {
         // TODO: add more validation, specific to user
         // then call base method

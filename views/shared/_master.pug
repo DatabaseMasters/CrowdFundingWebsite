@@ -16,6 +16,7 @@ head
 body
     block body
         +nav
+        != messages('auth/my_message_template', locals)
 
         #main
             block main

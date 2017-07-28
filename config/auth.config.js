@@ -23,6 +23,9 @@ const configAuth = (app, { users }) => {
                     return done(null, obj.user);
                 }
                 return done(null, false, { message: 'Wrong password!' });
+            })
+            .catch((err) => {
+                return done(err, false, { message: 'Something went wrong.' });
             });
         // .then((user) => {
         //     if (!user) {
