@@ -13,23 +13,23 @@ block main
           // edit form column
           .col-md-8.col-sm-6.col-xs-12.personal-info
               h3 Personal info
-              form.form-horizontal(role='form')
+              form(action='/auth/update-profile', method='post').form.form-horizontal
                   .form-group
                       label.col-lg-3.control-label First name:
                       .col-lg-8
-                          input.form-control(type='text', placeholder='First name')
+                          input.form-control(type='text', placeholder='Username' value=user.firstName)
                   .form-group
                       label.col-lg-3.control-label Last name:
                       .col-lg-8
-                          input.form-control(type='text', placeholder='Last name')
+                          input.form-control(type='text', placeholder='Last name' value=user.lastName)
                   .form-group
                       label.col-lg-3.control-label Email:
                       .col-lg-8
-                          input.form-control(type='text', placeholder='E-mail')
+                          input.form-control(type='text', placeholder='E-mail' value=user.email)
                   .form-group
                       label.col-md-3.control-label Username:
                       .col-md-8
-                          input.form-control(type='text', placeholder='Username')
+                          label.control-label=user.username
                   .form-group
                       label.col-md-3.control-label New password:
                       .col-md-8

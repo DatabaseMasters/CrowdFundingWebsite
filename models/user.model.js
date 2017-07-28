@@ -4,9 +4,9 @@ class User {
         // data layer validation
         return typeof model !== 'undefined' &&
             typeof model.password === 'string' &&
-            model.password.length > 3 &&
+            model.password.length >= 5 &&
             typeof model.username === 'string' &&
-            model.username.length > 3;
+            model.username.length >= 5;
     }
 
     get id() {
