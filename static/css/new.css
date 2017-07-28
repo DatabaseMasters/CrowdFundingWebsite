@@ -43,6 +43,7 @@
 .form input, textarea
 {
     margin: 1% 0;   
+    resize: vertical;
     border-top: none !important;
     border-right: none !important;
     border-left: none !important;
