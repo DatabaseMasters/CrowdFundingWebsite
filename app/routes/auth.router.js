@@ -49,6 +49,13 @@ const attachRoutes = (app, data) => {
         })
         .get('/profile', login.ensureLoggedIn('/auth/log-in'), (req, res) => {
             res.render('auth/profile');
+        })
+        .post('/update-profile', login.ensureLoggedIn('/auth/log-in'), (req, res) => {
+            // data.users.findByUsername(bodyUser.username, (err, user) => {
+            //     if(user){
+
+            //     }
+            // });
         });
 
     app.use('/auth', router);
