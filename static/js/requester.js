@@ -2,18 +2,20 @@
 
 var requester = (function() {
 
-    function request(method, url, options) {
+    function request(method, url, options, isJson) {
         options = options || {};
         var headers = options.headers || {};
-        var data = options.data || {};
+        var body = options.data || {};
+        var cntType = isJson === false ? 'text/html' : 'application/json';
+        var parsedData = isJson === false ? body : JSON.stringify(body);
 
-        promise = new Promise(function(resolve, reject) {
+        var promise = new Promise(function(resolve, reject) {
             $.ajax({
                 url: url,
                 method: method,
-                contentType: 'text/html', //'application/json',
+                contentType: cntType,
                 headers: headers,
-                data: data, //JSON.stringify(data),
+                data: parsedData,
                 success: function(res) {
                     resolve(res);
                 },
@@ -26,19 +28,19 @@ var requester = (function() {
     }
 
     function get(url, options) {
-        return request('GET', url, options);
+        return request('GET', url, options, false);
     }
 
     function post(url, options) {
-        return request('POST', url, options);
+        return request('POST', url, options, false);
     }
 
-    function put(url, options) {
-        return request('PUT', url, options);
+    function put(url, options, isJson) {
+        return request('PUT', url, options, isJson);
     }
 
-    // function del(url, options) {
-    //     return send('POST', url, options);
+    // function del(url, options, isJson) {
+    //     return send('POST', url, options, isJson);
     // }
 
     return {

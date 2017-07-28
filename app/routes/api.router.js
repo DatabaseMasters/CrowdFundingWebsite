@@ -16,7 +16,7 @@ const attachRoutes = (app, data) => {
     //     }
     //     return res.send(project);
     // })
-        .get('/search', (req, res) => {
+        .get('/projects/search', (req, res) => {
             const searchValue = req.query.searchValue;
             const filter = {
                 $or: [{ 'name': { '$regex': searchValue, '$options': 'i' } },
@@ -36,7 +36,7 @@ const attachRoutes = (app, data) => {
                         });
                 });
         })
-        .get('/', (req, res) => {
+        .get('/projects', (req, res) => {
             let { category, page } = req.query;
             // TODO add filter/options by newest, popular, most funded
             // REVIEW remove page parsing?
@@ -61,6 +61,21 @@ const attachRoutes = (app, data) => {
                 })
                 .catch((err) => {
                     console.log('--- ERROR in api.router.js getAll --- ' + err);
+                });
+        })
+        .put('/users/profile/:username', (req, res) => {
+            const username = req.params.username;
+            console.log(new Date().toLocaleTimeString());
+
+            data.users.updateProfile(username, req.body)
+                .then((result) => {
+                    if (!result.value) {
+                        req.flash('Failure..')
+                        return res.send('No such user!');
+                    }
+                })
+                .catch(() => {
+                    console.log('update profile mistake...')
                 });
         })
         // Pagination
@@ -91,7 +106,7 @@ const attachRoutes = (app, data) => {
             .send(project);
     });
 
-    app.use('/api/projects', router);
+    app.use('/api', router);
 };
 
 module.exports = attachRoutes;

@@ -10,6 +10,7 @@
         "populate": "mongo mongodb://localhost/crowdfunding-db ./config/populateData.js"
     },
     "dependencies": {
+        "bcryptjs": "^2.4.3",
         "body-parser": "^1.17.2",
         "bootstrap": "^3.3.7",
         "connect-ensure-login": "^0.1.1",
@@ -24,6 +25,7 @@
         "jquery": "^3.2.1",
         "mongodb": "^2.2.30",
         "morgan": "^1.8.2",
+        "multer": "^1.3.0",
         "passport": "^0.3.2",
         "passport-local": "^1.0.0",
         "pug": "^2.0.0-rc.2"

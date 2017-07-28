@@ -47,18 +47,31 @@ class UsersData extends BaseData {
     }
 
     // REVIEW: This is a demo method, test, modify as needed        
-    findByUsername(username, cb) {
+    findByUsername(username) {
         return this.collection
             .findOne({ username: username })
             .then((user) => {
                 if (!user) {
-                    return cb(null, null);
+                    return null;
                 }
-                return cb(null, user);
+                return user;
             })
-            .catch((err) => {
-                cb(null, null);
-            });
+            .catch();
+    }
+
+    addProjectToFavourites(username, project) {
+        this.collection.findOne(username).insert(project);
+    }
+
+    updateProfile(username, options) {
+        return this.collection.findOneAndUpdate(
+            { 'username': username.trim() },
+            { $set: {
+                'firstName': options.firstName.trim(),
+                'lastName': options.lastName.trim(),
+                'email': options.email.trim(),
+            } }
+        );
     }
 
     _isModelValid(model) {

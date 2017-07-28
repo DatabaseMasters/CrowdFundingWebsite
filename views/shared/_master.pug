@@ -16,6 +16,7 @@ head
 body
     block body
         +nav
+        != messages('flash_message_template', locals)
 
         #main
             block main

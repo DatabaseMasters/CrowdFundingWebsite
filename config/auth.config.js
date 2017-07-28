@@ -7,26 +7,26 @@ const session = require('express-session');
 const MongoStore = require('connect-mongo')(session);
 const dbConfig = require('./server.config');
 
-const hashPass = (password) => {
-    return '!' + password + '!';
-};
+const bcrypt = require('bcryptjs');
 
 const configAuth = (app, { users }) => {
     passport.use(new Strategy((username, password, done) => {
-        users.findByUsername(username, (err, user) => {
-            if (err) {
-                return done(err);
-            }
-            if (!user) {
-                return done(null, false, { message: 'No such user!' });
-            }
-            // TODO
-            // add logic for hash password
-            if (user.password !== password) {
+        users.findByUsername(username)
+            .then((user) => {
+                if (!user) {
+                    return done(null, false, { message: 'No such user!' });
+                }
+                return { compareResult: bcrypt.compare(password, user.password), user: user };
+            })
+            .then((obj) => {
+                if (obj.compareResult) {
+                    return done(null, obj.user);
+                }
                 return done(null, false, { message: 'Wrong password!' });
-            }
-            return done(null, user);
-        });
+            })
+            .catch((err) => {
+                return done(err, false, { message: 'Something went wrong.' });
+            });
         // .then((user) => {
         //     if (!user) {
         //         return done('Invalid user', false, { message: 'Incorrect password.' });
@@ -60,12 +60,13 @@ const configAuth = (app, { users }) => {
     });
 
     passport.deserializeUser((username, done) => {
-        users.findByUsername(username, (err, user) => {
-            if (err) {
-                return done(err);
-            }
-            return done(null, user);
-        });
+        users.findByUsername(username)
+            .then((user) => {
+                if (!user) {
+                    return done(null);
+                }
+                return done(null, user);
+            });
     });
 
     app.use((req, res, next) => {
