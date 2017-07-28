@@ -16,9 +16,26 @@ var images = {
     'other': '../static/images/family-shadow-sea.jpg'
 }
 
-// filter projects by selected category
+// Update title, description and cover image
+function refreshTitle(name) {
+    $('#title').text(name.charAt(0).toUpperCase() + name.slice(1));
+    $('#description').text(descriptions[name]);
+    $('.jumbotron').css({
+        'background': 'linear-gradient(rgba(0, 0, 0, 0.20), rgba(0, 0, 0, 0.20)),url(' + images[name] + ')',
+        'background-repeat': 'repeat',
+        'background-position': 'center center, center',
+        'color': '#FFF'
+    });
+}
 
-function load(params) {
+function refreshProjects(html) {
+    $('#projects').html(html);
+};
+
+// Loading applies to home and explore pages
+// Load all projects
+// TODO: add filtering by rating
+function loadMain(params) {
     var name = params.category;
     var url = '/api/projects?category=' + name;
 
@@ -28,47 +45,38 @@ function load(params) {
     }
 
     // Get processed html, change title, change projects
-    requester.get(url)
+    return requester.get(url)
         .then(function(response) {
-            refreshTitle(name);
             refreshProjects(response);
+            return name;
         })
         .catch(function(err) {
             console.log('--- GET URL ERROR ---' + err);
         })
-};
-
-// Update title, description and cover image
-function refreshTitle(name) {
-    // $('#title').text(name.charAt(0).toUpperCase() + name.slice(1));
-    // $('#description').text(descriptions[name]);
-    // $('.jumbotron').css({
-    //     'background': 'linear-gradient(rgba(0, 0, 0, 0.20), rgba(0, 0, 0, 0.20)),url(' + images[name] + ')',
-    //     'background-repeat': 'repeat',
-    //     'background-position': 'center center, center',
-    //     'color': '#FFF'
-    // });
 }
 
-function refreshProjects(html) {
-    $('#projects').html(html);
-};
-
+// Load projects by selected category in explore page
+function loadCategory(params) {
+    loadMain(params)
+        .then(function(name) {
+            refreshTitle(name);
+        });
+}
 
 clientRouter
     .on('', function(params) {
         params.category = '';
-        console.log('EMPTY PARAMS');
+        console.log('EMPTY # PARAMS');
+        console.log(window.location.pathname);
         console.log(params);
-        return load(params);
+        return loadMain(params);
     })
     .on('category/:category', function(params) {
-        console.log('PARAMS');
+        console.log('HAS # CATEGORY');
+        console.log(window.location.pathname);
         console.log(params);
-        return load(params);
+        return loadCategory(params);
     });
 
 $(window).on('load', clientRouter.navigate);
-$(window).on('hashchange', function() {
-    return clientRouter.navigate()
-});
+$(window).on('hashchange', clientRouter.navigate);
