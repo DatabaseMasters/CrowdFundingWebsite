@@ -1,5 +1,4 @@
 extends ../shared/_master
-include _projectsList
 
 block main    
     .jumbotron
@@ -36,8 +35,7 @@ block subnav
                     p Most active
 
     div.container#projects
-        block projects
-            +projects
+        div.loader
         
 block append scripts
     script(src="/static/js/requester.js")

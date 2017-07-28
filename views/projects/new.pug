@@ -1,0 +1,31 @@
+extends ../shared/_master
+
+append additionlCSS
+    link(rel="stylesheet", href="/static/css/new.css")
+    
+block main
+    .modal-dialog.newproject
+        .modal-content.content
+            .modal-header
+                h3.headerSign.col-md-6.type
+                    | Start a new Project
+            form(action='/projects', method='post').form
+                input#title.form-control(type='text', name='title', placeholder='YOUR PROJECT TITLE', required='required')
+                .input-group
+                    label.input-group-btn
+                        span.btn.btn-primary
+                            | Browse… 
+                            input(type='file', style='display: none;', accept='image/*', required='required')
+                    input.form-control(type='text', readonly='', placeholder='Upload project image', required='required')
+                input#video.form-control(type='text', name='video', placeholder='YOUTUBE VIDEO (URL)', required='required')
+                textarea#description.form-control(name="description", placeholder="DESCRIPTION", required='required')
+                label.darktext(for='amount') Looking to Raise ($1,000 - $1,000,0000):
+                input#ending.form-control(type='number', min='1000', max='1000000', step='1', placeholder='1000', required='required')
+                label.darktext(for='endingdate') Ending Date:
+                input#ending.form-control(type='date', name='ending', value='', required='required')
+                .modal-footer
+                    button.submitbtn.btn.btn-secondary(type='submit') 
+                        | Submit
+
+block append scripts
+    script(src="/static/js/new.js")

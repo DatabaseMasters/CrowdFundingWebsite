@@ -1,5 +1,109 @@
 extends ../shared/_master
 
-block main
+append additionlCSS
+    link(rel="stylesheet", href="/static/css/project.css")
 
-    h1= model.name
+append main
+    .main.contianer#project
+        .row
+            .col-md-12
+                nav.Quick-navigation
+                    a.Quick-navigation-item(href='#title') 
+                        | Title
+                    a.Quick-navigation-item(href='#video')
+                        | Video
+                    a.Quick-navigation-item(href='#story')
+                        | Story
+                    a.Quick-navigation-item(href='#donate')
+                        | Donate
+                    a.Quick-navigation-item(href='#comments')
+                        | Comments
+                section#title.js-scroll-step
+                    img(src=model.coverImg, style='width:100%', alt='Image')
+                    h1.blur=model.name
+                section#video.js-scroll-step
+                        iframe(src='https://www.youtube.com/embed/3BSOfCfCY88', frameborder='0', allowfullscreen='false')
+                section#story.js-scroll-step
+                    h1.col-md-2.align-top.content
+                        | Our Story
+                    p.content.col-md-8=model.description
+                section#donate.js-scroll-step
+                    .container
+                        .row
+                            .progress-title
+                                | We have raised:
+                        .row
+                            .progress
+                                .progress-bar(role='progressbar', aria-valuenow='90', aria-valuemin='0', aria-valuemax='100', style='width: 90%;')
+                                span.progress-type $5,000 /$50,000
+                                span.progress-completed 90%
+                        .row
+                            .donate-title
+                                | Support us
+                        .row
+                            .donation-table
+                                .col-sm-6.col-lg-3
+                                    .pricing.text-center
+                                        .pricing-top
+                                            p
+                                                sup $
+                                                em 55
+                                            span Basic
+                                        .btn Donate Now
+                                .col-sm-6.col-lg-3
+                                    .pricing.text-center
+                                        .pricing-top
+                                            p
+                                                sup $
+                                                em 55
+                                            span Gold
+                                        .btn Donate Now
+                                .col-sm-6.col-lg-3
+                                    .pricing.text-center
+                                        .pricing-top
+                                            p
+                                                sup $
+                                                em 55
+                                            span Dimond
+                                        .btn Donate Now
+                                .col-sm-6.col-lg-3
+                                    .pricing.text-center
+                                        .pricing-top
+                                            p
+                                                sup $
+                                                em 55
+                                            span Pro
+                                        .btn Donate Now
+                section#comments.js-scroll-step
+                     #comment-content.contianer
+                        .row
+                            .widget-area.no-padding.blank
+                                form
+                                    textarea(placeholder='What are you doing right now?')
+                                button.btn.btn-success.green(type='submit')
+                                    i.fa.fa-share
+                                    |  Share
+                        .row
+                            .container
+                                .dialogbox
+                                    .body
+                                        span.tip.tip-left
+                                        .message
+                                            span I just made a comment about this comment box which is purely made from CSS.
+                                .dialogbox
+                                    .body
+                                        span.tip.tip-left
+                                        .message
+                                            span I just made a comment about this comment box which is purely made from CSS.
+                                .dialogbox
+                                    .body
+                                        span.tip.tip-left
+                                        .message
+                                            span I just made a comment about this comment box which is purely made from CSS.
+                                .dialogbox
+                                    .body
+                                        span.tip.tip-left
+                                        .message
+                                            span I just made a comment about this comment box which is purely made from CSS.
+block append scripts
+    script(src="/static/js/project.js")

@@ -167,9 +167,8 @@
     var scrollToTopBtn = document.querySelector('.Scroll-to-top'),
         steps = document.querySelectorAll('.js-scroll-step'),
         navigationContainer = document.querySelector('.Quick-navigation'),
-        links = navigationContainer.querySelectorAll('a'),
-        progressIndicator = document.querySelector('.Scroll-progress-indicator');
-
+        links = navigationContainer.querySelectorAll('a');
+        
     ScrollManager.init({
         steps: steps,
         navigationContainer: navigationContainer,

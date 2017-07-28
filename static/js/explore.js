@@ -1,7 +1,4 @@
-/* globals $ requester router*/
-window.onload = function() {
-    console.log('--- Client JS loaded ---');
-};
+/* globals $ requester clientRouter*/
 
 var descriptions = {
     'explore projects': 'Find projects which you can help now',
@@ -21,40 +18,57 @@ var images = {
 
 // filter projects by selected category
 
-const router = new ClientRouter();
+function load(params) {
+    var name = params.category;
+    var url = '/api/projects?category=' + name;
 
-router
-    .on('category/:category', (params) => load(params));
-
-//$(window).on('load', () => console.log(router._routes));
-$(window).on('hashchange', () => router.navigate());
-
-var load = function(params) {
-    let name = params.category;
-    const url = '/api/projects?category=' + name;
-    console.log(url);
+    // Set name when empty (getting all projects)
     if (name === '') {
         name = 'explore projects'
     }
-    // Update title, description and cover image
-    $('#title').text(name.charAt(0).toUpperCase() + name.slice(1));
-    $('#description').text(descriptions[name]);
-    $('.jumbotron').css({
-        'background': 'linear-gradient(rgba(0, 0, 0, 0.20), rgba(0, 0, 0, 0.20)),url(' + images[name] + ')',
-        'background-repeat': 'repeat',
-        'background-position': 'center center, center',
-        'color': '#FFF'
-    });
 
-    // Get processed html and insert it in place of old html
+    // Get processed html, change title, change projects
     requester.get(url)
-        .then(updateHTML)
-        .catch((err) => {
+        .then(function(response) {
+            refreshTitle(name);
+            refreshProjects(response);
+        })
+        .catch(function(err) {
             console.log('--- GET URL ERROR ---' + err);
         })
 };
 
-var updateHTML = function(html) {
+// Update title, description and cover image
+function refreshTitle(name) {
+    // $('#title').text(name.charAt(0).toUpperCase() + name.slice(1));
+    // $('#description').text(descriptions[name]);
+    // $('.jumbotron').css({
+    //     'background': 'linear-gradient(rgba(0, 0, 0, 0.20), rgba(0, 0, 0, 0.20)),url(' + images[name] + ')',
+    //     'background-repeat': 'repeat',
+    //     'background-position': 'center center, center',
+    //     'color': '#FFF'
+    // });
+}
+
+function refreshProjects(html) {
     $('#projects').html(html);
 };
-z
+
+
+clientRouter
+    .on('', function(params) {
+        params.category = '';
+        console.log('EMPTY PARAMS');
+        console.log(params);
+        return load(params);
+    })
+    .on('category/:category', function(params) {
+        console.log('PARAMS');
+        console.log(params);
+        return load(params);
+    });
+
+$(window).on('load', clientRouter.navigate);
+$(window).on('hashchange', function() {
+    return clientRouter.navigate()
+});
