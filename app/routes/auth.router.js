@@ -41,9 +41,17 @@ const attachRoutes = (app, data) => {
                     res.redirect('/auth/register');
                 } else {
                     bodyUser.password = bcrypt.hashSync(bodyUser.password, 10);
-                    data.users.create(bodyUser);
-                    req.flash('Success!');
-                    res.redirect('/auth/log-in');
+
+                    data.users.create(bodyUser)
+                        .then((insertedUser) => {
+                            req.login(insertedUser, (err) => {
+                                if(err){
+                                    res.redirect('/auth/register');
+                                }
+                                res.redirect('/');
+                            });
+                        })
+                        .catch(err);
                 }
             });
         })
