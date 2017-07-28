@@ -62,6 +62,5 @@ clientRouter
 
 $(window).on('load', clientRouter.navigate);
 $(window).on('hashchange', function() {
-    console.log(clientRouter.routes);
     return clientRouter.navigate()
 });

@@ -28,7 +28,7 @@ const attachRoutes = (app, data) => {
                     if (projects.length === 0) {
                         res.send('<h3>No projects in category ' + category.category.charAt(0).toUpperCase() + category.category.slice(1) + '</h3>');
                     } else {
-                        res.render('projects/projectsContainer', { model: projects },
+                        res.render('projects/projects', { model: projects },
                             (err, html) => {
                                 res.send(html);
                             });
