@@ -19,11 +19,9 @@ block main
                     input.form-control(type='text', readonly='', placeholder='Upload project image', required='required')
                 input#video.form-control(type='text', name='video', placeholder='YOUTUBE VIDEO (URL)', required='required')
                 textarea#description.form-control(name="description", placeholder="DESCRIPTION", required='required')
-                label.darktext(for='amount') 
-                    | Looking to Raise ($1,000 - $1,000,0000):
+                label.darktext(for='amount') Looking to Raise ($1,000 - $1,000,0000):
                 input#ending.form-control(type='number', min='1000', max='1000000', step='1', placeholder='1000', required='required')
-                label.darktext(for='endingdate') 
-                    | Ending Date:
+                label.darktext(for='endingdate') Ending Date:
                 input#ending.form-control(type='date', name='ending', value='', required='required')
                 .modal-footer
                     button.submitbtn.btn.btn-secondary(type='submit') 

@@ -40,14 +40,17 @@ const attachRoutes = (app, data) => {
         })
         .post('/', (req, res) => {
             const project = req.body;
-            data.projects.getNextProjectRef().then((ref) => {
+
+            data.projects.getNextProjectRef()
+                .then((ref) => {
                     project.ref = ref;
                     return project;
-                }).then((proj) => {
+                })
+                .then((proj) => {
                     data.projects.create(proj);
                     return res
                         .status(201)
-                        .redirect('/projects');
+                        .redirect('/projects/' + proj.ref);
                 })
                 .catch((er) => {
                     console.log('error in server.router.js post projects/' + er);
