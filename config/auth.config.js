@@ -7,9 +7,7 @@ const session = require('express-session');
 const MongoStore = require('connect-mongo')(session);
 const dbConfig = require('./server.config');
 
-const hashPass = (password) => {
-    return '!' + password + '!';
-};
+const bcrypt = require('bcryptjs');
 
 const configAuth = (app, { users }) => {
     passport.use(new Strategy((username, password, done) => {
@@ -20,12 +18,14 @@ const configAuth = (app, { users }) => {
             if (!user) {
                 return done(null, false, { message: 'No such user!' });
             }
-            // TODO
-            // add logic for hash password
-            if (user.password !== password) {
-                return done(null, false, { message: 'Wrong password!' });
-            }
-            return done(null, user);
+            
+            bcrypt.compare(password, user.password)
+                .then((res) => {
+                    if (res) {
+                        return done(null, user);
+                    }
+                    return done(null, false, { message: 'Wrong password!' });
+                });
         });
         // .then((user) => {
         //     if (!user) {

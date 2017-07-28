@@ -1,5 +1,7 @@
 const { Router } = require('express');
 const passport = require('passport');
+const login = require('connect-ensure-login');
+const bcrypt = require('bcryptjs');
 
 const attachRoutes = (app, data) => {
     const router = new Router();
@@ -25,6 +27,8 @@ const attachRoutes = (app, data) => {
         })
         .post('/register', (req, res) => {
             const bodyUser = req.body;
+            bodyUser.username = bodyUser.username.trim();
+            bodyUser.password = bodyUser.password.trim();
 
             if (bodyUser.username === '' || bodyUser.password === '') {
                 req.flash('error', 'Fill both input forms');
@@ -36,13 +40,14 @@ const attachRoutes = (app, data) => {
                     req.flash('error', 'There is user with this username!');
                     res.redirect('/auth/register');
                 } else {
+                    bodyUser.password = bcrypt.hashSync(bodyUser.password, 10);
                     data.users.create(bodyUser);
                     req.flash('Success!');
                     res.redirect('/auth/log-in');
                 }
             });
         })
-        .get('/profile', (req, res) => {
+        .get('/profile', login.ensureLoggedIn('/auth/log-in'), (req, res) => {
             res.render('auth/profile');
         });
 
