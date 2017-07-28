@@ -1,0 +1,25 @@
+.form.form-horizontal
+    .form-group
+        label.col-lg-3.control-label First name:
+        .col-lg-8
+            input.form-control(type='text', name="firstName",placeholder='First Name' value=user.firstName)
+    .form-group
+        label.col-lg-3.control-label Last name:
+        .col-lg-8
+            input.form-control(type='text', name="lastName", placeholder='Last name' value=user.lastName)
+    .form-group
+        label.col-lg-3.control-label Email:
+        .col-lg-8
+            input.form-control(type='text', name="email", placeholder='E-mail' value=user.email)
+    .form-group
+        label.col-md-3.control-label Username:
+        .col-md-8
+            label#currentUser.control-label=user.username
+    .form-group
+        label.col-md-3.control-label New password:
+        .col-md-8
+            input.form-control(type='password', name="password1", placeholder='Password')
+    .form-group
+        label.col-md-3.control-label Confirm new password:
+        .col-md-8
+            input.form-control(type='password', name="password2", placeholder='Password')

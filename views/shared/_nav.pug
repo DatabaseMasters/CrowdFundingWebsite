@@ -28,7 +28,8 @@ mixin nav()
                 ul.nav.navbar-nav.navbar-right
                     if user
                         li
-                            a(href="/auth/profile")=user.username
+                            //- a(href="/users/profile/"+user.username)=user.username
+                            a(href="/auth/profile/")=user.username
                         li
                             a(href="/auth/log-out") Log-out
                     else

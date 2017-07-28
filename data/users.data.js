@@ -63,6 +63,17 @@ class UsersData extends BaseData {
         this.collection.findOne(username).insert(project);
     }
 
+    updateProfile(username, options) {
+        return this.collection.findOneAndUpdate(
+            { 'username': username.trim() },
+            { $set: {
+                'firstName': options.firstName.trim(),
+                'lastName': options.lastName.trim(),
+                'email': options.email.trim(),
+            } }
+        );
+    }
+
     _isModelValid(model) {
         // TODO: add more validation, specific to user
         // then call base method
