@@ -35,25 +35,25 @@ const attachRoutes = (app, data) => {
                 res.redirect('/auth/register');
             }
 
-            data.users.findByUsername(bodyUser.username, (err, user) => {
-                if (user) {
-                    req.flash('error', 'There is user with this username!');
-                    res.redirect('/auth/register');
-                } else {
-                    bodyUser.password = bcrypt.hashSync(bodyUser.password, 10);
+            data.users.findByUsername(bodyUser.username)
+                .then((user) => {
+                    if (user) {
+                        req.flash('error', 'There is user with this username!');
+                        res.redirect('/auth/register');
+                    } else {
+                        bodyUser.password = bcrypt.hashSync(bodyUser.password, 10);
+                        return data.users.create(bodyUser);
+                    }
+                })
+                .then((insertedUser) => {
+                    req.login(insertedUser, (err) => {
+                        if (err) {
+                            res.redirect('/auth/register');
+                        }
+                        res.redirect('/');
+                    });
+                });
 
-                    data.users.create(bodyUser)
-                        .then((insertedUser) => {
-                            req.login(insertedUser, (err) => {
-                                if(err){
-                                    res.redirect('/auth/register');
-                                }
-                                res.redirect('/');
-                            });
-                        })
-                        .catch(err);
-                }
-            });
         })
         .get('/profile', login.ensureLoggedIn('/auth/log-in'), (req, res) => {
             res.render('auth/profile');

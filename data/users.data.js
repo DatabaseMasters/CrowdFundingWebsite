@@ -47,18 +47,16 @@ class UsersData extends BaseData {
     }
 
     // REVIEW: This is a demo method, test, modify as needed        
-    findByUsername(username, cb) {
+    findByUsername(username) {
         return this.collection
             .findOne({ username: username })
             .then((user) => {
                 if (!user) {
-                    return cb(null, null);
+                    return null;
                 }
-                return cb(null, user);
+                return user;
             })
-            .catch((err) => {
-                cb(null, null);
-            });
+            .catch();
     }
 
     _isModelValid(model) {
