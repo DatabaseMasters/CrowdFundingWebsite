@@ -1,5 +1,8 @@
 const { Router } = require('express');
 const login = require('connect-ensure-login');
+const multer = require('multer');
+const folder = 'static/uploads/';
+const upload = multer({ dest: folder });
 
 const attachRoutes = (app, data) => {
     const router = new Router();
@@ -8,7 +11,7 @@ const attachRoutes = (app, data) => {
         .get('/', (req, res) => {
             res.render('projects/explore');
         })
-        // form can be shown dynamically 
+        // form can be shown dynamically
         // as modal window with javascript - api.router?
         // TODO delete
         // .get('/form', (req, res) => {
@@ -19,7 +22,7 @@ const attachRoutes = (app, data) => {
         })
         .get('/:id', (req, res) => {
             const id = parseInt(req.params.id, 10);
-            data.projects.getAll({ id: id })
+            data.projects.getAll({ ref: id })
                 .then((projects) => {
                     if (!projects || projects.length < 1) {
                         console.log('----- WRONG PROJECT ID -----');
@@ -34,19 +37,19 @@ const attachRoutes = (app, data) => {
                     req.flash('--- Error in server.router.js ---', err);
                 });
         })
-        .post('/', (req, res) => {
+        .post('/', upload.single('img'), (req, res) => {
             const project = req.body;
+            const file = req.file;
+            project.user = req.user.username;
+            project.coverImg = data.projects
+                .moveCoverPicture(folder, file.filename, project.user, );
             data.projects.getNextProjectRef()
                 .then((ref) => {
                     project.ref = ref;
                     return project;
                 })
-                .then((proj) => {
-                    data.projects.create(proj);
-                    return res
-                        .status(201)
-                        .redirect('/projects/' + proj.ref);
-                })
+                .then((proj) => data.projects.create(proj))
+                .then((proj) => res.status(201).redirect('/projects/' + proj.ref))
                 .catch((er) => {
                     console.log('--- Error in server.router.js post projects/ ---' + er);
                     return res
