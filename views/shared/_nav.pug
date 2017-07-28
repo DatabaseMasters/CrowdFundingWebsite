@@ -18,7 +18,7 @@ mixin nav()
                     li.dropdown
                         a(href='/projects#category/') Explore
                     li.active
-                        a(href='/projects/newproject') Start a project 
+                        a(href='/projects/new') Start a project 
                     li
                         a(href='#') About
                 form.navbar-form.navbar-left
@@ -26,9 +26,13 @@ mixin nav()
                         input.form-control(type='text', placeholder='Search')
                     button.btn.btn-default(type='submit') Search
                 ul.nav.navbar-nav.navbar-right
-                    li
-                        a(href='/auth/log-in') Log in
-                    li
-                        a(href="/auth/register") Register
-                    li
-                        a(href="/auth/log-out") Log-out
+                    if user
+                        li
+                            a(href="/auth/profile")=user.username
+                        li
+                            a(href="/auth/log-out") Log-out
+                    else
+                        li
+                            a(href='/auth/log-in') Log in
+                        li
+                            a(href="/auth/register") Register

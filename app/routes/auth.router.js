@@ -10,7 +10,7 @@ const attachRoutes = (app, data) => {
         })
         .post('/log-in',
         passport.authenticate('local', {
-            successRedirect: '/',
+            successReturnToOrRedirect: '/',
             failureRedirect: '/auth/log-in',
             failureFlash: true,
             successFlash: 'Welcome!',
@@ -41,6 +41,9 @@ const attachRoutes = (app, data) => {
                     res.redirect('/auth/log-in');
                 }
             });
+        })
+        .get('/profile', (req, res) => {
+            res.render('auth/profile');
         });
 
     app.use('/auth', router);

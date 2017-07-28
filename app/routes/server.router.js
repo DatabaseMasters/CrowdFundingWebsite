@@ -1,4 +1,5 @@
 const { Router } = require('express');
+const login = require('connect-ensure-login');
 
 const attachRoutes = (app, data) => {
     const router = new Router();
@@ -13,8 +14,8 @@ const attachRoutes = (app, data) => {
         // .get('/form', (req, res) => {
         //     return res.render('projects/form');
         // })
-        .get('/newproject', (req, res) => {
-            return res.render('projects/newproject');
+        .get('/new', login.ensureLoggedIn('/auth/log-in'), (req, res) => {
+            return res.render('projects/new');
         })
         .get('/project', (req, res) => {
             return res.render('projects/project');
@@ -39,12 +40,21 @@ const attachRoutes = (app, data) => {
         })
         .post('/', (req, res) => {
             const project = req.body;
-            console.log(project);
-            // create method is in base.data.js
-            data.projects.create(project);
-            return res
-                .status(201)
-                .redirect('/projects');
+            data.projects.getNextProjectRef().then((ref) => {
+                    project.ref = ref;
+                    return project;
+                }).then((proj) => {
+                    data.projects.create(proj);
+                    return res
+                        .status(201)
+                        .redirect('/projects');
+                })
+                .catch((er) => {
+                    console.log('error in server.router.js post projects/' + er);
+                    return res
+                        .status(500)
+                        .redirect('/projects');
+                });
         });
 
     app.use('/projects', router);

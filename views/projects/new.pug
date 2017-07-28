@@ -1,0 +1,29 @@
+extends ../shared/_master
+
+append additionlCSS
+    link(rel="stylesheet", href="/static/css/new.css")
+    
+block main
+    .modal-dialog.newproject
+        .modal-content.content
+            .modal-header
+                h3.headerSign.col-md-6.type
+                    | Start a new Project
+            form(action='/projects', method='post').form
+                input#title.form-control(type='text', name='title', placeholder='YOUR PROJECT TITLE')
+                .input-group
+                    label.input-group-btn
+                        span.btn.btn-primary
+                            | Browse… 
+                            input(type='file', style='display: none;', accept='image/*')
+                    input.form-control(type='text', readonly='', placeholder='Upload project image')
+                input#video.form-control(type='text', name='video', placeholder='YOUTUBE VIDEO (URL)')
+                textarea#description.form-control(name="description", placeholder="DESCRIPTION")
+                label.darktext(for='endingdate') Ending Date
+                input#ending.form-control(type='date', name='ending', value='')
+                .modal-footer
+                    button.submitbtn.btn.btn-secondary(type='submit') 
+                        | Submit
+
+block append scripts
+    script(src="/static/js/new.js")

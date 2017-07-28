@@ -1,5 +1,5 @@
 const one = {
-    'id': 1,
+    'ref': 1,
     'name': 'Book: Climbing Injuries Solved',
     'description': 'A Book on Climbing-Focused Injury Prevention and Care.',
     'creator': 'Dr. Lisa Erikson DC',
@@ -7,7 +7,7 @@ const one = {
     'coverImg': '/static/images/climber-sea.jpg',
 };
 const two = {
-    'id': 2,
+    'ref': 2,
     'name': 'OneFam - Preserve Your Family Story',
     'description': 'OneFam is a family social networking application which enables family members to create, share and preserve their family history.',
     'creator': 'Thomas O\'Donoghue',
@@ -15,7 +15,7 @@ const two = {
     'coverImg': '/static/images/family-shadow-sea.jpg',
 };
 const three = {
-    'id': 3,
+    'ref': 3,
     'name': 'Save cute puppies',
     'description': 'Change the fate of some of the friendliest dogs',
     'creator': 'Animal Rescue',
@@ -23,7 +23,7 @@ const three = {
     'coverImg': '/static/images/FacetheSunShadowCseeker.jpg',
 }
 const four = {
-    'id': 4,
+    'ref': 4,
     'name': 'Andie’s Fight for a Cure',
     'description': ' Andie, her friends and family put on this golf tournament to directly fund DBAC & Children’s Health Foundation.',
     'creator': 'Jennifer Morrison',
@@ -31,7 +31,7 @@ const four = {
     'coverImg': '/static/images/children-bubbles.jpg',
 }
 const five = {
-    'id': 5,
+    'ref': 5,
     'name': 'The Movement Sanctuary',
     'description': 'Elevate the fitness level of an entire city by bringing the largest diversity of movement practices and art forms under the same roof',
     'creator': 'The Movement Sanctuary',
@@ -39,7 +39,7 @@ const five = {
     'coverImg': '/static/images/Climbers-shadow.jpg',
 };
 const six = {
-    'id': 6,
+    'ref': 6,
     'name': 'Saving Azi and his Mamma',
     'description': 'Azi and his mom survived a recent poaching incident and their traumatised and heart-broken owner sold them',
     'creator': 'Louise Joubert',
@@ -75,3 +75,12 @@ const viktor = {
 db.users.insert(cuki);
 db.users.insert(doncho);
 db.users.insert(viktor);
+
+
+const projectId = {
+    _id: 'projectid',
+    seq: 6,
+};
+
+db.projectCounter.insert(projectId);
+

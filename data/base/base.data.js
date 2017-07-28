@@ -43,7 +43,7 @@ class BaseData {
         return this.collection.insert(model)
             .then(() => this.ModelClass.toViewModel(model))
             .catch((err) => {
-                console.log('base.data.js create method')
+                console.log('base.data.js create method');
                 console.log(err);
             });
     }
