@@ -12,8 +12,27 @@ body {
     margin-bottom: 10px;
 }
 
+#projects {
+    min-height: 300px;
+}
+
+#projects img {
+    object-fit: cover;
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    display: inline-block;
+}
+
 
 /*home page*/
+
+.carousel img {
+    object-fit: cover;
+    object-position: top;
+    width: 100%;
+    max-height: 300px;
+}
 
 .hideLong {
     display: block;
@@ -62,11 +81,11 @@ body {
     z-index: 1;
     margin: 0 auto;
     margin-top: 50px;
-    border: 16px solid #f3f3f3;
+    border: 8px solid #f3f3f3;
     border-radius: 50%;
-    border-top: 16px solid #2fa4e7;
-    width: 120px;
-    height: 120px;
+    border-top: 8px solid #2fa4e7;
+    width: 60px;
+    height: 60px;
     -webkit-animation: spin 2s linear infinite;
     animation: spin 2s linear infinite;
 }
@@ -83,16 +102,12 @@ body {
 
 /* explore page */
 
-.jumbotron {
+.jumbotron#explore {
     content: "";
     background: linear-gradient(rgba(0, 0, 0, 0.20), rgba(0, 0, 0, 0.20)), url('../images/children-bubbles.jpg');
-    background-repeat: repeat;
-    background-position: center center, center;
+    background-size: cover;
+    background-position: center center, center center;
     color: #FFF;
-}
-
-#projects {
-    min-height: 500px;
 }
 
 .exploreFilter {

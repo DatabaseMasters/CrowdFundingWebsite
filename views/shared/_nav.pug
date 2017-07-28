@@ -21,9 +21,9 @@ mixin nav()
                         a(href='/projects/new') Start a project 
                     li
                         a(href='#') About
-                form.navbar-form.navbar-left
-                    .form-group
-                        input.form-control(type='text', placeholder='Search')
+                form.navbar-form.navbar-left(action="/api/projects/search" method="GET")
+                    div.form-group
+                        input.form-control(type='text', placeholder='Search', name='searchValue')
                     button.btn.btn-default(type='submit') Search
                 ul.nav.navbar-nav.navbar-right
                     if user

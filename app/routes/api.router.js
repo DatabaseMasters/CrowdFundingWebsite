@@ -5,16 +5,36 @@ const attachRoutes = (app, data) => {
 
     router
     // REVIEW: This is a demo method, modify as needed
-        .get('/:id', (req, res) => {
-            const id = parseInt(req.params.id, 10);
-            const project = data.projects.find((i) => i.id === id);
-            if (!project) {
-                return res.status(404)
-                    .send({
-                        error: 'Not found',
-                    });
-            }
-            return res.send(project);
+    // .get('/:id', (req, res) => {
+    //     const id = parseInt(req.params.id, 10);
+    //     const project = data.projects.find((i) => i.id === id);
+    //     if (!project) {
+    //         return res.status(404)
+    //             .send({
+    //                 error: 'Not found',
+    //             });
+    //     }
+    //     return res.send(project);
+    // })
+        .get('/search', (req, res) => {
+            const searchValue = req.query.searchValue;
+            const filter = {
+                $or: [{ 'name': { '$regex': searchValue, '$options': 'i' } },
+                    { 'description': { '$regex': searchValue, '$options': 'i' } },
+                ],
+            };
+            data.projects.getAll(filter)
+                .then((projects) => {
+                    res.render('projects/search', {
+                            model: {
+                                value: searchValue,
+                                projects: projects,
+                            },
+                        },
+                        (err, html) => {
+                            res.send(html);
+                        });
+                });
         })
         .get('/', (req, res) => {
             let { category, page } = req.query;

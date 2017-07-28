@@ -1,0 +1,33 @@
+extends ../shared/_master
+
+append additionlCSS
+    link(rel="stylesheet", href="/static/css/search.css")
+
+block main    
+    .jumbotron#search
+        .container.text-center
+            h1#title Search results
+block subnav
+    div.container.main#results
+        div.row.col-md-12
+            .pull-left
+                h2 Searched value: "#{model.value}"
+            .table-container
+                table.table.table-filter
+                    tbody
+                        each project in model.projects
+                            tr
+                                td
+                                    a.star(href='javascript:;')
+                                        i.glyphicon.glyphicon-star
+                                td
+                                    .media
+                                        a.pull-left(href="/projects/" + project.id)
+                                            img(src= project.coverImg)
+                                        .media-body
+                                            p.media-meta.pull-right Ends on: #{project.date}
+                                            a(href="/projects/" + project.id)
+                                                h4.title #{project.name}
+                                            p #{project.description}
+block append scripts
+    script(src="/static/js/search.js")

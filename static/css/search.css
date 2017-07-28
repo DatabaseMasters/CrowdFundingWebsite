@@ -1,0 +1,91 @@
+/*    --------------------------------------------------
+	:: General
+	-------------------------------------------------- */
+
+.jumbotron#search {
+    content: "";
+    background: linear-gradient(rgba(0, 0, 0, 0.20), rgba(0, 0, 0, 0.20)), url('../images/Flickr_-_schmuela_-_more_sun_and_shadows.jpg');
+    color: #FFF;
+    background-size: cover;
+    /* background-position: center center; */
+    min-height: 80px;
+    margin: 0;
+    padding: 20px;
+}
+
+.jumbotron h1 {
+    font-size: 2em;
+}
+
+.main.container {
+    margin-top: 10px;
+}
+
+img {
+    object-fit: cover;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+}
+
+h2 {
+    font-size: 2em;
+}
+
+
+/*	--------------------------------------------------
+        :: Table Filter
+        -------------------------------------------------- */
+
+.table-filter {
+    background-color: #fff;
+    border-bottom: 1px solid #eee;
+}
+
+.table-filter tbody tr:hover {
+    cursor: pointer;
+    background-color: #eee;
+}
+
+.table-filter tbody tr td {
+    padding: 10px;
+    vertical-align: middle;
+    border-top-color: #eee;
+}
+
+.table-filter tbody tr.selected td {
+    background-color: #eee;
+}
+
+.table-filter .star {
+    color: #ccc;
+    text-align: center;
+    display: block;
+}
+
+.table-filter .star.star-checked {
+    color: #F0AD4E;
+}
+
+.table-filter .star:hover {
+    color: #ccc;
+}
+
+.table-filter .star.star-checked:hover {
+    color: #F0AD4E;
+}
+
+.table-filter .media-meta {
+    font-size: .9em;
+}
+
+.table-filter .media .title {
+    color: #2BBCDE;
+    font-weight: bold;
+    line-height: normal;
+    margin: 0;
+}
+
+.table-filter p {
+    margin: 0;
+}

@@ -2,9 +2,9 @@ div.container-fluid.bg-3
     br
     div.row
         each project in model
-            .col-sm-3
+            div.col-sm-3.text-center
                 a(href="/projects/" + project.id)
-                    img.img-responsive(src=project.coverImg, style='width:100%', alt='Image')
+                    img.img-responsive(src=project.coverImg, alt='Project cover')
                 h4.text-center 
                     a(href="/projects/" + project.id)
                         =project.name 
