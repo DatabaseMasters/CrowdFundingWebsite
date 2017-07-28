@@ -36,7 +36,7 @@ block main
     div.container.marketing.text-center
         div.row
             div.col-sm-6.vertical-center
-                button.btn.btn-primary Start a project
+                a.btn.btn-primary(href="/projects/new") Start a project
             div.col-sm-6
                 a.homeCategories(href="projects#category/medical")
                     span.glyphicon.glyphicon-heart-empty  
@@ -51,7 +51,8 @@ block main
                     span.glyphicon.glyphicon-th-large
                     p Other
     // Featured projects row
-    div.container.text-center
+    div.container.text-center#projects
+        div.loader
         h3 Popular 
         br
         div.row

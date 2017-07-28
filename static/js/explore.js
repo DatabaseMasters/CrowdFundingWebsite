@@ -40,14 +40,14 @@ function load(params) {
 
 // Update title, description and cover image
 function refreshTitle(name) {
-    $('#title').text(name.charAt(0).toUpperCase() + name.slice(1));
-    $('#description').text(descriptions[name]);
-    $('.jumbotron').css({
-        'background': 'linear-gradient(rgba(0, 0, 0, 0.20), rgba(0, 0, 0, 0.20)),url(' + images[name] + ')',
-        'background-repeat': 'repeat',
-        'background-position': 'center center, center',
-        'color': '#FFF'
-    });
+    // $('#title').text(name.charAt(0).toUpperCase() + name.slice(1));
+    // $('#description').text(descriptions[name]);
+    // $('.jumbotron').css({
+    //     'background': 'linear-gradient(rgba(0, 0, 0, 0.20), rgba(0, 0, 0, 0.20)),url(' + images[name] + ')',
+    //     'background-repeat': 'repeat',
+    //     'background-position': 'center center, center',
+    //     'color': '#FFF'
+    // });
 }
 
 function refreshProjects(html) {
@@ -56,8 +56,16 @@ function refreshProjects(html) {
 
 
 clientRouter
+    .on('', function(params) {
+        params.category = '';
+        console.log('EMPTY PARAMS');
+        console.log(params);
+        return load(params);
+    })
     .on('category/:category', function(params) {
-        return load(params)
+        console.log('PARAMS');
+        console.log(params);
+        return load(params);
     });
 
 $(window).on('load', clientRouter.navigate);

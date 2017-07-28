@@ -17,13 +17,7 @@ const attachRoutes = (app, data) => {
         .get('/new', login.ensureLoggedIn('/auth/log-in'), (req, res) => {
             return res.render('projects/new');
         })
-        // TODO: remove this method? the /:id gets the project
-        .get('/project', (req, res) => {
-            console.log('--- IN THE WRONG ROUTE --- ');
-            return res.render('projects/details');
-        })
         .get('/:id', (req, res) => {
-            console.log('--- IN THE RIGHT ROUTE ---');
             const id = parseInt(req.params.id, 10);
             data.projects.getAll({ id: id })
                 .then((projects) => {
