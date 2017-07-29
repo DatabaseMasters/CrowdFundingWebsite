@@ -1,3 +1,4 @@
+/* globals $ */
 $(document).ready(function() {
 
     // TODO: Make checking the star save it to favourites

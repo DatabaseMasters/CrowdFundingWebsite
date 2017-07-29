@@ -1,5 +1,6 @@
 block append additionlCSS
     link(rel="stylesheet", href="/static/css/navbar.css")
+    link(rel="stylesheet", href="/static/css/search.css")
 
 mixin nav()
     nav.navbar.navbar-default.navbar-fixed-top
@@ -21,10 +22,10 @@ mixin nav()
                         a(href='/projects/new') Start a project 
                     li#about-nav
                         a(href='#') About
-                form#search-form.navbar-form.navbar-left
+                div#search-form.navbar-form.navbar-left
                     div.form-group
                         input.form-control(type='text', placeholder='Search', name='searchValue')
-                    button.btn.btn-default(type='submit') Search
+                    button#search-submit.btn.btn-default(type='submit') Search
                 ul.nav.navbar-nav.navbar-right
                     if user
                         li#profile-nav

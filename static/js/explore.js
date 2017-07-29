@@ -65,26 +65,6 @@ function loadCategory(params) {
         });
 }
 
-//TODO find how to pass query string to server or use hash for serach
-
-function loadSerachResults(options) {
-    requester.get('/api/projects/search', options)
-        .then(function(response) {
-            console.log('=== GOT RESPONSE ===');
-            $('#main').html(response);
-        });
-}
-
-$('#search-form').on('submit', function(event) {
-    event.preventDefault();
-    event.stopPropagation();
-    console.log('=== CAUGHT SUBMIT ===');
-    var value = $("input[name='searchValue']").val().trim();
-    console.log(value);
-    var options = { data: { searchValue: value } };
-    loadSerachResults(options);
-})
-
 clientRouter
     .on('', function(params) {
         console.log('EMPTY # PARAMS');

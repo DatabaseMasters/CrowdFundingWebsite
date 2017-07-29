@@ -1,3 +1,4 @@
+/* globals $ requester */
 // Function to make current page nav tab active
 $(document).ready(function() {
 
@@ -17,3 +18,21 @@ $(document).ready(function() {
         $('#profile-nav').toggleClass('active');
     }
 });
+
+// Function to get search results
+
+function loadSerachResults(options) {
+    requester.get('/api/projects/search', options)
+        .then(function(response) {
+            console.log('=== GOT RESPONSE ===');
+            $('#main').html(response);
+        });
+}
+
+$('#search-submit').on('click', function(event) {
+    console.log('=== CAUGHT SUBMIT ===');
+    var value = $("input[name='searchValue']").val().trim();
+    console.log(value);
+    var options = { data: { searchValue: value } };
+    loadSerachResults(options);
+})
