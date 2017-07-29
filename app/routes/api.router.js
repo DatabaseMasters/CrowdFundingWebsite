@@ -44,7 +44,7 @@ const attachRoutes = (app, data) => {
             // TODO add filter/options by newest, popular, most funded
             // REVIEW remove page parsing?
             page = parseInt(page, 10) || 1;
-            const size = 4;
+            const size = 8;
 
             // Checks if request contains a category, assign empty object if not
             category = category ? { category: category } : {};
@@ -81,11 +81,32 @@ const attachRoutes = (app, data) => {
                     console.log('update profile mistake...')
                 });
         })
-        // Pagination
-        // .get('/', (req, res) => {
-        //     let { q, page, size } = req.query;
-        //     page = parseInt(page, 10) || 1;
-        //     size = parseInt(size, 10) || 10;
+        .post('/subscribe', (req, res) => {
+            const email = req.body.email;
+            data.subscribers.findByEmail(email)
+                .then((subscriber) => {
+                    if (subscriber) {
+                        return res
+                            //.status(418)
+                            .send({ message: 'Email already registered' });
+                        // TODO rendering
+                    }
+
+                    const newSubscriber = {
+                        email: email,
+                        name: '',
+                    };
+                    data.subscribers.create(newSubscriber);
+                    return res
+                        //.status(201)
+                        .send({ message: 'Thank you for subscribing' });
+                });
+        });
+    // Pagination
+    // .get('/', (req, res) => {
+    //     let { q, page, size } = req.query;
+    //     page = parseInt(page, 10) || 1;
+    //     size = parseInt(size, 10) || 10;
 
     //     let result = data.projects;
     //     if (q) {
@@ -100,14 +121,14 @@ const attachRoutes = (app, data) => {
     // test with Postaman
 
     // REVIEW: This is a demo method, modify as needed
-    .post('/', (req, res) => {
-        const project = req.body;
-        project.id = data.projects.length + 1;
-        // hash password
-        data.projects.push(project);
-        res.status(201)
-            .send(project);
-    });
+    // .post('/', (req, res) => {
+    //     const project = req.body;
+    //     project.id = data.projects.length + 1;
+    //     // hash password
+    //     data.projects.push(project);
+    //     res.status(201)
+    //         .send(project);
+    // });
 
     app.use('/api', router);
 };

@@ -36,9 +36,7 @@ MongoDB commands:
 Features:
 - Breadcrumbs
 - User profile page
+- Review all comments
+- Review all eslint errors
 
-Fixes:
-- Dropdown on hover doesn't work when on explore page
 
-Tweaks:
-- Rename items to projects

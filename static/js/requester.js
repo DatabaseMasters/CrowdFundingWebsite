@@ -31,8 +31,8 @@ var requester = (function() {
         return request('GET', url, options, false);
     }
 
-    function post(url, options) {
-        return request('POST', url, options, false);
+    function post(url, options, isJson) {
+        return request('POST', url, options, isJson);
     }
 
     function put(url, options, isJson) {
