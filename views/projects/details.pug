@@ -1,7 +1,7 @@
 extends ../shared/_master
 
 append additionlCSS
-    link(rel="stylesheet", href="/static/css/project.css")
+    link(rel="stylesheet", href="/static/css/details.css")
 
 append main
     .main.contianer#project
@@ -20,13 +20,15 @@ append main
                         | Comments
                 section#title.js-scroll-step
                     img(src=model.coverImg, style='width:100%', alt='Image')
-                    h1.blur=model.name
+                    h1.blur=model.title
                 section#video.js-scroll-step
-                        iframe(src='https://www.youtube.com/embed/3BSOfCfCY88', frameborder='0', allowfullscreen='false')
+                        iframe(src=model.video, frameborder='0', allowfullscreen='false')
                 section#story.js-scroll-step
-                    h1.col-md-2.align-top.content
+                    h1.col-md-3.align-top.content
                         | Our Story
-                    p.content.col-md-8=model.description
+                    .story-content.col-md-9
+                        p#motto.content=model.motto
+                        p.content=model.description
                 section#donate.js-scroll-step
                     .container
                         .row
@@ -35,7 +37,7 @@ append main
                         .row
                             .progress
                                 .progress-bar(role='progressbar', aria-valuenow='90', aria-valuemin='0', aria-valuemax='100', style='width: 90%;')
-                                span.progress-type $5,000 /$50,000
+                                span.progress-type $5,000 /$#{model.amount}
                                 span.progress-completed 90%
                         .row
                             .donate-title

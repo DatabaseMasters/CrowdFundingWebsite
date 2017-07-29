@@ -51,6 +51,11 @@
   color: #555;
 }
 
+#motto{
+  font-weight: bold;
+  font-size: 0.8em !important;
+}
+
 .content
 {
   padding: 1%;
@@ -92,7 +97,6 @@
   font-size: 0.5em;
   color: white;
   text-align: justify;
-  width: 60%;
   margin-right: 20%;
 }
 
