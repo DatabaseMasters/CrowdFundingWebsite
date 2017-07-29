@@ -55,17 +55,14 @@ const attachRoutes = (app, data) => {
                 });
         })
         .get('/profile', login.ensureLoggedIn('/auth/log-in'), (req, res) => {
-            data.projects.getAll()
-                .then((result) => {
-                    const favourites = data.projects.getAll({ '_id': 10 });
-                    return { myProject: result, favs: favourites };
-                })
-                .then((obj) => {
-                    obj.favs.then((favor) => {
-                        res.render('users/profile', {
-                            myProjects: obj.myProject,
-                            favouriteProjects: favor,
-                        });
+            const username = req.user.username.trim();
+            const favs = data.users.getFavouriteProjects(username);
+            const myPrjcts = data.projects.getAll({ 'username': username });
+            Promise.all([myPrjcts, favs])
+                .then((values) => {
+                    res.render('users/profile', {
+                        myProjects: values[0],
+                        favouriteProjects: values[1],
                     });
                 });
         });

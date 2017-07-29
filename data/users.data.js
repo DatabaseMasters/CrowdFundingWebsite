@@ -59,19 +59,35 @@ class UsersData extends BaseData {
             .catch();
     }
 
-    addProjectToFavourites(username, project) {
-        this.collection.findOne(username).insert(project);
+    // Finds user by username and updates it's projects. Projects must be an array!
+    addProjectsToFavourites(username, projects) {
+        this.collection.update(
+            { 'username': username },
+            {
+                $push: {
+                    'favourites': {
+                        $each: projects,
+                    },
+                },
+            }
+        );
     }
 
     updateProfile(username, options) {
         return this.collection.findOneAndUpdate(
             { 'username': username.trim() },
             {
-                $set: {
-                    'firstName': options.firstName.trim(),
-                    'lastName': options.lastName.trim(),
-                    'email': options.email.trim(),
-                },
+                $set: options,
+            }
+        );
+    }
+
+    getFavouriteProjects(username) {
+        return this.collection.find(
+            { 'username': username },
+            {
+                'favourites': 1,
+                '_id': 0,
             }
         );
     }
