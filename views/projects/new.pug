@@ -10,20 +10,36 @@ block main
                 h3.headerSign.col-md-6.type
                     | Start a new Project
             form(action='/projects',  enctype='multipart/form-data' method='post').form
-                input#title.form-control(type='text', name='title', placeholder='YOUR PROJECT TITLE', required='required')
-                .input-group
-                    label.input-group-btn
-                        span.btn.btn-primary
-                            | Browse… 
-                            input(type='file', name='img', style='display: none;', accept='image/*', required='required')
-                    input.form-control(type='text', readonly='', placeholder='No file chosen', required='required')
-                input#video.form-control(type='text', name='video', placeholder='YOUTUBE VIDEO (URL)', required='required')
-                textarea#motto.form-control(name='motto', placeholder='MOTTO', required='required')
-                textarea#description.form-control(name='description', placeholder='DESCRIPTION', required='required')
-                label.darktext(for='amount') Looking to Raise ($1,000 - $1,000,0000):
-                input#ending.form-control(type='number', min='1000', max='1000000', step='1', placeholder='1000', required='required')
-                label.darktext(for='endingdate') Ending Date:
-                input#ending.form-control(type='date', name='ending', value='', required='required')
+                if  model
+                    input#title.form-control(type='text', name='title', placeholder='YOUR PROJECT TITLE', required='required', value=model.title)
+                    .input-group
+                        label.input-group-btn
+                            span.btn.btn-primary
+                                | Browse… 
+                                input(type='file', name='img', style='display: none;', accept='image/*', required='required', value=model.file)
+                        input.form-control(type='text', readonly='', placeholder='No file chosen', required='required')
+                    input#video.form-control(type='text', name='video', placeholder='YOUTUBE VIDEO (URL)', maxlength="100", required='required', value=model.video)
+                    textarea#motto.form-control(name='motto', placeholder='MOTTO', required='required', maxlength="170")=model.motto
+                    textarea#description.form-control(name='description', placeholder='DESCRIPTION', required='required', maxlength="1000")=model.description
+                    label.darktext(for='amount') Looking to Raise ($1,000 - $1,000,0000):
+                    input#amount.form-control(type='number', name='amount' min='1000', max='1000000', step='1', placeholder='1000', required='required', value=model.amount)
+                    label.darktext(for='endingdate') Ending Date:
+                    input#ending.form-control(type='date', name='ending', required='required', value=model.ending)
+                else
+                    input#title.form-control(type='text', name='title', placeholder='YOUR PROJECT TITLE', required='required', value='')
+                    .input-group
+                        label.input-group-btn
+                            span.btn.btn-primary
+                                | Browse… 
+                                input(type='file', name='img', style='display: none;', accept='image/*', required='required')
+                        input.form-control(type='text', readonly='', placeholder='No file chosen', required='required')
+                    input#video.form-control(type='text', name='video', placeholder='YOUTUBE VIDEO (URL)', maxlength="100", required='required')
+                    textarea#motto.form-control(name='motto', placeholder='MOTTO', required='required', maxlength="170")
+                    textarea#description.form-control(name='description', placeholder='DESCRIPTION', required='required', maxlength="1000")
+                    label.darktext(for='amount') Looking to Raise ($1,000 - $1,000,0000):
+                    input#amount.form-control(type='number', name='amount', min='1000', max='1000000', step='1', placeholder='1000', required='required')
+                    label.darktext(for='endingdate') Ending Date:
+                    input#ending.form-control(type='date', name='ending', required='required')
                 .modal-footer
                     button.submitbtn.btn.btn-secondary(type='submit') 
                         | Submit

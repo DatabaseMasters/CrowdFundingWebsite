@@ -1,4 +1,5 @@
 const { Router } = require('express');
+const login = require('connect-ensure-login');
 
 const attachRoutes = (app, data) => {
     const router = new Router();
@@ -66,21 +67,28 @@ const attachRoutes = (app, data) => {
                     console.log('--- ERROR in api.router.js getAll --- ' + err);
                 });
         })
-        .put('/users/profile/:username', (req, res) => {
-            const username = req.params.username;
-            console.log(new Date().toLocaleTimeString());
+        .put('/users/profile/:username',
+            login.ensureLoggedIn('/auth/log-in'),
+            (req, res) => {
+                const username = req.params.username;
+                console.log(new Date().toLocaleTimeString());
 
-            data.users.updateProfile(username, req.body)
-                .then((result) => {
-                    if (!result.value) {
-                        req.flash('Failure..')
-                        return res.send('No such user!');
-                    }
-                })
-                .catch(() => {
-                    console.log('update profile mistake...')
-                });
-        })
+                data.users.updateProfile(username, req.body)
+                    .then((result) => {
+                        if (!result.value) {
+                            req.flash('error', 'Failed to update profile..');
+                        } else {
+                            req.flash('info', 'Succesfuly updated!');
+                        }
+                        res.locals.messages = req.flash();
+                        return res.render('flash_message_template');
+                    })
+                    .catch(() => {
+                        req.flash('error', 'Something happened');
+                        res.locals.messages = req.flash();
+                        return res.render('flash_message_template');
+                    });
+            })
         .post('/subscribe', (req, res) => {
             const email = req.body.email;
             data.subscribers.findByEmail(email)

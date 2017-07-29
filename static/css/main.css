@@ -20,6 +20,12 @@ body {
     display: inline-block;
 }
 
+#projects.container {
+    border: 1px solid #2fa4e7;
+    margin-bottom: 10px;
+    border-radius: 15px;
+}
+
 .marketing .row {
     margin-top: 10px;
 }

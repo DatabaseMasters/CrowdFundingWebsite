@@ -38,8 +38,9 @@ class BaseData {
     // model comes from req.body
     create(model) {
         // data layer validation
-        if (!this._isModelValid(model)) {
-            return Promise.reject('Invalid model');
+        const validity = this._isModelValid(model);
+        if (!validity.bool) {
+            return Promise.reject(validity.reason);
         }
         // insert
         return this.collection.insert(model)

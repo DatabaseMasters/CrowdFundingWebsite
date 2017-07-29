@@ -1,6 +1,7 @@
 div.container-fluid.bg-3
     br
     div.row
+    if model.length > 0
         each project in model
             div#project-box.col-sm-3.text-center
                 a(href="/projects/" + project.ref)
@@ -10,14 +11,16 @@ div.container-fluid.bg-3
                         =project.title 
                 div.hideLong 
                     =project.description
+    else 
+        h3.text-center No projects yet..
 
     //- TODO Pagination not completed
-    .row
-        nav
-            ul.pager
-                li
-                    a(href='#/' + model[0].category + '/1') Previous 
-                li
-                    a(href='#/'+ model[0].category +'/2') Next
+    //- .row
+    //-     nav
+    //-         ul.pager
+    //-             li
+    //-                 a(href='#/' + model[0].category + '/1') Previous 
+    //-             li
+    //-                 a(href='#/'+ model[0].category +'/2') Next
 
 br

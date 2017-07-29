@@ -10,31 +10,14 @@ const attachRoutes = (app, data) => {
         .get('/log-in', (req, res) => {
             return res.render('auth/log-in');
         })
-        // .post('/log-in',
-        // passport.authenticate('local', {
-        //     successReturnToOrRedirect: '/',
-        //     failureRedirect: '/auth/log-in',
-        //     failureFlash: true,
-        //     successFlash: 'Welcome!',
-        // })
-        // )
-        .post('/log-in', (req, res, next) => {
-            passport.authenticate('local', (err, user, info) => {
-                if (err) {
-                    return next(err);
-                }
-                if (!user) {
-                    return res.redirect('/auth/log-in');
-                }
-                req.logIn(user, (error) => {
-                    if (err) {
-                        return next(error);
-                    }
-                    res.cookie('username', user.username);
-                    return res.redirect('/');
-                });
-            })(req, res, next);
+        .post('/log-in',
+        passport.authenticate('local', {
+            successReturnToOrRedirect: '/',
+            failureRedirect: '/auth/log-in',
+            failureFlash: true,
+            successFlash: 'Welcome!',
         })
+        )
         .get('/log-out', (req, res) => {
             req.logout();
             res.redirect('/');
@@ -70,18 +53,23 @@ const attachRoutes = (app, data) => {
                         res.redirect('/');
                     });
                 });
-
         })
         .get('/profile', login.ensureLoggedIn('/auth/log-in'), (req, res) => {
-            res.render('users/profile');
-        })
-        .post('/update-profile', login.ensureLoggedIn('/auth/log-in'), (req, res) => {
-            // data.users.findByUsername(bodyUser.username, (err, user) => {
-            //     if(user){
-
-            //     }
-            // });
+            data.projects.getAll()
+                .then((result) => {
+                    const favourites = data.projects.getAll({ '_id': 10 });
+                    return { myProject: result, favs: favourites };
+                })
+                .then((obj) => {
+                    obj.favs.then((favor) => {
+                        res.render('users/profile', {
+                            myProjects: obj.myProject,
+                            favouriteProjects: favor,
+                        });
+                    });
+                });
         });
+
 
     app.use('/auth', router);
 };
