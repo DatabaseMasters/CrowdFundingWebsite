@@ -8,12 +8,13 @@ block subnav
             .pull-left
                 h2 Searched value: #{model.value}
             .table-container
+                #msg-holder
                 table.table.table-filter
                     tbody
                         each project in model.projects
                             tr
                                 td
-                                    a.star(href='javascript:;')
+                                    btn.star.btn.btn-default
                                         i.glyphicon.glyphicon-star
                                 td
                                     .media

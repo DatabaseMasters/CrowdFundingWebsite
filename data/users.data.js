@@ -61,7 +61,7 @@ class UsersData extends BaseData {
 
     // Finds user by username and updates it's projects. Projects must be an array!
     addProjectsToFavourites(username, projects) {
-        this.collection.update(
+        return this.collection.update(
             { 'username': username },
             {
                 $push: {
@@ -89,7 +89,7 @@ class UsersData extends BaseData {
                 'favourites': 1,
                 '_id': 0,
             }
-        );
+        ).toArray();
     }
 
     _isModelValid(model) {
