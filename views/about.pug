@@ -1,0 +1,63 @@
+extends shared/_master
+
+append additionlCSS
+    link(rel="stylesheet", href="/static/css/about.css")
+
+block main
+    section.container
+        #content
+            .section.about
+                .container
+                    .row
+                        .col-md-12
+                            h1.text-center CrowdFunding was developed by these nice people
+                    .row
+                        .col-md-12
+                            p.description
+                                | CrowdFunding is an app brining people together in support of causes
+                                | ranging from helping families through tough times to protecting endangered spicies.
+                                | ...
+
+                    .row.members
+                        .col-md-4.text-center
+                            img.img-quadrata.center-block(src='../imgs/team/Peter.jpg')
+                            h3 Peter Georgiev
+                            ul.social
+                                li
+                                    a(href='https://www.facebook.com/')
+                                        i.fa.fa-facebook    
+                                li
+                                    a(href='https://www.linkedin.com')
+                                        i.fa.fa-linkedin    
+                                li
+                                    a(href='https://github.com/peter-85')
+                                        i.fa.fa-github    
+                        .col-md-4.text-center
+                            img.center-block.img-quadrata(src='../imgs/team/Milena.jpg')
+                            h3 Milena Sapunova
+                            ul.social
+                                li
+                                    a(href='https://www.facebook.com/')
+                                        i.fa.fa-facebook    
+                                li
+                                    a(href='https://www.linkedin.com')
+                                        i.fa.fa-linkedin    
+                                li
+                                    a(href='https://github.com/pokemon4e')
+                                        i.fa.fa-github    
+                        .col-md-4.text-center
+                            img.center-block.img-quadrata(src='../imgs/team/Emiliyan.jpg')
+                            h3 Emiliyan Panagyurski
+                            ul.social
+                                li
+                                    a(href='https://www.facebook.com/')
+                                        i.fa.fa-facebook    
+                                li
+                                    a(href='https://www.linkedin.com')
+                                        i.fa.fa-linkedin    
+                                li
+                                    a(href='https://github.com/EmiliyanPanagyurski')
+                                        i.fa.fa-github    
+                    .row.text-center
+                        p.disclaimer
+                            | *StockWatch was created as part of a JavaScirpt Application course at Telerik Academy, Spring 2017.
