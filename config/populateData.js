@@ -1,5 +1,3 @@
-/* globals db */
-
 // Create projects
 const one = {
     'ref': 1,
@@ -127,22 +125,8 @@ const three = {
     'username': 'peter.pan',
     'amount': '1000000',
     'category': 'animals',
-    <<
-    << << < HEAD 'coverImg': '/static/images/FacetheSunShadowCseeker.jpg',
+    'coverImg': '/static/images/FacetheSunShadowCseeker.jpg',
     'date': '4.7.2011',
-};
-const four = {
-    'ref': 4,
-    'name': 'Andie’s Fight for a Cure',
-    'description': ' Andie, her friends and family put on this golf tournament to directly fund DBAC & Children’s Health Foundation.',
-    'creator': 'Jennifer Morrison',
-    'category': 'medical',
-    'coverImg': '/static/images/children-bubbles.jpg',
-    'date': '14.3.2017',
-    ===
-    === =
-    'coverImg': '/static/uploads/peter.pan/j0y05dsklsd5gim4bai9',
-    'ending': '2017-08-01',
 };
 const four = {
     'ref': 4,
@@ -166,8 +150,6 @@ We need you to be our ripple effect.`,
     'category': 'community',
     'coverImg': '/static/uploads/pedro.pan/tmrlyu86gf9gww5okurz',
     'ending': '2017-11-20',
-    >>>
-    >>> > 7 d1a8702ce41beb150718def55d6697a6c8ded1d
 };
 const five = {
     'ref': 5,
