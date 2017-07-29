@@ -55,9 +55,21 @@ const attachRoutes = (app, data) => {
                 });
         })
         .get('/profile', login.ensureLoggedIn('/auth/log-in'), (req, res) => {
-            res.render('users/profile');
+            data.projects.getAll()
+                .then((result) => {
+                    const favourites = data.projects.getAll({ '_id': 10 });
+                    return { myProject: result, favs: favourites };
+                })
+                .then((obj) => {
+                    obj.favs.then((favor) => {
+                        res.render('users/profile', {
+                            myProjects: obj.myProject,
+                            favouriteProjects: favor,
+                        });
+                    });
+                });
         });
-        
+
 
     app.use('/auth', router);
 };
