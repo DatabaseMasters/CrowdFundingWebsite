@@ -20,9 +20,9 @@ block subnav
                                         a.pull-left(href="/projects/" + project.ref)
                                             img(src= project.coverImg)
                                         .media-body
-                                            p.media-meta.pull-right Ends on: #{project.date}
+                                            p.media-meta.pull-right Ends on: #{project.ending}
                                             a(href="/projects/" + project.ref)
-                                                h4.title #{project.name}
-                                            p #{project.description}
+                                                h4.title #{project.title}
+                                            p #{project.motto}
 block append scripts
     script(src="/static/js/search.js")

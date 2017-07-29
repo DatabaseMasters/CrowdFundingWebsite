@@ -4,7 +4,7 @@ var descriptions = {
     'explore projects': 'Find projects which you can help now',
     'medical': 'Donate to alleviate suffering and restore lives of adults and children',
     'animals': 'Save cute pets or endangered species from suffering',
-    'culture': 'Support art, social and cultural events or individuals',
+    'community': 'Support art, social and cultural events or individuals',
     'other': 'Everything else you can be a hero for'
 }
 
@@ -12,7 +12,7 @@ var images = {
     'explore projects': '../static/images/children-bubbles.jpg',
     'medical': '../static/images/climber-sea.jpg',
     'animals': '../static/images/Climbers-shadow.jpg',
-    'culture': '../static/images/FacetheSunShadowCseeker.jpg',
+    'community': '../static/images/FacetheSunShadowCseeker.jpg',
     'other': '../static/images/family-shadow-sea.jpg'
 }
 
