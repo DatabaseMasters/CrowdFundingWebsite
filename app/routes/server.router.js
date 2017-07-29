@@ -15,7 +15,7 @@ const attachRoutes = (app, data) => {
         //     return res.render('projects/form');
         // })
         .get('/new', login.ensureLoggedIn('/auth/log-in'), (req, res) => {
-            return res.render('projects/new');
+            return res.render('projects/new', { model: null });
         })
         .get('/:id', (req, res) => {
             const id = parseInt(req.params.id, 10);
@@ -38,7 +38,11 @@ const attachRoutes = (app, data) => {
             const project = req.body;
             const file = req.file;
 
-            project.user = req.user.username;
+            if (!file) {
+                return res.render('projects/new', { model: project });
+            }
+
+            project.username = req.user.username;
             project.coverImg = '/' + file.path;
 
             data.projects.getNextProjectRef()
@@ -47,12 +51,12 @@ const attachRoutes = (app, data) => {
                     return project;
                 })
                 .then((proj) => data.projects.create(proj))
-                .then((proj) => res.status(201).redirect('/projects/' + proj.ref))
+                .then((proj) => {
+                    return res.status(201).redirect('/projects/' + proj.ref);
+                })
                 .catch((er) => {
-                    console.log('--- Error in server.router.js post projects/ ---' + er);
-                    return res
-                        .status(500)
-                        .redirect('/projects#category/');
+                    req.flash('error', er);
+                    return res.render('projects/new', { model: project });
                 });
         });
 

@@ -2,11 +2,13 @@
 class User {
     static isValid(model) {
         // data layer validation
-        return typeof model !== 'undefined' &&
+        return {
+            bool: typeof model !== 'undefined' &&
             typeof model.password === 'string' &&
             model.password.length >= 5 &&
             typeof model.username === 'string' &&
-            model.username.length >= 5;
+            model.username.length >= 5, reason: 'Reason',
+        };
     }
 
     get id() {
