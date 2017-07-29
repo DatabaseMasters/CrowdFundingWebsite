@@ -1,9 +1,9 @@
-$('#updateButton').on('click', () => {
+$('#updateButton').on('click', function () {
     updateProfile();
 });
 
 function updateProfile() {
-    const username = getCookie('username');
+    const username = $('#profile-name').text();
     const requestUrl = '/api/users/profile/' + username;
     const firstName = $("input[name='firstName']").val().trim();
     const lastName = $("input[name='lastName']").val().trim();
@@ -15,11 +15,15 @@ function updateProfile() {
             'lastName': lastName,
             'email': email,
         },
-    }, true);
+    }, true)
+        .then(function (sth) {
+            $('.msg-holder').replaceWith(sth);
+            $('#myModal').modal();
+        });
 }
 
 function getCookie(name) {
-  var value = "; " + document.cookie;
-  var parts = value.split("; " + name + "=");
-  if (parts.length == 2) return parts.pop().split(";").shift();
+    var value = "; " + document.cookie;
+    var parts = value.split("; " + name + "=");
+    if (parts.length == 2) return parts.pop().split(";").shift();
 }

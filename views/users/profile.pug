@@ -13,6 +13,7 @@ block main
             // edit form column
             .col-md-8.col-sm-6.col-xs-12.personal-info
                 h3 Personal info
+                .msg-holder
                 #form-holder
                     .form.form-horizontal
                         .form-group
@@ -48,5 +49,6 @@ block main
                         span
                         button.submitbtn.btn.btn-default(value='Cancel', type='reset')
                             | Cancel
+
 block append scripts
     script(src="/static/js/profile.js")

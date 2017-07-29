@@ -1,4 +1,11 @@
-.messages
-  each val in Object.keys(messages)
-      each message in messages[val]
-        h3.text-center= message
+#myModal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='myModalLabel', aria-hidden='true')
+    .modal-dialog
+        .modal-content
+            .modal-header.modal-header-success
+                button.close(type='button', data-dismiss='modal', aria-hidden='true') ×
+                .messages
+                    each val in Object.keys(messages)
+                        each message in messages[val]
+                            h3.text-center= message
+            .modal-footer.center-block
+                button.btn.btn-default.center-block(type='button', data-dismiss='modal') Close

@@ -53,18 +53,11 @@ const attachRoutes = (app, data) => {
                         res.redirect('/');
                     });
                 });
-
         })
         .get('/profile', login.ensureLoggedIn('/auth/log-in'), (req, res) => {
             res.render('users/profile');
-        })
-        .post('/update-profile', login.ensureLoggedIn('/auth/log-in'), (req, res) => {
-            // data.users.findByUsername(bodyUser.username, (err, user) => {
-            //     if(user){
-
-            //     }
-            // });
         });
+        
 
     app.use('/auth', router);
 };

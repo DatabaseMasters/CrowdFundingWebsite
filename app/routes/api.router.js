@@ -1,26 +1,27 @@
 const { Router } = require('express');
+const login = require('connect-ensure-login');
 
 const attachRoutes = (app, data) => {
     const router = new Router();
 
     router
-    // REVIEW: This is a demo method, modify as needed
-    // .get('/:id', (req, res) => {
-    //     const id = parseInt(req.params.id, 10);
-    //     const project = data.projects.find((i) => i.id === id);
-    //     if (!project) {
-    //         return res.status(404)
-    //             .send({
-    //                 error: 'Not found',
-    //             });
-    //     }
-    //     return res.send(project);
-    // })
+        // REVIEW: This is a demo method, modify as needed
+        // .get('/:id', (req, res) => {
+        //     const id = parseInt(req.params.id, 10);
+        //     const project = data.projects.find((i) => i.id === id);
+        //     if (!project) {
+        //         return res.status(404)
+        //             .send({
+        //                 error: 'Not found',
+        //             });
+        //     }
+        //     return res.send(project);
+        // })
         .get('/projects/search', (req, res) => {
             let searchValue = req.query.searchValue;
             const filter = {
                 $or: [{ 'name': { '$regex': searchValue, '$options': 'i' } },
-                    { 'description': { '$regex': searchValue, '$options': 'i' } },
+                { 'description': { '$regex': searchValue, '$options': 'i' } },
                 ],
             };
             data.projects.getAll(filter)
@@ -29,11 +30,11 @@ const attachRoutes = (app, data) => {
                         searchValue = `No results found for "${searchValue}"`;
                     }
                     res.render('projects/search', {
-                            model: {
-                                value: `${searchValue}`,
-                                projects: projects,
-                            },
+                        model: {
+                            value: `${searchValue}`,
+                            projects: projects,
                         },
+                    },
                         (err, html) => {
                             res.send(html);
                         });
@@ -66,19 +67,26 @@ const attachRoutes = (app, data) => {
                     console.log('--- ERROR in api.router.js getAll --- ' + err);
                 });
         })
-        .put('/users/profile/:username', (req, res) => {
+        .put('/users/profile/:username',
+        login.ensureLoggedIn('/auth/log-in'),
+        (req, res) => {
             const username = req.params.username;
             console.log(new Date().toLocaleTimeString());
 
             data.users.updateProfile(username, req.body)
                 .then((result) => {
                     if (!result.value) {
-                        req.flash('Failure..')
-                        return res.send('No such user!');
+                        req.flash('error', 'Failed to update profile..');
+                    } else {
+                        req.flash('info', 'Succesfuly updated!');
                     }
+                    res.locals.messages = req.flash();
+                    return res.render('flash_message_template');
                 })
                 .catch(() => {
-                    console.log('update profile mistake...')
+                    req.flash('error', 'Something happened');
+                    res.locals.messages = req.flash();
+                    return res.render('flash_message_template');
                 });
         })
         // Pagination
@@ -87,27 +95,27 @@ const attachRoutes = (app, data) => {
         //     page = parseInt(page, 10) || 1;
         //     size = parseInt(size, 10) || 10;
 
-    //     let result = data.projects;
-    //     if (q) {
-    //         q = q.toLowerCase();
-    //         result = data.projects.filter((project) => {
-    //             return project.name.toLocaleLowerCase().includes(q);
-    //         });
-    //     }
-    //     result = result.slice((page - 1) * size, page * size);
-    //     res.send(result);
-    // })
-    // test with Postaman
+        //     let result = data.projects;
+        //     if (q) {
+        //         q = q.toLowerCase();
+        //         result = data.projects.filter((project) => {
+        //             return project.name.toLocaleLowerCase().includes(q);
+        //         });
+        //     }
+        //     result = result.slice((page - 1) * size, page * size);
+        //     res.send(result);
+        // })
+        // test with Postaman
 
-    // REVIEW: This is a demo method, modify as needed
-    .post('/', (req, res) => {
-        const project = req.body;
-        project.id = data.projects.length + 1;
-        // hash password
-        data.projects.push(project);
-        res.status(201)
-            .send(project);
-    });
+        // REVIEW: This is a demo method, modify as needed
+        .post('/', (req, res) => {
+            const project = req.body;
+            project.id = data.projects.length + 1;
+            // hash password
+            data.projects.push(project);
+            res.status(201)
+                .send(project);
+        });
 
     app.use('/api', router);
 };
