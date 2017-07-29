@@ -11,18 +11,23 @@ const bcrypt = require('bcryptjs');
 
 const configAuth = (app, { users }) => {
     passport.use(new Strategy((username, password, done) => {
+        let currentUser;
         users.findByUsername(username)
             .then((user) => {
                 if (!user) {
-                    return done(null, false, { message: 'No such user!' });
+                    done(null, false, { message: 'No such user!' });
+                    return Promise.reject('No such user!');
                 }
-                return { compareResult: bcrypt.compare(password, user.password), user: user };
+
+                currentUser = user;
+                return bcrypt.compare(password, user.password);
             })
-            .then((obj) => {
-                if (obj.compareResult) {
-                    return done(null, obj.user);
+            .then((matchingPassword) => {
+                if (!matchingPassword) {
+                    return done(null, false, { message: 'Wrong password!' });
                 }
-                return done(null, false, { message: 'Wrong password!' });
+
+                return done(null, currentUser);
             })
             .catch((err) => {
                 return done(err, false, { message: 'Something went wrong.' });
