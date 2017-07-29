@@ -24,7 +24,7 @@ const attachRoutes = (app, data) => {
                     return next(err);
                 }
                 if (!user) {
-                    return res.redirect('/auth/login');
+                    return res.redirect('/auth/log-in');
                 }
                 req.logIn(user, (error) => {
                     if (err) {

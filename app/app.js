@@ -2,8 +2,8 @@ const express = require('express');
 const app = express();
 
 const init = (data) => {
-    require('../config/app.config').configApp(app);
     require('../config/auth.config').configAuth(app, data);
+    require('../config/app.config').configApp(app);
     require('./routes')(app, data);
 
     app.use((req, res, next) => {
