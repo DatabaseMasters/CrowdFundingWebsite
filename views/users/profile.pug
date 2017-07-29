@@ -1,4 +1,5 @@
 extends ../shared/_master
+include ../projects/projects
 
 block main
     .container
@@ -17,6 +18,10 @@ block main
                 #form-holder
                     .form.form-horizontal
                         .form-group
+                            label.col-md-3.control-label Username:
+                            .col-md-8
+                                label#currentUser.control-label=user.username
+                        .form-group
                             label.col-lg-3.control-label First name:
                             .col-lg-8
                                 input.form-control(type='text', name="firstName",placeholder='First Name' value=user.firstName)
@@ -28,27 +33,19 @@ block main
                             label.col-lg-3.control-label Email:
                             .col-lg-8
                                 input.form-control(type='text', name="email", placeholder='E-mail' value=user.email)
-                        .form-group
-                            label.col-md-3.control-label Username:
-                            .col-md-8
-                                label#currentUser.control-label=user.username
-                        .form-group
-                            label.col-md-3.control-label New password:
-                            .col-md-8
-                                input.form-control(type='password', name="password1", placeholder='Password')
-                        .form-group
-                            label.col-md-3.control-label Confirm new password:
-                            .col-md-8
-                                input.form-control(type='password', name="password2", placeholder='Password')
+
                 div
                     .form-group
                         label.col-md-3.control-label
                         .col-md-8
                         button#updateButton.submitbtn.btn.btn-primary(type='submit')
-                            | Submit
-                        span
-                        button.submitbtn.btn.btn-default(value='Cancel', type='reset')
-                            | Cancel
+                            | Update
+            h2.text-center My projects
+            #projects.container
+                +prj(myProjects)
+            h2.text-center Favourites
+            #projects.container
+                +prj(favouriteProjects)
 
 block append scripts
     script(src="/static/js/profile.js")

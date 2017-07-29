@@ -1,23 +1,27 @@
-div.container-fluid.bg-3
-    br
-    div.row
-        each project in model
-            div.col-sm-3.text-center
-                a(href="/projects/" + project.id)
-                    img.img-responsive(src=project.coverImg, alt='Project cover')
-                h4.text-center 
+mixin prj(model)
+    div.container-fluid.bg-3
+        br
+        div.row
+        if model.length > 0
+            each project in model
+                div.col-sm-3.text-center
                     a(href="/projects/" + project.id)
-                        =project.name 
-                div.hideLong 
-                    =project.description
+                        img.img-responsive(src=project.coverImg, alt='Project cover')
+                    h4.text-center 
+                        a(href="/projects/" + project.id)
+                            =project.name 
+                    div.hideLong 
+                        =project.description
+        else 
+            h3.text-center No projects yet..
 
-    //- TODO Pagination not completed
-    .row
-        nav
-            ul.pager
-                li
-                    a(href='#/' + model[0].category + '/1') Previous 
-                li
-                    a(href='#/'+ model[0].category +'/2') Next
+        //- TODO Pagination not completed
+        //- .row
+        //-     nav
+        //-         ul.pager
+        //-             li
+        //-                 a(href='#/' + model[0].category + '/1') Previous 
+        //-             li
+        //-                 a(href='#/'+ model[0].category +'/2') Next
 
-br
+    br
