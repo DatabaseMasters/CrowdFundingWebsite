@@ -30,7 +30,7 @@ mixin nav()
                     if user
                         li#profile-nav
                             //- a(href="/users/profile/"+user.username)=user.username
-                            a(href="/auth/profile/")=user.username
+                            a#profile-name(href="/auth/profile/")=user.username
                         li
                             a(href="/auth/log-out") Log-out
                     else

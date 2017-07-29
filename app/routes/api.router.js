@@ -30,10 +30,9 @@ const attachRoutes = (app, data) => {
                         searchValue = `No results found for "${searchValue}"`;
                     }
                     res.render('projects/search', {
-                            model: {
-                                value: `${searchValue}`,
-                                projects: projects,
-                            },
+                        model: {
+                            value: `${searchValue}`,
+                            projects: projects,
                         },
                     },
                         (err, html) => {
@@ -77,12 +76,17 @@ const attachRoutes = (app, data) => {
             data.users.updateProfile(username, req.body)
                 .then((result) => {
                     if (!result.value) {
-                        req.flash('error', 'Failure..');
-                        return res.send('No such user!');
+                        req.flash('error', 'Failed to update profile..');
+                    } else {
+                        req.flash('info', 'Succesfuly updated!');
                     }
+                    res.locals.messages = req.flash();
+                    return res.render('flash_message_template');
                 })
                 .catch(() => {
-                    console.log('update profile mistake...')
+                    req.flash('error', 'Something happened');
+                    res.locals.messages = req.flash();
+                    return res.render('flash_message_template');
                 });
         })
         // Pagination
