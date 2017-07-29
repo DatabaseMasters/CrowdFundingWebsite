@@ -2,8 +2,10 @@
 const bodyParser = require('body-parser');
 const express = require('express');
 const morgan = require('morgan');
-const path = require('path');
 const flash = require('connect-flash');
+const multer = require('multer');
+const path = require('path');
+const fs = require('fs');
 
 const configApp = (app) => {
     // defines the view engine
@@ -38,6 +40,35 @@ const configApp = (app) => {
 
         done();
     });
+
+    app.use(multer({
+        storage: multer.diskStorage({
+            destination: (req, file, callback) => {
+                const dest = 'static/uploads/' + req.user.username;
+
+                if (!fs.existsSync(dest)) {
+                    fs.mkdirSync(dest);
+                }
+                callback(null, dest);
+            },
+        }),
+        fileFilter: (req, file, cb) => {
+            const filetypes = /jpeg|jpg|png/;
+            const extension = new RegExp(/\./ + filetypes + /$/);
+
+            const mimetype = filetypes.test(file.mimetype);
+            const extname = extension
+                .test(path.extname(file.originalname).toLowerCase());
+
+            if (mimetype && extname) {
+                return cb(null, true);
+            }
+            return cb(
+                'Error: File upload only supports the following filetypes - '
+                + filetypes);
+        },
+        limits: { fileSize: 2000000 },
+    }).single('img'));
 
     // serves public files
     app.use('/static',

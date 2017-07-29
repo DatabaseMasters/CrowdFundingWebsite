@@ -1,8 +1,5 @@
 const { Router } = require('express');
 const login = require('connect-ensure-login');
-const multer = require('multer');
-const folder = 'static/uploads/';
-const upload = multer({ dest: folder });
 
 const attachRoutes = (app, data) => {
     const router = new Router();
@@ -37,12 +34,13 @@ const attachRoutes = (app, data) => {
                     req.flash('--- Error in server.router.js ---', err);
                 });
         })
-        .post('/', upload.single('img'), (req, res) => {
+        .post('/', (req, res) => {
             const project = req.body;
             const file = req.file;
+
             project.user = req.user.username;
-            project.coverImg = data.projects
-                .moveCoverPicture(folder, file.filename, project.user, );
+            project.coverImg = '/' + file.path;
+
             data.projects.getNextProjectRef()
                 .then((ref) => {
                     project.ref = ref;
