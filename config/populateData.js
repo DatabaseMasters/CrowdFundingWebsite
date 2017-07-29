@@ -125,7 +125,7 @@ const three = {
     'username': 'peter.pan',
     'amount': '1000000',
     'category': 'animals',
-    'coverImg': '/static/images/FacetheSunShadowCseeker.jpg',
+    'coverImg': '/static/uploads/peter.pan/j0y05dsklsd5gim4bai9',
     'date': '4.7.2011',
 };
 const four = {
