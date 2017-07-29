@@ -15,19 +15,19 @@ mixin nav()
             // Collect the nav links, forms, and other content for toggling
             div#bs-example-navbar-collapse-1.collapse.navbar-collapse
                 ul.nav.navbar-nav
-                    li.dropdown
+                    li#explore-nav
                         a(href='/projects') Explore
-                    li.active
+                    li#new-nav
                         a(href='/projects/new') Start a project 
-                    li
+                    li#about-nav
                         a(href='#') About
-                form.navbar-form.navbar-left(action="/api/projects/search" method="GET")
+                form#search-form.navbar-form.navbar-left
                     div.form-group
                         input.form-control(type='text', placeholder='Search', name='searchValue')
                     button.btn.btn-default(type='submit') Search
                 ul.nav.navbar-nav.navbar-right
                     if user
-                        li
+                        li#profile-nav
                             //- a(href="/users/profile/"+user.username)=user.username
                             a(href="/auth/profile/")=user.username
                         li

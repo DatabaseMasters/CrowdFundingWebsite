@@ -1,4 +1,4 @@
-extends ../shared/_master
+//- extends ../shared/_master
 
 append additionlCSS
     link(rel="stylesheet", href="/static/css/search.css")
@@ -11,7 +11,7 @@ block subnav
     div.container.main#results
         div.row.col-md-12
             .pull-left
-                h2 Searched value: "#{model.value}"
+                h2 Searched value: #{model.value}
             .table-container
                 table.table.table-filter
                     tbody
@@ -22,11 +22,11 @@ block subnav
                                         i.glyphicon.glyphicon-star
                                 td
                                     .media
-                                        a.pull-left(href="/projects/" + project.id)
+                                        a.pull-left(href="/projects/" + project.ref)
                                             img(src= project.coverImg)
                                         .media-body
                                             p.media-meta.pull-right Ends on: #{project.date}
-                                            a(href="/projects/" + project.id)
+                                            a(href="/projects/" + project.ref)
                                                 h4.title #{project.name}
                                             p #{project.description}
 block append scripts

@@ -28,16 +28,16 @@ const configApp = (app) => {
 
     // Middleware sample: calculates execution time of requests
     // REVIEW: do we need this
-    app.use((req, res, done) => {
-        const start = new Date();
+    // app.use((req, res, done) => {
+    //     const start = new Date();
 
-        req.on('end', () => {
-            const end = new Date();
-            console.log(`---- Execution time ${end - start} ms ---- `);
-        });
+    //     req.on('end', () => {
+    //         const end = new Date();
+    //         console.log(`---- Execution time ${end - start} ms ---- `);
+    //     });
 
-        done();
-    });
+    //     done();
+    // });
 
     // serves public files
     app.use('/static',

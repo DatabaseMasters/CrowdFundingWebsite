@@ -17,7 +17,7 @@ const attachRoutes = (app, data) => {
     //     return res.send(project);
     // })
         .get('/projects/search', (req, res) => {
-            const searchValue = req.query.searchValue;
+            let searchValue = req.query.searchValue;
             const filter = {
                 $or: [{ 'name': { '$regex': searchValue, '$options': 'i' } },
                     { 'description': { '$regex': searchValue, '$options': 'i' } },
@@ -25,9 +25,12 @@ const attachRoutes = (app, data) => {
             };
             data.projects.getAll(filter)
                 .then((projects) => {
+                    if (projects.length < 1) {
+                        searchValue = `No results found for "${searchValue}"`;
+                    }
                     res.render('projects/search', {
                             model: {
-                                value: searchValue,
+                                value: `${searchValue}`,
                                 projects: projects,
                             },
                         },

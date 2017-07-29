@@ -7,26 +7,8 @@
 
 @media (min-width: 1200px) {
     #projects {
-        min-height: 410px;
+        min-height: 400px;
     }
-}
-
-.hideLong {
-    display: block;
-    /* Fallback for non-webkit */
-    display: -webkit-box;
-    max-width: 400px;
-    /*font-size * line-height * lines to show  */
-    height: 60px;
-    /* Fallback for non-webkit */
-    margin: 0 auto;
-    font-size: 16px;
-    line-height: 1.2;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    text-align: justify;
 }
 
 .homeCategories {

@@ -28,6 +28,10 @@ body {
     font-size: 2em;
 }
 
+#loader-row {
+    min-height: 400px;
+}
+
 .loader {
     z-index: 1;
     margin: 0 auto;
@@ -48,4 +52,22 @@ body {
     100% {
         transform: rotate(360deg);
     }
+}
+
+.hideLong {
+    display: block;
+    /* Fallback for non-webkit */
+    display: -webkit-box;
+    max-width: 400px;
+    /*font-size * line-height * lines to show  */
+    height: 60px;
+    /* Fallback for non-webkit */
+    margin: 0 auto;
+    font-size: 16px;
+    line-height: 1.2;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-align: justify;
 }
