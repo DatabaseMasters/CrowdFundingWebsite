@@ -1,0 +1,30 @@
+.jumbotron#explore {
+    content: "";
+    background: linear-gradient(rgba(0, 0, 0, 0.20), rgba(0, 0, 0, 0.20)), url('../images/children-bubbles.jpg');
+    background-size: cover;
+    background-position: center center, center center;
+    color: #FFF;
+}
+
+@media (min-width: 1000px) {
+    #projects {
+        min-height: 460px;
+    }
+}
+
+.exploreFilter {
+    display: inline-block;
+    font-size: 1.5em;
+    text-transform: uppercase;
+    padding: 5px;
+    height: 100px;
+}
+
+.exploreFilter p {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.exploreFilter.active p {
+    border-bottom: 2px solid #2fa4e7;
+}

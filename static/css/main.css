@@ -12,10 +12,6 @@ body {
     margin-bottom: 10px;
 }
 
-#projects {
-    min-height: 300px;
-}
-
 #projects img {
     object-fit: cover;
     width: 150px;
@@ -24,57 +20,12 @@ body {
     display: inline-block;
 }
 
-
-/*home page*/
-
-.carousel img {
-    object-fit: cover;
-    object-position: top;
-    width: 100%;
-    max-height: 300px;
-}
-
-.hideLong {
-    display: block;
-    /* Fallback for non-webkit */
-    display: -webkit-box;
-    max-width: 400px;
-    /*font-size * line-height * lines to show  */
-    height: 60px;
-    /* Fallback for non-webkit */
-    margin: 0 auto;
-    font-size: 16px;
-    line-height: 1.2;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    text-align: justify;
-}
-
 .marketing .row {
     margin-top: 10px;
 }
 
 .marketing .btn {
     font-size: 2em;
-}
-
-.homeCategories {
-    display: inline-block;
-    width: 120px;
-    height: 100px;
-    font-size: 1.5em;
-    vertical-align: middle;
-    padding: 5px;
-}
-
-.homeCategories .glyphicon {
-    font-size: 2em;
-}
-
-.homeCategories>* {
-    margin-top: 5px;
 }
 
 .loader {
@@ -97,32 +48,4 @@ body {
     100% {
         transform: rotate(360deg);
     }
-}
-
-
-/* explore page */
-
-.jumbotron#explore {
-    content: "";
-    background: linear-gradient(rgba(0, 0, 0, 0.20), rgba(0, 0, 0, 0.20)), url('../images/children-bubbles.jpg');
-    background-size: cover;
-    background-position: center center, center center;
-    color: #FFF;
-}
-
-.exploreFilter {
-    display: inline-block;
-    font-size: 1.5em;
-    text-transform: uppercase;
-    padding: 5px;
-    height: 100px;
-}
-
-.exploreFilter p {
-    display: inline-block;
-    vertical-align: middle;
-}
-
-.exploreFilter.active p {
-    border-bottom: 2px solid #2fa4e7;
 }
