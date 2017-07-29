@@ -11,41 +11,22 @@ const bcrypt = require('bcryptjs');
 
 const configAuth = (app, { users }) => {
     passport.use(new Strategy((username, password, done) => {
-        let currentUser;
         users.findByUsername(username)
             .then((user) => {
                 if (!user) {
-                    done(null, false, { message: 'No such user!' });
-                    return Promise.reject('No such user!');
+                    return done(null, false, { message: 'No such user!' });
                 }
-
-                currentUser = user;
-                return bcrypt.compare(password, user.password);
-            })
-            .then((matchingPassword) => {
-                if (!matchingPassword) {
-                    return done(null, false, { message: 'Wrong password!' });
-                }
-
-                return done(null, currentUser);
-            })
-            .catch((err) => {
-                return done(err, false, { message: 'Something went wrong.' });
+                return bcrypt.compare(password, user.password)
+                    .then((obj) => {
+                        if (obj) {
+                            return done(null, user);
+                        }
+                        return done(null, false, { message: 'Wrong password!' });
+                    })
+                    .catch((err) => {
+                        return done(err, false, { message: 'Something went wrong.' });
+                    });
             });
-        // .then((user) => {
-        //     if (!user) {
-        //         return done('Invalid user', false, { message: 'Incorrect password.' });
-        //     }
-
-        //     if (hashPass(user.password) !== hashPass(password)) {
-        //         return done(new Error('Invalid password'), false, { message: 'Incorrect password.' });
-        //     }
-
-        //     return done(null, user);
-        // })
-        // .catch((err) => {
-        //     return done(err, false, { message: 'Incorrect password.' });
-        // });
     }));
 
     app.use(cookieParser());
