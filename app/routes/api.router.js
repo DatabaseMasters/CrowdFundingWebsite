@@ -89,17 +89,22 @@ const attachRoutes = (app, data) => {
                         return res
                             //.status(418)
                             .send({ message: 'Email already registered' });
-                        // TODO rendering
                     }
 
                     const newSubscriber = {
                         email: email,
                         name: '',
                     };
-                    data.subscribers.create(newSubscriber);
-                    return res
-                        //.status(201)
-                        .send({ message: 'Thank you for subscribing' });
+                    data.subscribers
+                        .create(newSubscriber)
+                        .then(() => {
+                            return res
+                                //.status(201)
+                                .send({ message: 'Thank you for subscribing' });
+                        })
+                        .catch((err) => {
+                            return res.send({ message: 'Invalid email format' });
+                        });
                 });
         });
     // Pagination
