@@ -1,7 +1,7 @@
 const one = {
     'ref': 1,
     'title': 'Create a flourishing forest in desert Andalusia',
-    'video': 'https://youtu.be/A8jkGByl3AQ',
+    'video': 'https://www.youtube.com/embed/A8jkGByl3AQ',
     'motto': 'Act now to help us create a flourishing food forest in desertified Andalusia.',
     'description':
     `THE ISSUE 
@@ -53,7 +53,7 @@ Regenerating our land will demonstrate that it’s not only possible to stop des
 const two = {
     'ref': 2,
     'title': 'Save the Christians of Iraq from genocide!',
-    'video': 'https://youtu.be/fcC0GCdpmHg',
+    'video': 'https://www.youtube.com/embed/fcC0GCdpmHg',
     'motto': 'We are helping Christians in Iraq',
     'description':
     `The Rebel News Network Ltd. is going to the refugee camps in Northern Iraq to see the Christian refugees, ancient Christians, called Chaldean Christians, who still pray in Aramaic, the language of Jesus himself.
@@ -116,7 +116,7 @@ Toronto, ON M6E 5B2
 const three = {
     'ref': 3,
     'title': 'Save the Taiz Zoo animals in Yemen NOW!',
-    'video': 'https://youtu.be/8UmrZAWsADo',
+    'video': 'https://www.youtube.com/embed/8UmrZAWsADo',
     'motto': 'Taiz zoo was abandoned',
     'description':
     `Due to the worsening war in Yemen, Taiz zoo was abandoned and the 265 remaining animals, such as lions (17 plus two cubs!), leopards (26 plus two cubs) and others were starving. 11 lions and 6 leopards had already died. SOS has stepped in on February 12 to turn the situation around. We have succeeded, but each day is a new challenge.
@@ -133,7 +133,7 @@ const three = {
 const four = {
     'ref': 4,
     'title': 'ECUADOR Earthquake Emergency Relief',
-    'video': 'https://youtu.be/_-a_NwoyifE',
+    'video': 'https://www.youtube.com/embed/_-a_NwoyifE',
     'motto': '7.8-magnitude earthquake hit the coast of Ecuador',
     'description':
     `
@@ -157,7 +157,7 @@ We need you to be our ripple effect.`,
 const five = {
     'ref': 5,
     'title': 'George Mark Childrens House Fund-a-Bed Campaign',
-    'video': 'https://youtu.be/mvLxLxBTKSY',
+    'video': 'https://www.youtube.com/embed/mvLxLxBTKSY',
     'motto': 'Please help George Mark Children’s House Fund-a-Bed!',
     'description':
     `Our mission at George Mark Children’s House (www.georgemark.org) is to help critically ill children and their families by providing medical and hospice care in our life-affirming and nurturing environment.  Our services are free of charge to our families, but because we receive little or no reimbursement for our services from the insurance industry and government we rely almost exclusively on donations to support our operations.  Unfortunately, we occasionally have to turn away patients who are severely underinsured or have no insurance.  We’ve started a Fund-a-Bed Campaign to raise $288,000 to underwrite the cost of two of our eight patient beds allowing us to accept any patient regardless of his/her insurance status.  Please consider making a donation today to help make this possible!
@@ -172,7 +172,7 @@ const five = {
 const six = {
     'ref': 6,
     'title': 'Saving Azi and his Mamma',
-    'video': 'https://youtu.be/k6qn5jvqP3E',
+    'video': 'https://www.youtube.com/embed/k6qn5jvqP3E',
     'motto': 'What happened to Azi and his mom is not unique',
     'description':
     `Rhinos continued to be slaughtered at an alarming rate in South Africa and some desperate rhino owners cannot get rid of the survivors fast enough.  Traumatised and disheartened, still reeling with shock caused by the brutality of these poaching incidents rhino owners will in most instances accept the first available offer to buy their remaining rhinos.
