@@ -66,11 +66,13 @@ class UsersData extends BaseData {
     updateProfile(username, options) {
         return this.collection.findOneAndUpdate(
             { 'username': username.trim() },
-            { $set: {
-                'firstName': options.firstName.trim(),
-                'lastName': options.lastName.trim(),
-                'email': options.email.trim(),
-            } }
+            {
+                $set: {
+                    'firstName': options.firstName.trim(),
+                    'lastName': options.lastName.trim(),
+                    'email': options.email.trim(),
+                },
+            }
         );
     }
 

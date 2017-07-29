@@ -31,7 +31,7 @@ const attachRoutes = (app, data) => {
                 })
                 .catch((err) => {
                     // Check if this flash works!
-                    req.flash('--- Error in server.router.js ---', err);
+                    req.flash('error', err);
                 });
         })
         .post('/', (req, res) => {
