@@ -65,7 +65,7 @@ const configApp = (app) => {
             }
             return cb(
                 'Error: File upload only supports the following filetypes - '
-                + filetypes);
+                + filetypes, false);
         },
         limits: { fileSize: 2000000 },
     }).single('img'));
