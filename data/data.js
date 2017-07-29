@@ -1,10 +1,12 @@
 const UsersData = require('./users.data');
 const ProjectsData = require('./projects.data');
+const SubscribersData = require('./subscribers.data');
 
 const init = (db) => {
     return Promise.resolve({
         users: new UsersData(db),
         projects: new ProjectsData(db),
+        subscribers: new SubscribersData(db),
         // other 
     });
 };

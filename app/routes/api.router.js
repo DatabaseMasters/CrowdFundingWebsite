@@ -5,23 +5,23 @@ const attachRoutes = (app, data) => {
     const router = new Router();
 
     router
-        // REVIEW: This is a demo method, modify as needed
-        // .get('/:id', (req, res) => {
-        //     const id = parseInt(req.params.id, 10);
-        //     const project = data.projects.find((i) => i.id === id);
-        //     if (!project) {
-        //         return res.status(404)
-        //             .send({
-        //                 error: 'Not found',
-        //             });
-        //     }
-        //     return res.send(project);
-        // })
+    // REVIEW: This is a demo method, modify as needed
+    // .get('/:id', (req, res) => {
+    //     const id = parseInt(req.params.id, 10);
+    //     const project = data.projects.find((i) => i.id === id);
+    //     if (!project) {
+    //         return res.status(404)
+    //             .send({
+    //                 error: 'Not found',
+    //             });
+    //     }
+    //     return res.send(project);
+    // })
         .get('/projects/search', (req, res) => {
             let searchValue = req.query.searchValue;
             const filter = {
                 $or: [{ 'name': { '$regex': searchValue, '$options': 'i' } },
-                { 'description': { '$regex': searchValue, '$options': 'i' } },
+                    { 'description': { '$regex': searchValue, '$options': 'i' } },
                 ],
             };
             data.projects.getAll(filter)
@@ -30,11 +30,11 @@ const attachRoutes = (app, data) => {
                         searchValue = `No results found for "${searchValue}"`;
                     }
                     res.render('projects/search', {
-                        model: {
-                            value: `${searchValue}`,
-                            projects: projects,
+                            model: {
+                                value: `${searchValue}`,
+                                projects: projects,
+                            },
                         },
-                    },
                         (err, html) => {
                             res.send(html);
                         });
@@ -45,7 +45,7 @@ const attachRoutes = (app, data) => {
             // TODO add filter/options by newest, popular, most funded
             // REVIEW remove page parsing?
             page = parseInt(page, 10) || 1;
-            const size = 4;
+            const size = 8;
 
             // Checks if request contains a category, assign empty object if not
             category = category ? { category: category } : {};
@@ -68,54 +68,80 @@ const attachRoutes = (app, data) => {
                 });
         })
         .put('/users/profile/:username',
-        login.ensureLoggedIn('/auth/log-in'),
-        (req, res) => {
-            const username = req.params.username;
-            console.log(new Date().toLocaleTimeString());
+            login.ensureLoggedIn('/auth/log-in'),
+            (req, res) => {
+                const username = req.params.username;
+                console.log(new Date().toLocaleTimeString());
 
-            data.users.updateProfile(username, req.body)
-                .then((result) => {
-                    if (!result.value) {
-                        req.flash('error', 'Failed to update profile..');
-                    } else {
-                        req.flash('info', 'Succesfuly updated!');
+                data.users.updateProfile(username, req.body)
+                    .then((result) => {
+                        if (!result.value) {
+                            req.flash('error', 'Failed to update profile..');
+                        } else {
+                            req.flash('info', 'Succesfuly updated!');
+                        }
+                        res.locals.messages = req.flash();
+                        return res.render('flash_message_template');
+                    })
+                    .catch(() => {
+                        req.flash('error', 'Something happened');
+                        res.locals.messages = req.flash();
+                        return res.render('flash_message_template');
+                    });
+            })
+        .post('/subscribe', (req, res) => {
+            const email = req.body.email;
+            data.subscribers.findByEmail(email)
+                .then((subscriber) => {
+                    if (subscriber) {
+                        return res
+                            //.status(418)
+                            .send({ message: 'Email already registered' });
                     }
-                    res.locals.messages = req.flash();
-                    return res.render('flash_message_template');
-                })
-                .catch(() => {
-                    req.flash('error', 'Something happened');
-                    res.locals.messages = req.flash();
-                    return res.render('flash_message_template');
+
+                    const newSubscriber = {
+                        email: email,
+                        name: '',
+                    };
+                    data.subscribers
+                        .create(newSubscriber)
+                        .then(() => {
+                            return res
+                                //.status(201)
+                                .send({ message: 'Thank you for subscribing' });
+                        })
+                        .catch((err) => {
+                            return res.send({ message: 'Invalid email format' });
+                        });
                 });
-        })
-        // Pagination
-        // .get('/', (req, res) => {
-        //     let { q, page, size } = req.query;
-        //     page = parseInt(page, 10) || 1;
-        //     size = parseInt(size, 10) || 10;
-
-        //     let result = data.projects;
-        //     if (q) {
-        //         q = q.toLowerCase();
-        //         result = data.projects.filter((project) => {
-        //             return project.name.toLocaleLowerCase().includes(q);
-        //         });
-        //     }
-        //     result = result.slice((page - 1) * size, page * size);
-        //     res.send(result);
-        // })
-        // test with Postaman
-
-        // REVIEW: This is a demo method, modify as needed
-        .post('/', (req, res) => {
-            const project = req.body;
-            project.id = data.projects.length + 1;
-            // hash password
-            data.projects.push(project);
-            res.status(201)
-                .send(project);
         });
+    // Pagination
+    // .get('/', (req, res) => {
+    //     let { q, page, size } = req.query;
+    //     page = parseInt(page, 10) || 1;
+    //     size = parseInt(size, 10) || 10;
+
+    //     let result = data.projects;
+    //     if (q) {
+    //         q = q.toLowerCase();
+    //         result = data.projects.filter((project) => {
+    //             return project.name.toLocaleLowerCase().includes(q);
+    //         });
+    //     }
+    //     result = result.slice((page - 1) * size, page * size);
+    //     res.send(result);
+    // })
+    // test with Postaman
+
+    // REVIEW: This is a demo method, modify as needed
+    // .post('/', (req, res) => {
+    //     const project = req.body;
+    //     project.id = data.projects.length + 1;
+    //     // hash password
+    //     data.projects.push(project);
+    //     res.status(201)
+    //         .send(project);
+    // });
 
     app.use('/api', router);
 };

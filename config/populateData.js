@@ -1,10 +1,12 @@
+/* globals db */
+
+// Create projects
 const one = {
     'ref': 1,
     'title': 'Create a flourishing forest in desert Andalusia',
     'video': 'https://www.youtube.com/embed/A8jkGByl3AQ',
     'motto': 'Act now to help us create a flourishing food forest in desertified Andalusia.',
-    'description':
-    `THE ISSUE 
+    'description': `THE ISSUE 
 With over one third of the world’s land threatened by desertification, something needs to change now. This devastating process is caused by intense agricultural farming, overgrazing, deforestation and soil erosion.It turns land that was once fertile and productive into dry and desolate areas. Desertification is quickly becoming more apparent in multiple landscapes across the world.Where plant and animal life was once flourishing, they are now struggling to survive.
  
 Southern Spain is at high risk of becoming a desert if these harmful agricultural practices continue. Over 30% of Spain’s landmass is already affected by desertification, particularly here in Andalusia, in the south of Spain. The land has become less and less fertile and with such an ingrained farming culture, it is only getting worse. Higher temperatures each year and more frequent droughts are reducing water availability, crop productivity and soil capacity.
@@ -55,8 +57,7 @@ const two = {
     'title': 'Save the Christians of Iraq from genocide!',
     'video': 'https://www.youtube.com/embed/fcC0GCdpmHg',
     'motto': 'We are helping Christians in Iraq',
-    'description':
-    `The Rebel News Network Ltd. is going to the refugee camps in Northern Iraq to see the Christian refugees, ancient Christians, called Chaldean Christians, who still pray in Aramaic, the language of Jesus himself.
+    'description': `The Rebel News Network Ltd. is going to the refugee camps in Northern Iraq to see the Christian refugees, ancient Christians, called Chaldean Christians, who still pray in Aramaic, the language of Jesus himself.
 
 They’re fleeing ISIS — Muslim terrorists who kill Christian men and rape Christian women and girls as young as nine years old.
 
@@ -118,8 +119,7 @@ const three = {
     'title': 'Save the Taiz Zoo animals in Yemen NOW!',
     'video': 'https://www.youtube.com/embed/8UmrZAWsADo',
     'motto': 'Taiz zoo was abandoned',
-    'description':
-    `Due to the worsening war in Yemen, Taiz zoo was abandoned and the 265 remaining animals, such as lions (17 plus two cubs!), leopards (26 plus two cubs) and others were starving. 11 lions and 6 leopards had already died. SOS has stepped in on February 12 to turn the situation around. We have succeeded, but each day is a new challenge.
+    'description': `Due to the worsening war in Yemen, Taiz zoo was abandoned and the 265 remaining animals, such as lions (17 plus two cubs!), leopards (26 plus two cubs) and others were starving. 11 lions and 6 leopards had already died. SOS has stepped in on February 12 to turn the situation around. We have succeeded, but each day is a new challenge.
     
     These starving animals need your help. We need per day: meat at least 280 kg USD 350, 5.000 L cleaning water transport plus purchase of drinking water, plus veterinarians and medical care, payment of six zoo workers including a butcher, and an SOS zoo coordinator and field supervisor who is at the zoo six days/week. So minimum USD 3300/week plus special needs. Including costs for the herbivore and bird food (which the Yemen government stopped paying in September), the total is over usd 4.000/week. Since September, most of that has been covered by A Lion's Heart, whilst SOS continued to cover usd 3300/week. 
  
@@ -127,6 +127,20 @@ const three = {
     'username': 'peter.pan',
     'amount': '1000000',
     'category': 'animals',
+    <<
+    << << < HEAD 'coverImg': '/static/images/FacetheSunShadowCseeker.jpg',
+    'date': '4.7.2011',
+};
+const four = {
+    'ref': 4,
+    'name': 'Andie’s Fight for a Cure',
+    'description': ' Andie, her friends and family put on this golf tournament to directly fund DBAC & Children’s Health Foundation.',
+    'creator': 'Jennifer Morrison',
+    'category': 'medical',
+    'coverImg': '/static/images/children-bubbles.jpg',
+    'date': '14.3.2017',
+    ===
+    === =
     'coverImg': '/static/uploads/peter.pan/j0y05dsklsd5gim4bai9',
     'ending': '2017-08-01',
 };
@@ -135,8 +149,7 @@ const four = {
     'title': 'ECUADOR Earthquake Emergency Relief',
     'video': 'https://www.youtube.com/embed/_-a_NwoyifE',
     'motto': '7.8-magnitude earthquake hit the coast of Ecuador',
-    'description':
-    `
+    'description': `
 On Saturday, April 16th at 6:58pm, a 7.8-magnitude earthquake hit the coast of Ecuador and has since generated over 700 aftershocks between the cities of Pedernales and Cojimies (north of the coastal province of Manabí). With 655 deaths, some 4,600 injured, and 41 still missing over a week after the quake—not to mention 29,000 people displaced and billions in damage—the reconstruction efforts in Ecuador will take many months, if not years, and the sustainability of reconstruction means capitalizing on immediate support while aiming to sustain international attention.
  
 The Global Shapers Quito Hub, a group of young people chosen for their ability to generate change, launched a crowd funding campaign on April 17th to gather support from the national and international community. Our initial goal was to raise $8,000, but with overwhelmingly strong and generous support from a global community, we surpassed $100K within days. We are committed to investing ourselves fully to this campaign with the intention to fundraise for a full month. 
@@ -153,14 +166,15 @@ We need you to be our ripple effect.`,
     'category': 'community',
     'coverImg': '/static/uploads/pedro.pan/tmrlyu86gf9gww5okurz',
     'ending': '2017-11-20',
+    >>>
+    >>> > 7 d1a8702ce41beb150718def55d6697a6c8ded1d
 };
 const five = {
     'ref': 5,
     'title': 'George Mark Childrens House Fund-a-Bed Campaign',
     'video': 'https://www.youtube.com/embed/mvLxLxBTKSY',
     'motto': 'Please help George Mark Children’s House Fund-a-Bed!',
-    'description':
-    `Our mission at George Mark Children’s House (www.georgemark.org) is to help critically ill children and their families by providing medical and hospice care in our life-affirming and nurturing environment.  Our services are free of charge to our families, but because we receive little or no reimbursement for our services from the insurance industry and government we rely almost exclusively on donations to support our operations.  Unfortunately, we occasionally have to turn away patients who are severely underinsured or have no insurance.  We’ve started a Fund-a-Bed Campaign to raise $288,000 to underwrite the cost of two of our eight patient beds allowing us to accept any patient regardless of his/her insurance status.  Please consider making a donation today to help make this possible!
+    'description': `Our mission at George Mark Children’s House (www.georgemark.org) is to help critically ill children and their families by providing medical and hospice care in our life-affirming and nurturing environment.  Our services are free of charge to our families, but because we receive little or no reimbursement for our services from the insurance industry and government we rely almost exclusively on donations to support our operations.  Unfortunately, we occasionally have to turn away patients who are severely underinsured or have no insurance.  We’ve started a Fund-a-Bed Campaign to raise $288,000 to underwrite the cost of two of our eight patient beds allowing us to accept any patient regardless of his/her insurance status.  Please consider making a donation today to help make this possible!
     
     To quote Kathy, the mother of Charlie, one of our patients:  “With the help of George Mark our whole family is able to live the best quality of life possible.  George Mark changed the quality of life for our family; it changed Charlie’s life, and the quality of our marriage.  Now, Charlie knows there are people in his life other than his family that he can depend on.”`,
     'username': 'mary.smith',
@@ -174,8 +188,7 @@ const six = {
     'title': 'Saving Azi and his Mamma',
     'video': 'https://www.youtube.com/embed/k6qn5jvqP3E',
     'motto': 'What happened to Azi and his mom is not unique',
-    'description':
-    `Rhinos continued to be slaughtered at an alarming rate in South Africa and some desperate rhino owners cannot get rid of the survivors fast enough.  Traumatised and disheartened, still reeling with shock caused by the brutality of these poaching incidents rhino owners will in most instances accept the first available offer to buy their remaining rhinos.
+    'description': `Rhinos continued to be slaughtered at an alarming rate in South Africa and some desperate rhino owners cannot get rid of the survivors fast enough.  Traumatised and disheartened, still reeling with shock caused by the brutality of these poaching incidents rhino owners will in most instances accept the first available offer to buy their remaining rhinos.
  
 There is a new-breed rhino buyer and they see themselves as Rhino-Speculators although they are in effect animal traders.
  
@@ -216,3 +229,18 @@ const projectId = {
 };
 
 db.projectCounter.insert(projectId);
+
+// Create subscribers
+
+const mail1 = {
+    'email': 'steven@abv.bg',
+    'name': 'Steven',
+};
+
+const mail2 = {
+    'email': 'misho@abv.bg',
+    'name': 'Misho',
+};
+
+db.subscribers.insert(mail1);
+db.subscribers.insert(mail2);

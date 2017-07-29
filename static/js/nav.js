@@ -1,6 +1,7 @@
 /* globals $ requester */
 // Function to make current page nav tab active
 $(document).ready(function() {
+    // $('[data-toggle="popover"]').popover('show');
 
     var path = window.location.pathname;
     $('#explore-nav').removeClass('active');
@@ -30,9 +31,32 @@ function loadSerachResults(options) {
 }
 
 $('#search-submit').on('click', function(event) {
-    console.log('=== CAUGHT SUBMIT ===');
     var value = $("input[name='searchValue']").val().trim();
-    console.log(value);
     var options = { data: { searchValue: value } };
     loadSerachResults(options);
+})
+
+// Funciton to subscribe to newsletter
+
+function subscribe(options) {
+    requester.post('/api/subscribe', options, true)
+        .then(function(response) {
+            console.log('=== GOT RESPONSE ===');
+            console.log(response);
+            console.log(response.message.includes('Thank you'));
+
+            // Show popover here with content
+            var $inputField = $('#subscribe-email')
+            $('#subscribe-email').attr('data-content', response.message).popover('show');
+
+            setTimeout(function() {
+                $('#subscribe-email').popover('hide');
+            }, 2000);
+        });
+}
+
+$('#subscribe-submit').on('click', function(event) {
+    var value = $("input[name='email']").val().trim();
+    var options = { data: { email: value } };
+    subscribe(options);
 })

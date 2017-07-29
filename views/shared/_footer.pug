@@ -18,14 +18,12 @@ mixin footer()
                             | Contact Us 
             .footer-right
                 .newsletter-box
-                    form#subscribe-form(action='#/newsletter', method='post')
+                    div#subscribe-form
                         p.subscribe-text
-                            i.fa.fa-paper-plane(aria-hidden='true')
+                            i.fa.fa-paper-plane
                             |  Subscribe to our weekly newsletter:
-                        input#newsletter_signup_email(type='email', required='required', name='newsletter_signup[email]', placeholder='Your email address')
-                        button.btn.btn-default(type='submit')
-                            | Subscribe 
-                
+                        input#subscribe-email(type='email', required='required', name='email', placeholder='Your email address', data-toggle='popover', data-content='Resultddddd', data-placement='top', data-trigger="manual" )
+                        button#subscribe-submit.btn.btn-default(type='submit') Subscribe 
                 .social-container
                     ul.social
                         li
