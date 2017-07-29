@@ -72,7 +72,7 @@ class Project {
     }
 
     static _isURLValid(url) {
-        const youtubeID = url.substring(url.lastIndexOf('=') + 1, url.length);
+        const youtubeID = url.substring(url.lastIndexOf('/') + 1, url.length);
         const options = {
             method: 'HEAD',
             host: 'img.youtube.com',

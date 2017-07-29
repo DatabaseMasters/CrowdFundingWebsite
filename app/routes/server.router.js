@@ -42,7 +42,7 @@ const attachRoutes = (app, data) => {
                 return res.render('projects/new', { model: project });
             }
 
-            project.user = req.user.username;
+            project.username = req.user.username;
             project.coverImg = '/' + file.path;
 
             data.projects.getNextProjectRef()
