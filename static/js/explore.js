@@ -69,8 +69,19 @@ clientRouter
     .on('', function(params) {
         console.log('EMPTY # PARAMS');
         console.log(params);
+        // console.log(window.location.search);
+        // if (window.location.search) {
+        //     console.log('=== CAUGHT SEARCH ===  ');
+        //     console.log(params);
+        //     loadSerachResults(window.location.search)
+        // } else {
         loadMain(params);
+        //}
     })
+    // .on('/search', function(params) {
+    //     console.log('=== CAUGHT SEARCH HASH ===');
+    //     console.log(params);
+    // })
     .on('/:category', function(params) {
         console.log('HAS # CATEGORY');
         console.log(params);

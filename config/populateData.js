@@ -5,6 +5,7 @@ const one = {
     'creator': 'Dr. Lisa Erikson DC',
     'category': 'animals',
     'coverImg': '/static/images/climber-sea.jpg',
+    'date': '3.2.2016',
 };
 const two = {
     'ref': 2,
@@ -13,6 +14,7 @@ const two = {
     'creator': 'Thomas O\'Donoghue',
     'category': 'culture',
     'coverImg': '/static/images/family-shadow-sea.jpg',
+    'date': '8.8.2013',
 };
 const three = {
     'ref': 3,
@@ -21,6 +23,7 @@ const three = {
     'creator': 'Animal Rescue',
     'category': 'animals',
     'coverImg': '/static/images/FacetheSunShadowCseeker.jpg',
+    'date': '4.7.2011',
 }
 const four = {
     'ref': 4,
@@ -29,6 +32,7 @@ const four = {
     'creator': 'Jennifer Morrison',
     'category': 'medical',
     'coverImg': '/static/images/children-bubbles.jpg',
+    'date': '14.3.2017',
 }
 const five = {
     'ref': 5,
@@ -37,6 +41,7 @@ const five = {
     'creator': 'The Movement Sanctuary',
     'category': 'medical',
     'coverImg': '/static/images/Climbers-shadow.jpg',
+    'date': '21.9.2012',
 };
 const six = {
     'ref': 6,
@@ -45,6 +50,7 @@ const six = {
     'creator': 'Louise Joubert',
     'category': 'medical',
     'coverImg': '/static/images/Flickr_-_schmuela_-_more_sun_and_shadows.jpg',
+    'date': '1.1.2015',
 }
 
 db.projects.insert(one);
@@ -55,19 +61,16 @@ db.projects.insert(five);
 db.projects.insert(six);
 
 const cuki = {
-    'id': 1,
     'username': 'Cuki',
     'password': 'MRAZQ_WIND0W$!',
 };
 
 const doncho = {
-    'id': 2,
     'username': 'Doncho',
     'password': 'node1234',
 };
 
 const viktor = {
-    'id': 3,
     'username': 'Viktor',
     'password': 'node1234',
 };
@@ -83,4 +86,3 @@ const projectId = {
 };
 
 db.projectCounter.insert(projectId);
-

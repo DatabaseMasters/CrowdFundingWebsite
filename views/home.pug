@@ -1,5 +1,8 @@
 extends shared/_master
 
+append additionlCSS
+    link(rel="stylesheet", href="/static/css/home.css")
+
 block main
     div#myCarousel.carousel.slide(data-ride='carousel')
         // Indicators
@@ -53,10 +56,10 @@ block main
     div.container.text-center
         h3 Popular/new projects
     div.container#projects
-        div.loader
+        div.row#loader-row
+            div.loader
     br
 
 block append scripts
-    script(src="/static/js/requester.js")
     script(src="/static/js/router.js")
     script(src="/static/js/explore.js")
