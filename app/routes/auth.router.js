@@ -29,9 +29,19 @@ const attachRoutes = (app, data) => {
             const bodyUser = req.body;
             bodyUser.username = bodyUser.username.trim();
             bodyUser.password = bodyUser.password.trim();
+            const initialAmount = parseInt(bodyUser.amount.trim(), 10);
+            bodyUser.amount = initialAmount;
 
-            if (bodyUser.username === '' || bodyUser.password === '') {
-                req.flash('error', 'Fill both input forms');
+            if (bodyUser.username === '') {
+                req.flash('error', 'Enter username please');
+                res.redirect('/auth/register');
+            }
+            if (bodyUser.password === '') {
+                req.flash('error', 'Enter password please');
+                res.redirect('/auth/register');
+            }
+            if (isNaN(initialAmount) || initialAmount < 0) {
+                req.flash('error', 'Amount should be between 0 and 10 000!');
                 res.redirect('/auth/register');
             }
 
@@ -84,6 +94,8 @@ const attachRoutes = (app, data) => {
                         req.flash('info', 'Succesfuly added to favourites!');
                     }
                     res.locals.messages = req.flash();
+                    return data.projects.addUserToLiked(favs[0], username);
+                }).then(() => {
                     return res.render('flash_message_template');
                 })
                 .catch(() => {
@@ -103,6 +115,8 @@ const attachRoutes = (app, data) => {
                     } else {
                         req.flash('info', 'Succesfuly removed from favourites!');
                     }
+                    return data.projects.removeUserFromLikes(favs[0], username);
+                }).then(() => {
                     res.locals.messages = req.flash();
                     return res.render('flash_message_template');
                 })

@@ -5,23 +5,23 @@ const attachRoutes = (app, data) => {
     const router = new Router();
 
     router
-    // REVIEW: This is a demo method, modify as needed
-    // .get('/:id', (req, res) => {
-    //     const id = parseInt(req.params.id, 10);
-    //     const project = data.projects.find((i) => i.id === id);
-    //     if (!project) {
-    //         return res.status(404)
-    //             .send({
-    //                 error: 'Not found',
-    //             });
-    //     }
-    //     return res.send(project);
-    // })
+        // REVIEW: This is a demo method, modify as needed
+        // .get('/:id', (req, res) => {
+        //     const id = parseInt(req.params.id, 10);
+        //     const project = data.projects.find((i) => i.id === id);
+        //     if (!project) {
+        //         return res.status(404)
+        //             .send({
+        //                 error: 'Not found',
+        //             });
+        //     }
+        //     return res.send(project);
+        // })
         .get('/projects/search', (req, res) => {
             let searchValue = req.query.searchValue;
             const filter = {
                 $or: [{ 'name': { '$regex': searchValue, '$options': 'i' } },
-                    { 'description': { '$regex': searchValue, '$options': 'i' } },
+                { 'description': { '$regex': searchValue, '$options': 'i' } },
                 ],
             };
             data.projects.getAll(filter)
@@ -30,11 +30,11 @@ const attachRoutes = (app, data) => {
                         searchValue = `No results found for "${searchValue}"`;
                     }
                     res.render('projects/search', {
-                            model: {
-                                value: `${searchValue}`,
-                                projects: projects,
-                            },
+                        model: {
+                            value: `${searchValue}`,
+                            projects: projects,
                         },
+                    },
                         (err, html) => {
                             res.send(html);
                         });
@@ -68,40 +68,57 @@ const attachRoutes = (app, data) => {
                 });
         })
         .put('/users/profile/:username',
-            login.ensureLoggedIn('/auth/log-in'),
-            (req, res) => {
-                const username = req.params.username;
-                console.log(new Date().toLocaleTimeString());
-                let obj = {};
+        login.ensureLoggedIn('/auth/log-in'),
+        (req, res) => {
+            const username = req.params.username;
+            console.log(new Date().toLocaleTimeString());
+            let obj = {};
+            if (req.body.amount < 0) {
+                req.flash('error', 'Amount should be between 0 and 10 000!');
+                res.locals.messages = req.flash();
+                return res.render('flash_message_template');
+            }
 
-                if (req.body.amount) {
-                    obj = {
-                        'amount': req.body.amount,
-                    };
-                } else {
-                    obj = {
-                        'firstName': req.body.firstName.trim(),
-                        'lastName': req.body.lastName.trim(),
-                        'email': req.body.email.trim(),
-                    };
-                }
+            if (req.body.amount) {
+                obj = {
+                    'amount': req.body.amount,
+                };
+            } else {
+                obj = {
+                    'firstName': req.body.firstName.trim(),
+                    'lastName': req.body.lastName.trim(),
+                    'email': req.body.email.trim(),
+                };
+            }
 
-                data.users.updateProfile(username, obj)
-                    .then((result) => {
-                        if (!result.value) {
-                            req.flash('error', 'Failed to update profile..');
-                        } else {
-                            req.flash('info', 'Succesfuly updated!');
-                        }
-                        res.locals.messages = req.flash();
-                        return res.render('flash_message_template');
-                    })
-                    .catch(() => {
-                        req.flash('error', 'Something happened');
-                        res.locals.messages = req.flash();
-                        return res.render('flash_message_template');
-                    });
-            })
+            if (req.body.amount) {
+                obj = {
+                    'amount': req.body.amount,
+                };
+            } else {
+                obj = {
+                    'firstName': req.body.firstName.trim(),
+                    'lastName': req.body.lastName.trim(),
+                    'email': req.body.email.trim(),
+                };
+            }
+
+            data.users.updateProfile(username, obj)
+                .then((result) => {
+                    if (!result.value) {
+                        req.flash('error', 'Failed to update profile..');
+                    } else {
+                        req.flash('info', 'Succesfuly updated!');
+                    }
+                    res.locals.messages = req.flash();
+                    return res.render('flash_message_template');
+                })
+                .catch(() => {
+                    req.flash('error', 'Something happened');
+                    res.locals.messages = req.flash();
+                    return res.render('flash_message_template');
+                });
+        })
         .post('/subscribe', (req, res) => {
             const email = req.body.email;
             data.subscribers.findByEmail(email)
@@ -188,9 +205,9 @@ const attachRoutes = (app, data) => {
                     return res.send(response);
                 })
 
-            .catch((err) => {
-                console.log('--- ERROR in api.router.js donate --- ' + err);
-            });
+                .catch((err) => {
+                    console.log('--- ERROR in api.router.js donate --- ' + err);
+                });
         });
 
     //     let { q, page, size } = req.query;

@@ -14,7 +14,16 @@ block subnav
                         each project in model.projects
                             tr
                                 td
-                                    btn.star.btn.btn-default
+                                    if user
+                                        - var a = JSON.stringify(project)
+                                        - var ind = a.indexOf(user.username)
+                                        if ind != -1
+                                            btn.star.btn.btn-default.star-checked
+                                                i.glyphicon.glyphicon-star
+                                        else
+                                            btn.star.btn.btn-default
+                                                i.glyphicon.glyphicon-star
+                                    else
                                         i.glyphicon.glyphicon-star
                                 td
                                     .media
