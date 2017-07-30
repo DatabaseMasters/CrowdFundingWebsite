@@ -118,6 +118,18 @@ class UsersData extends BaseData {
         ).toArray();
     }
 
+    hasEnoughMoney(username, amountToCheck) {
+        return this.collection.findOne(
+            { 'username': username },
+            {
+                'amount': 1,
+                '_id': 0,
+            }
+        ).then((currentAmount) => {
+            return amountToCheck <= currentAmount.amount;
+        });
+    }
+
     getDonatedProjects(username) {
         return this.collection.find(
             { 'username': username },
