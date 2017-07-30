@@ -6,6 +6,7 @@ const init = (data) => {
     require('../config/app.config').configApp(app);
     require('./routes')(app, data);
 
+    // TODO remove?
     app.use((req, res, next) => {
         console.log('---- Current user -----');
         console.log(req.user);
