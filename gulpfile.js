@@ -1,6 +1,8 @@
 /* globals process */
 const gulp = require('gulp');
 const nodemon = require('gulp-nodemon');
+const istanbul = require('gulp-istanbul');
+const mocha = require('gulp-mocha');
 
 // HACK not recommended
 // set port
@@ -15,6 +17,29 @@ gulp.task('dev', () => {
     }).on('restart', () => {
         console.log('restarted -------------------');
     });
+});
+
+gulp.task('pre-test', () => {
+    return gulp.src([
+            './server.js',
+            './app/**/*.js',
+            './config/**/*.js',
+            './data/**/*.js',
+            './db/**/*.js',
+            './models/**/*.js',
+        ]) // to exclude folders '!./static/**'
+        .pipe(istanbul({
+            includeUntested: true,
+        }))
+        .pipe(istanbul.hookRequire());
+});
+
+gulp.task('tests-unit', ['pre-test'], () => {
+    return gulp.src('./tests/unit/**/*.js') // can accept an array of locations to test, inlcude integraiton too
+        .pipe(mocha({
+            reporter: 'spec', // optional
+        }))
+        .pipe(istanbul.writeReports());
 });
 
 // gulp.task('serve', () => {

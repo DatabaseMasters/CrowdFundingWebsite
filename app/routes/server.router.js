@@ -15,6 +15,10 @@ const attachRoutes = (app, data) => {
         })
         .get('/404', (req, res) => {
             return res.render('404');
+        })
+        .get('*', (req, res) => {
+            console.log('----- REDIRECTING -----');
+            res.redirect('/404');
         });
 
     app.use('/', router);

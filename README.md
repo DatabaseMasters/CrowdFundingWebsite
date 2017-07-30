@@ -23,7 +23,7 @@ Initial database populate data with `> npm run populate` (need to have mongodb s
 | 3.  | `> gulp dev`            | Start up dev environment   |
 | 4.  | `http://localhost:3001` | Open website               |
 
-MongoDB commands:
+## MongoDB commands:
 - `$ mongod` start connection
 - `$ mongo` starts client (for CLI commands)
 - `$ show dbs` list databases
@@ -31,6 +31,11 @@ MongoDB commands:
 - `$ show collections` list tables
 - `$ db.projects.find()` list data (where 'projects' is a collection)
 - `$ mongod --shutdown` close connection or Ctrl+C
+
+## Testing:
+- Main command: **`gulp tests-unit`** - runs tests with coverage of all relevant js files (mocha, istanbul)
+- `npm test` - runs mocha tests
+- `npm run test-istanbul` - runs mocha tests with istanbul coverage only counting files which have tests
 
 ## To do
 Features:
@@ -40,9 +45,9 @@ Features:
 - Review all comments
 - Review all eslint errors
 
-Nadia - about page, contact us
-Alex - profile projects list filtering
-Milena - express validator, favorites
+- Nadia - about page, contact us
+- Alex - profile projects list filtering
+- Milena - express validator, favorites
 
 
 ====================
@@ -56,10 +61,10 @@ Milena - express validator, favorites
 
 ### Application Back-end (Server) - up to 40%
 
-- **5 different public dynamic web pages** - 4 - home , explore , project details, search
-- **3 different private (authenticated) dynamic web pages** - 1- user profile page
-- **5 different public RESTful routes** for AJAX - 4 - projects list, search,  subscribe
-+ DONE: **1 private (authenticated) route** for AJAX - 1- user profile update
+- **Public dynamic web pages** - 4/5 - home , explore , project details, search
+- **Pprivate (authenticated) dynamic web pages** - 1/3- user profile page
++ DONE: **Public RESTful routes** for AJAX - 6/5 - projects list, search,  subscribe, contact, donate
++ DONE: **Private (authenticated) route** for AJAX - 1/1- user profile update
 + DONE: **Express** for the server (Use an **MV-*** pattern??)
 + DONE: Use **MongoDB**
 + DONE: Create a data/service layer for accessing the database
@@ -71,9 +76,9 @@ Milena - express validator, favorites
 - **Bootstrap** for the front-end
 + DONE: Rresponsive design
 - Use at least **one AJAX form and/or WebSockets communication**
-- Apply **error handling** and **data validation** to avoid crashes when invalid data is entered
+- DONE?? **Error handling** and **data validation** to avoid crashes when invalid data is entered - client side HTML5 validation, server side validation, error handling with flash messages (??)
 + DONE: Use loaders, modals and notifications when applicable
-- Prevent yourself from **security** holes (XSS, XSRF, Parameter Tampering, etc.) - TODO EXPRESS VALIDATOR
+- PARTIAL: Prevent yourself from **security** holes (XSS, XSRF, Parameter Tampering, etc.) - client side js to prevent code injection, TODO EXPRESS VALIDATOR,
   - Handle correctly the **special HTML characters** and tags like `<script>`, `<br />`, etc.
 + DONE: Create usable UI
 
@@ -104,10 +109,8 @@ Milena - express validator, favorites
 
 ##  General Requirements
 
-- Use Git
-  - Github, Gitlab, Bitbucket, or other
-- Brief **documentation** of the project and the project architecture
-  - As `README.md` file at the root of the github repository
+- DONE: Used Git
+- PARTIAL: Brief **documentation** of the project and the project architecture as `README.md` file at the root of the github repository
 
 ### Optional Requirements
 
@@ -129,7 +132,7 @@ Milena - express validator, favorites
 
 Each team will have to make a **public defense** of its work in front of a trainer (for about 30 minutes), in which each of the team members will answer to the trainer's questions individually.
 
-The public defense includes:
+The public defence includes:
 
 - Live **demonstration** of the developed web application (prepare sample data).
 - Explain application structure and its back-end and front-end **source code**
@@ -137,8 +140,3 @@ The public defense includes:
 - Show the **commit logs** in the source control repository to prove a contribution from all team members.
 - May include a simple task for each team member
   - The task must be implemented immediately
-
-### Give Feedback about Your Teammates
-
-You will be invited to **provide feedback** about all your teammates, their attitude to this project, their technical skills, their team working skills, their contribution to the project, etc.
-The feedback is important part of the project evaluation so **take it seriously** and be honest.

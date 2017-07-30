@@ -88,3 +88,10 @@ body {
 .popover-content {
     color: #2fa4e7;
 }
+
+
+/* Error */
+
+#err-content {
+    min-height: 500px;
+}

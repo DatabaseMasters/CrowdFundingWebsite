@@ -13,14 +13,14 @@ class BaseData {
         filter = filter || defaultFilter;
         // options format { limit: value } - not finished
         options = options || {};
-        const result = this.collection
+        let result = this.collection
             .find(filter)
             .toArray();
 
         // Ensure the ModelClass has a toViewModel()
         // otherwise will throw errors
         if (this.ModelClass.toViewModel) {
-            result.then((models) => {
+            result = result.then((models) => {
                     return models
                         .map((model) => this.ModelClass
                             .toViewModel(model));
