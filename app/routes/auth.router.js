@@ -62,33 +62,46 @@ const attachRoutes = (app, data) => {
             Promise.all([myPrjcts, favs])
                 .then((values) => {
                     const favsRefs = values[1][0].favourites;
-                    const intsFavsRefs = [];
-                    if (favsRefs) {
-                        favsRefs.forEach((x) => {
-                            intsFavsRefs.push(parseInt(x, 10));
-                        });
-                    }
 
-                    data.projects.getAll({ ref: { $in: intsFavsRefs } })
+                    data.projects.getAll({ ref: { $in: favsRefs } })
                         .then((result) => {
                             res.render('users/profile', {
                                 myProjects: values[0],
                                 favouriteProjects: result,
                             });
                         });
-
                 });
         })
-        .put('/add-to-favourites', login.ensureLoggedIn('/auth/log-in'), (req, res) => {
+        .put('/favourites', login.ensureLoggedIn('/auth/log-in'), (req, res) => {
             const username = res.locals.user.username.trim();
             const favs = [req.body.favourites];
 
-            data.users.addProjectsToFavourites(username, favs)
+            data.users.addFavourites(username, favs)
                 .then((result) => {
                     if (!result.result.ok) {
                         req.flash('error', 'Failed to add to favourites..');
                     } else {
                         req.flash('info', 'Succesfuly added to favourites!');
+                    }
+                    res.locals.messages = req.flash();
+                    return res.render('flash_message_template');
+                })
+                .catch(() => {
+                    req.flash('error', 'Something happened');
+                    res.locals.messages = req.flash();
+                    return res.render('flash_message_template');
+                });
+        })
+        .delete('/favourites', login.ensureLoggedIn('/auth/log-in'), (req, res) => {
+            const username = res.locals.user.username.trim();
+            const favs = [req.body.favourites];
+
+            data.users.removeFavourites(username, favs)
+                .then((result) => {
+                    if (!result.result.ok) {
+                        req.flash('error', 'Failed to remove from favourites..');
+                    } else {
+                        req.flash('info', 'Succesfuly removed from favourites!');
                     }
                     res.locals.messages = req.flash();
                     return res.render('flash_message_template');
