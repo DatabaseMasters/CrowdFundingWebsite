@@ -55,6 +55,7 @@ function subscribe(options) {
 
             setTimeout(function() {
                 $('#subscribe-email').popover('hide');
+                $("#subscribe-form").trigger('reset');
             }, 2000);
         })
         .catch(function(err) {
@@ -76,6 +77,7 @@ $('#subscribe-form').on('submit', function(event) {
 function sendEmail(options) {
     requester.post('/api/feedback', options, true)
         .then(function(response) {
+            $("#contact-modal").trigger('reset');
             $('#contact-modal').modal('hide');
             $('#flash-response').html(response);
             $('#myModal').modal('show');
@@ -99,7 +101,5 @@ $('#contact-modal').on('submit', function(event) {
             message: $message,
         }
     };
-    //if ($sender !== '' && $subject !== '') {
     sendEmail(options);
-    //};
 })
