@@ -18,7 +18,9 @@ $('#addMoneyButton').on('click', function () {
     }
     updateProfile({data: data});
     $("input[name='amount']").val("");
-    $('#current-balance').text(intAmount);
+    if(intAmount >= 0){
+        $('#current-balance').text(intAmount);
+    }
 });
 
 function updateProfile(data) {

@@ -73,7 +73,12 @@ const attachRoutes = (app, data) => {
             const username = req.params.username;
             console.log(new Date().toLocaleTimeString());
             let obj = {};
-            
+            if (req.body.amount < 0) {
+                req.flash('error', 'Amount should be between 0 and 10 000!');
+                res.locals.messages = req.flash();
+                return res.render('flash_message_template');
+            }
+
             if (req.body.amount) {
                 obj = {
                     'amount': req.body.amount,
