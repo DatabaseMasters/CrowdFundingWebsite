@@ -72,8 +72,21 @@ const attachRoutes = (app, data) => {
             (req, res) => {
                 const username = req.params.username;
                 console.log(new Date().toLocaleTimeString());
+                let obj = {};
 
-                data.users.updateProfile(username, req.body)
+                if (req.body.amount) {
+                    obj = {
+                        'amount': req.body.amount,
+                    };
+                } else {
+                    obj = {
+                        'firstName': req.body.firstName.trim(),
+                        'lastName': req.body.lastName.trim(),
+                        'email': req.body.email.trim(),
+                    };
+                }
+
+                data.users.updateProfile(username, obj)
                     .then((result) => {
                         if (!result.value) {
                             req.flash('error', 'Failed to update profile..');
@@ -144,9 +157,42 @@ const attachRoutes = (app, data) => {
                     // return res
                     //     .send({ message: 'Error saving feedback' });
                 });
+        })
+        .post('/donate', (req, res) => {
+            const user = req.user;
+            if (!user) {
+                const msg = 'You need to be logged to donate!';
+                req.flash('info', msg);
+                const redirect = {};
+                redirect.message = msg;
+                redirect.redirect = true;
+                redirect.redirecturl = '/auth/log-in';
+                return res.send(redirect);
+            }
+
+            const project = req.body.project;
+            const donation = parseInt(req.body.donation, 10);
+
+            data.projects.donateToProject(project, donation)
+                .then((proj) => {
+                    if (!proj) {
+                        return res.send({ message: 'Invalid project ref' });
+                    }
+
+                    data.users.addToDonated(user.username, [project])
+                        .catch((er) => console.log(er));
+                    const response = {};
+                    response.message = `You successfully donated $${donation} to '${proj.title}'. Thank you!`;
+                    response.updatedAmount = proj.donated;
+                    response.total = proj.amount;
+                    return res.send(response);
+                })
+
+            .catch((err) => {
+                console.log('--- ERROR in api.router.js donate --- ' + err);
+            });
         });
-    // Pagination
-    // .get('/', (req, res) => {
+
     //     let { q, page, size } = req.query;
     //     page = parseInt(page, 10) || 1;
     //     size = parseInt(size, 10) || 10;

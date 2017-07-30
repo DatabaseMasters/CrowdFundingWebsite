@@ -55,18 +55,61 @@ const attachRoutes = (app, data) => {
                 });
         })
         .get('/profile', login.ensureLoggedIn('/auth/log-in'), (req, res) => {
-            data.projects.getAll()
-                .then((result) => {
-                    const favourites = data.projects.getAll({ '_id': 10 });
-                    return { myProject: result, favs: favourites };
-                })
-                .then((obj) => {
-                    obj.favs.then((favor) => {
-                        res.render('users/profile', {
-                            myProjects: obj.myProject,
-                            favouriteProjects: favor,
+            const username = req.user.username.trim();
+            const favs = data.users.getFavouriteProjects(username);
+            const myPrjcts = data.projects.getAll({ 'username': username });
+
+            Promise.all([myPrjcts, favs])
+                .then((values) => {
+                    const favsRefs = values[1][0].favourites || [];
+
+                    data.projects.getAll({ ref: { $in: favsRefs } })
+                        .then((result) => {
+                            res.render('users/profile', {
+                                myProjects: values[0],
+                                favouriteProjects: result,
+                            });
                         });
-                    });
+                });
+        })
+        .put('/favourites', login.ensureLoggedIn('/auth/log-in'), (req, res) => {
+            const username = res.locals.user.username.trim();
+            const favs = [req.body.favourites];
+
+            data.users.addFavourites(username, favs)
+                .then((result) => {
+                    if (!result.result.ok) {
+                        req.flash('error', 'Failed to add to favourites..');
+                    } else {
+                        req.flash('info', 'Succesfuly added to favourites!');
+                    }
+                    res.locals.messages = req.flash();
+                    return res.render('flash_message_template');
+                })
+                .catch(() => {
+                    req.flash('error', 'Something happened');
+                    res.locals.messages = req.flash();
+                    return res.render('flash_message_template');
+                });
+        })
+        .delete('/favourites', login.ensureLoggedIn('/auth/log-in'), (req, res) => {
+            const username = res.locals.user.username.trim();
+            const favs = [req.body.favourites];
+
+            data.users.removeFavourites(username, favs)
+                .then((result) => {
+                    if (!result.result.ok) {
+                        req.flash('error', 'Failed to remove from favourites..');
+                    } else {
+                        req.flash('info', 'Succesfuly removed from favourites!');
+                    }
+                    res.locals.messages = req.flash();
+                    return res.render('flash_message_template');
+                })
+                .catch(() => {
+                    req.flash('error', 'Something happened');
+                    res.locals.messages = req.flash();
+                    return res.render('flash_message_template');
                 });
         });
 

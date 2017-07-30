@@ -17,6 +17,17 @@ class ProjectsData extends BaseData {
             });
     }
 
+    donateToProject(projectRef, donation) {
+        return this.collection.findOneAndUpdate(
+            { 'ref': projectRef },
+            { $inc: { donated: donation } }
+        ).then((item) => {
+            const project = item.value;
+            project.donated += donation;
+            return project;
+        });
+    }
+
     _isModelValid(model) {
         // more validation
         return super._isModelValid(model);

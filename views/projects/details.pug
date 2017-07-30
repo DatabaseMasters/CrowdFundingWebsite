@@ -40,12 +40,12 @@ append main
                                 - var percentage = parseFloat(model.donated) / parseFloat(model.amount)*100
                                 .progress-bar(role='progressbar', aria-valuenow=percentage, aria-valuemin='0', aria-valuemax='100', style=`width:${percentage}%`)
                                 span.progress-type $#{donatedsofar} / $#{target}
-                                span.progress-completed #{percentage}%
+                                span.progress-completed #{percentage.toFixed(2)}%
                         .row
                             .donate-title
                                 | Support us
                         .row
-                            .donation-table
+                            #donation-table
                                 .col-sm-6.col-lg-3
                                     .pricing.text-center
                                         .pricing-top
@@ -53,7 +53,7 @@ append main
                                                 sup $
                                                 em 10
                                             span Basic
-                                        .btn Donate Now
+                                        .btn(value='10') Donate Now
                                 .col-sm-6.col-lg-3
                                     .pricing.text-center
                                         .pricing-top
@@ -61,7 +61,7 @@ append main
                                                 sup $
                                                 em 25
                                             span Gold
-                                        .btn Donate Now
+                                        .btn(value='25') Donate Now
                                 .col-sm-6.col-lg-3
                                     .pricing.text-center
                                         .pricing-top
@@ -69,7 +69,7 @@ append main
                                                 sup $
                                                 em 50
                                             span Dimond
-                                        .btn Donate Now
+                                        .btn(value='50') Donate Now
                                 .col-sm-6.col-lg-3
                                     .pricing.text-center
                                         .pricing-top
@@ -77,16 +77,17 @@ append main
                                                 sup $
                                                 em 100
                                             span Pro
-                                        .btn Donate Now
+                                        .btn(value='100') Donate Now
                 section#comments.js-scroll-step
                      #comment-content.contianer
                         .row
                             .widget-area.no-padding.blank
                                 form
-                                    textarea(placeholder='What are you doing right now?')
-                                button.btn.btn-success.green(type='submit')
-                                    i.fa.fa-share
-                                    |  Share
+                                    textarea(placeholder='Write your comment here')
+                                    button#comment-btn.btn.btn-success.green(type='submit')
+                                        i.fa.fa-share
+                                        |  Share
+
                         .row
                             .container
                                 .dialogbox
@@ -111,3 +112,4 @@ append main
                                             span I just made a comment about this comment box which is purely made from CSS.
 block append scripts
     script(src="/static/js/project.js")
+    script(src="/static/js/donate.js")

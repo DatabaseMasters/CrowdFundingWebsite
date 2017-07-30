@@ -32,7 +32,7 @@ block main
                         .form-group
                             label.col-lg-3.control-label Email:
                             .col-lg-8
-                                input.form-control(type='text', name="email", placeholder='E-mail' value=user.email)
+                                input.form-control(type='email', name="email", placeholder='E-mail' value=user.email)
 
                 div
                     .form-group
@@ -40,6 +40,26 @@ block main
                         .col-md-8
                         button#updateButton.submitbtn.btn.btn-primary(type='submit')
                             | Update
+
+            .col-md-12.col-sm-12.col-xs-12.personal-info
+                h2.text-center Balance
+                #form-holder
+                    .form.form-horizontal
+                        .form-group
+                            label.col-md-3.control-label Current amount:
+                            .col-md-8
+                                label#current-balance.control-label=user.amount
+                        .form-group
+                                label.col-lg-3.control-label Enter new amount:
+                                .col-lg-8
+                                    input.form-control(type='number', name="amount",placeholder='Amount to add', min=0,max=10000)
+                div
+                    .form-group
+                        label.col-md-3.control-label
+                        .col-md-8
+                        button#addMoneyButton.submitbtn.btn.btn-primary(type='submit')
+                            | Load money
+
             h2.text-center My projects
             #projects.container
                 +prj(myProjects)

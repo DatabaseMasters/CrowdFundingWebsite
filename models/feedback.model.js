@@ -1,7 +1,7 @@
 class Feedback {
     static isValid(model) {
         // TODO validation
-        return { bool: true };
+        return Promise.resolve({ bool: true });
     }
 
     static toViewModel(model) {

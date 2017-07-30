@@ -59,21 +59,85 @@ class UsersData extends BaseData {
             .catch();
     }
 
-    addProjectToFavourites(username, project) {
-        this.collection.findOne(username).insert(project);
+    // Finds user by username and updates it's projects. Projects must be an array!
+    addFavourites(username, projects) {
+        return this.collection.update(
+            { 'username': username },
+            {
+                $addToSet: {
+                    'favourites': {
+                        $each: projects,
+                    },
+                },
+            }
+        );
+    }
+
+    addToDonated(username, projects) {
+        return this.collection.update(
+            { 'username': username },
+            {
+                $addToSet: {
+                    'donated': {
+                        $each: projects,
+                    },
+                },
+            }
+        );
+    }
+
+    removeFavourites(username, projects) {
+        return this.collection.update(
+            { 'username': username },
+            {
+                $pull: {
+                    'favourites': {
+                        $in: projects,
+                    },
+                },
+            }
+        );
     }
 
     updateProfile(username, options) {
         return this.collection.findOneAndUpdate(
             { 'username': username.trim() },
             {
-                $set: {
-                    'firstName': options.firstName.trim(),
-                    'lastName': options.lastName.trim(),
-                    'email': options.email.trim(),
-                },
+                $set: options,
             }
         );
+    }
+
+    getFavouriteProjects(username) {
+        return this.collection.find(
+            { 'username': username },
+            {
+                'favourites': 1,
+                '_id': 0,
+            }
+        ).toArray();
+    }
+
+    hasEnoughMoney(username, amountToCheck) {
+        return this.collection.findOne(
+            { 'username': username },
+            {
+                'amount': 1,
+                '_id': 0,
+            }
+        ).then((currentAmount) => {
+            return amountToCheck <= currentAmount.amount;
+        });
+    }
+
+    getDonatedProjects(username) {
+        return this.collection.find(
+            { 'username': username },
+            {
+                'donated': 1,
+                '_id': 0,
+            }
+        ).toArray();
     }
 
     _isModelValid(model) {
