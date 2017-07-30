@@ -72,11 +72,19 @@ const attachRoutes = (app, data) => {
         (req, res) => {
             const username = req.params.username;
             console.log(new Date().toLocaleTimeString());
-            const obj = {
-                'firstName': req.body.firstName.trim(),
-                'lastName': req.body.lastName.trim(),
-                'email': req.body.email.trim(),
-            };
+            let obj = {};
+            
+            if (req.body.amount) {
+                obj = {
+                    'amount': req.body.amount,
+                };
+            } else {
+                obj = {
+                    'firstName': req.body.firstName.trim(),
+                    'lastName': req.body.lastName.trim(),
+                    'email': req.body.email.trim(),
+                };
+            }
 
             data.users.updateProfile(username, obj)
                 .then((result) => {
