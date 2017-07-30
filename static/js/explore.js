@@ -67,8 +67,8 @@ function loadCategory(params) {
 
 clientRouter
     .on('', function(params) {
-        console.log('EMPTY # PARAMS');
-        console.log(params);
+        // console.log('EMPTY # PARAMS');
+        // console.log(params);
         // console.log(window.location.search);
         // if (window.location.search) {
         //     console.log('=== CAUGHT SEARCH ===  ');

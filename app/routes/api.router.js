@@ -114,6 +114,36 @@ const attachRoutes = (app, data) => {
                             return res.send({ message: 'Invalid email format' });
                         });
                 });
+        })
+        .post('/feedback', (req, res) => {
+            console.log('=== GETTING FEEDBACK ===');
+            console.log(req.body);
+            // call data.feedback fromViewModel ??
+            data.feedback
+                .create(req.body)
+                .then((result) => {
+                    console.log('=== GOT RESULT ===');
+                    console.log(result);
+                    req.flash('info', 'Thank you for your feedback');
+                    res.locals.messages = req.flash();
+                    return res.render('flash_message_template');
+
+                    // res.render('flash_message_template', {},
+                    //     (err, html) => {
+                    //         res.send(html);
+                    //     });
+
+                    // return res
+                    //     .send({ message: 'Thank you for your feedback' });
+                })
+                .catch((err) => {
+                    req.flash('error', 'Error sending feedback');
+                    res.locals.messages = req.flash();
+                    console.log('--- Error in api.router post feedback ---');
+                    return res.render('flash_message_template');
+                    // return res
+                    //     .send({ message: 'Error saving feedback' });
+                });
         });
     // Pagination
     // .get('/', (req, res) => {

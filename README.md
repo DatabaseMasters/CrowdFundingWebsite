@@ -36,6 +36,7 @@ MongoDB commands:
 Features:
 - Breadcrumbs
 - User profile page
+- Comments on project page?
 - Review all comments
 - Review all eslint errors
 

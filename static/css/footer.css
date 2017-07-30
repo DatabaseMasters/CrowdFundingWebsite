@@ -156,3 +156,15 @@ ul.social {
     vertical-align: middle;
     font-size: 16px;
 }
+
+#contact-modal .form-control-label {
+    color: 2fa4e7;
+}
+
+#contact-modal h3 {
+    display: inline-block;
+}
+
+#contact-modal textarea {
+    resize: vertical;
+}
