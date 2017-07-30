@@ -1,6 +1,20 @@
-@import url('https://fonts.googleapis.com/css?family=Playfair+Display');
 .about {
-    padding: 20px 20px 10px 20px;
+    /* padding: 20px 20px 10px 20px; */
+}
+
+#about-header {
+    content: "";
+    background: linear-gradient(rgba(0, 0, 0, 0.20), rgba(0, 0, 0, 0.20)), url('../images/Climbers-shadow.jpg');
+    color: #FFF;
+    background-size: cover;
+    background-position: center center;
+    min-height: 80px;
+    margin: 0;
+    padding: 20px;
+}
+
+#about-header h1 {
+    font-size: 2em;
 }
 
 .about ul {
@@ -12,13 +26,6 @@
     font-size: 30px;
 }
 
-.disclaimer {
-    font-size: 15px;
-    font-style: italic;
-    margin: 0;
-    width: 100%;
-}
-
 .about .img-quadrata {
     border-radius: 50%;
     width: 150px;
@@ -27,7 +34,7 @@
 }
 
 .about h3 {
-    color: #5cb85c;
+    color: #2fa4e7;
     font-size: 20px;
     font-weight: bolder;
 }
@@ -37,8 +44,8 @@
 }
 
 .about .social li:hover {
-    border: 2px solid #5cb85c;
-    background: #5cb85c;
+    border: 2px solid #2fa4e7;
+    background: #2fa4e7;
 }
 
 .description {

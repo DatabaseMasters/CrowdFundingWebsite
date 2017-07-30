@@ -3,61 +3,60 @@ extends shared/_master
 append additionlCSS
     link(rel="stylesheet", href="/static/css/about.css")
 
-block main
-    section.container
-        #content
-            .section.about
-                .container
-                    .row
-                        .col-md-12
-                            h1.text-center CrowdFunding was developed by these nice people
-                    .row
-                        .col-md-12
-                            p.description
-                                | CrowdFunding is an app brining people together in support of causes
-                                | ranging from helping families through tough times to protecting endangered spicies.
-                                | ...
+block main    
+    .jumbotron#about-header
+        .container.text-center
+            h1#title About
+block subnav
+    section.container#content
+        .section.about
+            .row
+                .col-md-12
+                    h2.text-center CrowdFunding was developed by these nice people
+            .row
+                .col-md-12
+                    p.description
+                        | CrowdFunding is an app brining people together in support of causes
+                        | ranging from helping families through tough times to protecting endangered spicies.
 
-                    .row.members
-                        .col-md-4.text-center
-                            img.img-quadrata.center-block(src='../imgs/team/Peter.jpg')
-                            h3 Peter Georgiev
-                            ul.social
-                                li
-                                    a(href='https://www.facebook.com/')
-                                        i.fa.fa-facebook    
-                                li
-                                    a(href='https://www.linkedin.com')
-                                        i.fa.fa-linkedin    
-                                li
-                                    a(href='https://github.com/peter-85')
-                                        i.fa.fa-github    
-                        .col-md-4.text-center
-                            img.center-block.img-quadrata(src='../imgs/team/Milena.jpg')
-                            h3 Milena Sapunova
-                            ul.social
-                                li
-                                    a(href='https://www.facebook.com/')
-                                        i.fa.fa-facebook    
-                                li
-                                    a(href='https://www.linkedin.com')
-                                        i.fa.fa-linkedin    
-                                li
-                                    a(href='https://github.com/pokemon4e')
-                                        i.fa.fa-github    
-                        .col-md-4.text-center
-                            img.center-block.img-quadrata(src='../imgs/team/Emiliyan.jpg')
-                            h3 Emiliyan Panagyurski
-                            ul.social
-                                li
-                                    a(href='https://www.facebook.com/')
-                                        i.fa.fa-facebook    
-                                li
-                                    a(href='https://www.linkedin.com')
-                                        i.fa.fa-linkedin    
-                                li
-                                    a(href='https://github.com/EmiliyanPanagyurski')
-                                        i.fa.fa-github    
-                    .row.text-center
-                        p.disclaimer
-                            | *StockWatch was created as part of a JavaScirpt Application course at Telerik Academy, Spring 2017.
+            .row.members
+                .col-md-4.text-center
+                    img.img-quadrata.center-block(src='/static/images/team/Alex.jpg')
+                    h3 Alexandar Ikonomov
+                    ul.social
+                        li
+                            a(href='https://github.com/ikonomov17')
+                                i.fa.fa-github.social-icon    
+                        li
+                            a(href='https://www.facebook.com/')
+                                i.fa.fa-facebook.social-icon    
+                        li
+                            a(href='https://www.linkedin.com')
+                                i.fa.fa-linkedin.social-icon    
+                .col-md-4.text-center
+                    img.center-block.img-quadrata(src='/static/images/team/Milena.jpg')
+                    h3 Milena Sapunova
+                    ul.social
+                        li
+                            a(href='https://github.com/pokemon4e')
+                                i.fa.fa-github    
+                        li
+                            a(href='https://www.facebook.com/')
+                                i.fa.fa-facebook    
+                        li
+                            a(href='https://www.linkedin.com')
+                                i.fa.fa-linkedin    
+                .col-md-4.text-center
+                    img.center-block.img-quadrata(src='/static/images/team/Nadia.jpg')
+                    h3 Nadezhda Hristova
+                    ul.social
+                        li
+                            a(href='https://github.com/nhristova')
+                                i.fa.fa-github    
+                        li
+                            a(href='https://www.facebook.com/')
+                                i.fa.fa-facebook    
+                        li
+                            a(href='https://www.linkedin.com')
+                                i.fa.fa-linkedin    
+
