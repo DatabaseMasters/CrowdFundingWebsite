@@ -24,10 +24,10 @@ block main
                 .form-group
                     label.darktext(for='category') Select Category:
                     select#category.form-control(name='category', required='required')
-                        option Medical
-                        option Animals
-                        option Community
-                        option Other
+                        option(value='medical') Medical
+                        option(value='animals') Animals
+                        option(value='community') Community
+                        option(value='other') Other
                 label.darktext(for='amount') Looking to Raise ($1,000 - $1,000,0000):
                 input#amount.form-control(type='number', name='amount' min='1000', max='1000000', step='1', placeholder='1000', required='required', value=data.amount)
                 label.darktext(for='endingdate') Ending Date:
