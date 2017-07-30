@@ -73,6 +73,19 @@ class UsersData extends BaseData {
         );
     }
 
+    addToDonated(username, projects) {
+        return this.collection.update(
+            { 'username': username },
+            {
+                $addToSet: {
+                    'donated': {
+                        $each: projects,
+                    },
+                },
+            }
+        );
+    }
+
     removeFavourites(username, projects) {
         return this.collection.update(
             { 'username': username },
@@ -100,6 +113,16 @@ class UsersData extends BaseData {
             { 'username': username },
             {
                 'favourites': 1,
+                '_id': 0,
+            }
+        ).toArray();
+    }
+
+    getDonatedProjects(username) {
+        return this.collection.find(
+            { 'username': username },
+            {
+                'donated': 1,
                 '_id': 0,
             }
         ).toArray();
