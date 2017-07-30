@@ -60,13 +60,26 @@ class UsersData extends BaseData {
     }
 
     // Finds user by username and updates it's projects. Projects must be an array!
-    addProjectsToFavourites(username, projects) {
+    addFavourites(username, projects) {
         return this.collection.update(
             { 'username': username },
             {
                 $push: {
                     'favourites': {
                         $each: projects,
+                    },
+                },
+            }
+        );
+    }
+
+    removeFavourites(username, projects) {
+        return this.collection.update(
+            { 'username': username },
+            {
+                $pull: {
+                    'favourites': {
+                        $in: projects,
                     },
                 },
             }
