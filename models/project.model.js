@@ -9,12 +9,14 @@ class Project {
     }
 
     static isValid(model) {
-        const validity = this._checkValidity(model);
-        if (!validity.bool) {
-            const file = path.join('./', model.coverImg);
-            fs.unlink(file);
-        }
-        return this._checkValidity(model);
+        return this._checkValidity(model)
+            .then((validity) => {
+                if (!validity.bool) {
+                    const file = path.join('./', model.coverImg);
+                    fs.unlink(file);
+                }
+                return validity;
+            });
     }
 
     static toViewModel(model) {
@@ -39,11 +41,6 @@ class Project {
             reason += 'Incorrect title! The title must be be between 10 and 120 symbols (latin letters, numbers and _%.!?-).\n';
         }
 
-        if (!this._isURLValid(model.video)) {
-            valid = false;
-            reason += 'Invalid YouTube vide url!\n';
-        }
-
         if (!this._isMottoValid(model.motto)) {
             valid = false;
             reason += 'Invalid motto! The motto must be be between 10 and 170 symbols.\n';
@@ -64,7 +61,15 @@ class Project {
             reason += 'Invalid ending date! The date cannot be in the past.\n';
         }
 
-        return { bool: valid, reason: reason };
+        return this._isURLValid(model.video)
+            .then((result) => {
+                if (!result) {
+                    valid = false;
+                    reason += 'Invalid YouTube video url!\n';
+                }
+
+                return { bool: valid, reason: reason };
+            });
     }
 
     static _isTitleValid(title) {
@@ -79,25 +84,24 @@ class Project {
             path: '/vi/' + youtubeID + '/0.jpg',
         };
 
-        const req = http.request(options, (res) => {
-            return res.statusCode === 200;
+        return new Promise((resolve, reject) => {
+            http.request(options, (res) => {
+                resolve(res.statusCode === 200);
+            }).end();
         });
-
-        req.end();
-        return req;
     }
 
     static _isMottoValid(motto) {
-        return motto.length > 10 && motto.length < 170;
+        return (motto.length >= 10) && (motto.length <= 170);
     }
 
     static _isDescriptionValid(description) {
-        return description.length > 300 && description.length < 1000;
+        return (description.length >= 300) && (description.length <= 1000);
     }
 
     static _isAmountValid(amount) {
         amount = parseInt(amount, 10);
-        return amount > 1000 && amount < 1000000;
+        return (amount >= 1000) && (amount <= 1000000);
     }
 
     static _isDateValid(date) {

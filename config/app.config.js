@@ -63,9 +63,12 @@ const configApp = (app) => {
             if (mimetype && extname) {
                 return cb(null, true);
             }
-            return cb(
+
+            req.flash('error',
                 'Error: File upload only supports the following filetypes - '
-                + filetypes, false);
+                + filetypes);
+
+            return cb(null, false);
         },
         limits: { fileSize: 2000000 },
     }).single('img'));

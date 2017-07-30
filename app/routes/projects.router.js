@@ -44,6 +44,7 @@ const attachRoutes = (app, data) => {
 
             project.username = req.user.username;
             project.coverImg = '/' + file.path;
+            project.donated = 0;
 
             data.projects.getNextProjectRef()
                 .then((ref) => {

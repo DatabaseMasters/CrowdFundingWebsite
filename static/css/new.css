@@ -40,10 +40,9 @@
     margin: 2% 0 5% 0;
 }
 
-.form input, textarea
+.form input, textarea, select
 {
     margin: 1% 0;   
-    resize: vertical;
     border-top: none !important;
     border-right: none !important;
     border-left: none !important;
@@ -54,6 +53,10 @@
     -moz-transition: none !important;
     -webkit-transition: none !important;
 } 
+
+.form textarea{
+    resize: vertical;
+}
 
 #description
 {

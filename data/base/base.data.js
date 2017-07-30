@@ -21,10 +21,10 @@ class BaseData {
         // otherwise will throw errors
         if (this.ModelClass.toViewModel) {
             result.then((models) => {
-                    return models
-                        .map((model) => this.ModelClass
-                            .toViewModel(model));
-                })
+                return models
+                    .map((model) => this.ModelClass
+                        .toViewModel(model));
+            })
                 .catch((err) => {
                     console.log('base.data.js error');
                     console.log(err);
@@ -37,19 +37,22 @@ class BaseData {
     // create method is called in server.router
     // model comes from req.body
     create(model) {
-        // data layer validation
-        const validity = this._isModelValid(model);
-        if (!validity.bool) {
-            return Promise.reject(validity.reason);
-        }
-        // insert
-        return this.collection.insert(model)
+        return this._isModelValid(model)
+            .then((validity) => {
+                console.log(validity);
+                if (!validity.bool) {
+                    return Promise.reject(validity.reason);
+                }
+                return Promise.resolve(validity);
+            })
+            .then(() => this.collection.insert(model))
             .then(() => this.ModelClass.toViewModel(model))
             .catch((err) => {
                 console.log('base.data.js create method');
-                console.log(err);
+                throw err;
             });
     }
+
 
     _isModelValid(model) {
         // calls validation method from *.model.js
