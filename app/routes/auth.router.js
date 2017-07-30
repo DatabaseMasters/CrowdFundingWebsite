@@ -94,6 +94,8 @@ const attachRoutes = (app, data) => {
                         req.flash('info', 'Succesfuly added to favourites!');
                     }
                     res.locals.messages = req.flash();
+                    return data.projects.addUserToLiked(favs[0], username);
+                }).then(() => {
                     return res.render('flash_message_template');
                 })
                 .catch(() => {
@@ -113,6 +115,8 @@ const attachRoutes = (app, data) => {
                     } else {
                         req.flash('info', 'Succesfuly removed from favourites!');
                     }
+                    return data.projects.removeUserFromLikes(favs[0], username);
+                }).then(() => {
                     res.locals.messages = req.flash();
                     return res.render('flash_message_template');
                 })

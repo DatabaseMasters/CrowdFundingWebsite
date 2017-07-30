@@ -28,6 +28,20 @@ class ProjectsData extends BaseData {
         });
     }
 
+    addUserToLiked(projectRef, username) {
+        return this.collection.findOneAndUpdate(
+            { 'ref': projectRef },
+            { $addToSet: { likes: username } }
+        );
+    }
+
+    removeUserFromLikes(projectRef, username) {
+        return this.collection.findOneAndUpdate(
+            { 'ref': projectRef },
+            { $pull: { likes: username } }
+        );
+    }
+
     _isModelValid(model) {
         // more validation
         return super._isModelValid(model);
