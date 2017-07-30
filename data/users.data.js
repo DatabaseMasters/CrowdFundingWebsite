@@ -73,6 +73,19 @@ class UsersData extends BaseData {
         );
     }
 
+    addToDonated(username, projects) {
+        return this.collection.update(
+            { 'username': username },
+            {
+                $addToSet: {
+                    'donated': {
+                        $each: projects,
+                    },
+                },
+            }
+        );
+    }
+
     removeFavourites(username, projects) {
         return this.collection.update(
             { 'username': username },
@@ -115,6 +128,16 @@ class UsersData extends BaseData {
         ).then((currentAmount) => {
             return amountToCheck <= currentAmount.amount;
         });
+    }
+
+    getDonatedProjects(username) {
+        return this.collection.find(
+            { 'username': username },
+            {
+                'donated': 1,
+                '_id': 0,
+            }
+        ).toArray();
     }
 
     _isModelValid(model) {
