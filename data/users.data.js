@@ -64,7 +64,7 @@ class UsersData extends BaseData {
         return this.collection.update(
             { 'username': username },
             {
-                $push: {
+                $addToSet: {
                     'favourites': {
                         $each: projects,
                     },

@@ -61,7 +61,7 @@ const attachRoutes = (app, data) => {
 
             Promise.all([myPrjcts, favs])
                 .then((values) => {
-                    const favsRefs = values[1][0].favourites;
+                    const favsRefs = values[1][0].favourites || [];
 
                     data.projects.getAll({ ref: { $in: favsRefs } })
                         .then((result) => {
