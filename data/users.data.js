@@ -105,6 +105,18 @@ class UsersData extends BaseData {
         ).toArray();
     }
 
+    hasEnoughMoney(username, amountToCheck) {
+        return this.collection.findOne(
+            { 'username': username },
+            {
+                'amount': 1,
+                '_id': 0,
+            }
+        ).then((currentAmount) => {
+            return amountToCheck <= currentAmount.amount;
+        });
+    }
+
     _isModelValid(model) {
         // TODO: add more validation, specific to user
         // then call base method
