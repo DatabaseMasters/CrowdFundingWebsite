@@ -3,7 +3,6 @@ const gulp = require('gulp');
 const nodemon = require('gulp-nodemon');
 const istanbul = require('gulp-istanbul');
 const mocha = require('gulp-mocha');
-const serverConfig = require('./config/server.config');
 const server = require('./server');
 
 // HACK not recommended
@@ -15,7 +14,7 @@ gulp.task('dev', () => {
     console.log('dev -------------------');
     return nodemon({
         ext: 'js',
-        script: server(serverConfig.connectionString),
+        script: 'index.js',
     }).on('restart', () => {
         console.log('restarted -------------------');
     });
@@ -23,13 +22,13 @@ gulp.task('dev', () => {
 
 gulp.task('pre-test', () => {
     return gulp.src([
-            './server.js',
-            './app/**/*.js',
-            './config/**/*.js',
-            './data/**/*.js',
-            './db/**/*.js',
-            './models/**/*.js',
-        ]) // to exclude folders '!./static/**'
+        './server.js',
+        './app/**/*.js',
+        './config/**/*.js',
+        './data/**/*.js',
+        './db/**/*.js',
+        './models/**/*.js',
+    ]) // to exclude folders '!./static/**'
         .pipe(istanbul({
             includeUntested: true,
         }))
@@ -38,9 +37,9 @@ gulp.task('pre-test', () => {
 
 gulp.task('tests-all', ['pre-test', 'tests-unit', 'tests-integration'], () => {
     return gulp.src([
-            './tests/unit/**/*.js',
-            './tests/integration/**/*.js',
-        ])
+        './tests/unit/**/*.js',
+        './tests/integration/**/*.js',
+    ])
         .pipe(mocha({
             reporter: 'spec', // optional
         }))
@@ -51,20 +50,9 @@ gulp.task('tests-all', ['pre-test', 'tests-unit', 'tests-integration'], () => {
 
 gulp.task('tests-unit', ['pre-test'], () => {
     return gulp.src([
-            './tests/unit/**/*.js',
-        ])
-        .pipe(mocha({
-            reporter: 'spec', // optional
-        }))
-        .pipe(istanbul.writeReports({
-            dir: './coverage/unit',
-        }));
-});
-
-gulp.task('tests-integration', ['pre-test'], () => {
-    return gulp.src([
-            './tests/integration/**/*.js',
-        ])
+        './tests/unit/**/*.js',
+        './tests/integration/**/*.js',
+    ])
         .pipe(mocha({
             reporter: 'spec', // optional
         }))
@@ -72,6 +60,39 @@ gulp.task('tests-integration', ['pre-test'], () => {
             dir: './coverage/integration',
         }));
 });
+
+
+const testConfig = {
+    connectionString: 'mongodb://localhost/crowdfunding-db-test',
+    port: 3002,
+};
+const mongoClient = require('mongodb');
+
+gulp.task('server-start', () => {
+    return server(testConfig);
+});
+
+
+gulp.task('server-stop', () => {
+    return mongoClient.connect(testConfig.connectionString)
+        .then((db) => {
+            return db.dropDatabase();
+        });
+});
+
+gulp.task('tests:browser', ['server-start'], () => {
+    return gulp.src('./tests/browser/**/*.js')
+        .pipe(mocha({
+            reporter: 'nyan',
+            timeout: 10000,
+        }))
+        .once('error', () => process.exit(1))
+        .once('end', () => {
+            gulp.start('server-stop');
+            process.exit();
+        });
+});
+
 
 // gulp.task('serve', () => {
 //     console.log('serving -------------------');

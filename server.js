@@ -1,7 +1,6 @@
-const serverConfig = require('./config/server.config');
 
-const init = (connectionString) => {
-    Promise.resolve()
+const init = (serverConfig) => {
+    return Promise.resolve()
         .then(() => require('./db').init(serverConfig.connectionString))
         .then((db) => require('./data').init(db))
         .then((data) => require('./app').init(data))
@@ -17,7 +16,6 @@ const init = (connectionString) => {
 };
 
 module.exports = init;
-
 
 // Demo1 code left for reference
 // TODO remove when app architecture is finished
