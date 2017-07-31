@@ -23,7 +23,7 @@ gulp.task('pre-test', () => {
     return gulp.src([
             './server.js',
             './app/**/*.js',
-            './config/**/*.js',
+            '!./config/**/*.js',
             './data/**/*.js',
             './db/**/*.js',
             './models/**/*.js',
@@ -34,7 +34,7 @@ gulp.task('pre-test', () => {
         .pipe(istanbul.hookRequire());
 });
 
-gulp.task('tests-all', ['pre-test'], () => {
+gulp.task('tests-all', ['pre-test'], (done) => {
     return gulp.src([
             './tests/unit/**/*.js',
             './tests/integration/**/*.js',
@@ -45,7 +45,9 @@ gulp.task('tests-all', ['pre-test'], () => {
         .pipe(istanbul.writeReports({
             dir: './coverage/all',
         }))
-        .once('error', process.exit(1));
+        .on('end', () => {
+            process.exit();
+        });
 });
 
 gulp.task('tests-unit', ['pre-test'], () => {
@@ -58,7 +60,9 @@ gulp.task('tests-unit', ['pre-test'], () => {
         .pipe(istanbul.writeReports({
             dir: './coverage/unit',
         }))
-        .once('error', process.exit(1));
+        .on('end', () => {
+            process.exit();
+        });
 });
 
 gulp.task('tests-integration', ['pre-test'], () => {
@@ -71,7 +75,9 @@ gulp.task('tests-integration', ['pre-test'], () => {
         .pipe(istanbul.writeReports({
             dir: './coverage/integration',
         }))
-        .once('error', process.exit(1));
+        .on('end', () => {
+            process.exit();
+        });
 });
 
 // gulp.task('serve', () => {
