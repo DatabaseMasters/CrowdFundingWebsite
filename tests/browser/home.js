@@ -1,6 +1,6 @@
 const { expect } = require('chai');
 const { setupDriver } = require('./utils/setup-driver');
-const { setDriver, getText, getTexts, getElements, getSelected } = require('./utils/ui');
+const ui = require('./utils/ui');
 const webdriver = require('selenium-webdriver');
 
 describe('Home page', () => {
@@ -9,7 +9,7 @@ describe('Home page', () => {
 
     beforeEach(() => {
         driver = setupDriver('chrome');
-        setDriver(driver);
+        ui.setDriver(driver);
     });
 
     afterEach(() => {
@@ -33,7 +33,7 @@ describe('Home page', () => {
         it(' 3 items', (done) => {
             driver.get(appUrl)
                 .then(() => {
-                    return getElements('#myCarousel .item');
+                    return ui.getElements('#myCarousel .item');
                 })
                 .then((text) => {
                     expect(text).to.have.length(3);
@@ -41,10 +41,10 @@ describe('Home page', () => {
                 });
         });
 
-        it(' 1 item which is active', (done) => {
+        it(' only 1 item which is active', (done) => {
             driver.get(appUrl)
                 .then(() => {
-                    return getElements('#myCarousel .item.active');
+                    return ui.getElements('#myCarousel .item.active');
                 })
                 .then((text) => {
                     expect(text).to.have.length(1);
@@ -57,7 +57,7 @@ describe('Home page', () => {
         it(' a button with "Start a project"', (done) => {
             driver.get(appUrl)
                 .then(() => {
-                    return getTexts('#main .btn.btn-primary');
+                    return ui.getTexts('#main .btn.btn-primary');
                 })
                 .then((elements) => {
                     expect(elements).to.have.length(1);
@@ -67,10 +67,25 @@ describe('Home page', () => {
                 });
         });
 
+        it(' when clicked on "Start a project" button to' +
+            ' redirect to /auth/log-in when user is not logged in"', (done) => {
+                driver.get(appUrl)
+                    .then(() => {
+                        return ui.click('#main .btn.btn-primary');
+                    })
+                    .then(() => {
+                        return driver.getCurrentUrl();
+                    })
+                    .then((url) => {
+                        expect(url).to.equals(appUrl + '/auth/log-in');
+                        done();
+                    });
+            });
+
         it(' 4 categories', (done) => {
             driver.get(appUrl)
                 .then(() => {
-                    return getElements('#main .homeCategories p');
+                    return ui.getElements('#main .homeCategories p');
                 })
                 .then((elements) => {
                     expect(elements).to.have.length(4);
@@ -78,11 +93,13 @@ describe('Home page', () => {
                 });
         });
 
-        ['Medical', 'Animals', 'Community', 'Other'].forEach((category) => {
+        const categories = ['Medical', 'Animals', 'Community', 'Other'];
+
+        categories.forEach((category) => {
             it(` category "${category}"`, (done) => {
                 driver.get(appUrl)
                     .then(() => {
-                        return getTexts('#main .homeCategories p');
+                        return ui.getTexts('#main .homeCategories p');
                     })
                     .then((elements) => {
                         expect(elements).to.contain(category);
@@ -91,10 +108,34 @@ describe('Home page', () => {
             });
         });
 
+        categories.forEach((category) => {
+            const categoryLower = category.toLowerCase();
+            it(` when clicked on ${category} ` +
+                `button to redirect to /projects#/${categoryLower}`,
+                (done) => {
+                    driver.get(appUrl)
+                        .then(() => {
+                            const index = categories.indexOf(category);
+                            return ui
+                                .click('#main .homeCategories:nth-of-type(' +
+                                `${index + 1})`);
+                        })
+                        .then(() => {
+                            return driver.getCurrentUrl();
+                        })
+                        .then((url) => {
+                            expect(url).to.
+                                equals(appUrl + `/projects#/${categoryLower}`);
+                            done();
+                        });
+                });
+        });
+
+
         it(' heading "Popular/new projects"', (done) => {
             driver.get(appUrl)
                 .then(() => {
-                    return getTexts('#projects-heading');
+                    return ui.getTexts('#projects-heading');
                 })
                 .then((elements) => {
                     expect(elements).to.have.length(1);
@@ -107,7 +148,7 @@ describe('Home page', () => {
         it(' a loader when no projects present', (done) => {
             driver.get(appUrl)
                 .then(() => {
-                    return getElements('#loader-row .loader');
+                    return ui.getElements('#loader-row .loader');
                 })
                 .then((elements) => {
                     expect(elements).to.have.length(1);
