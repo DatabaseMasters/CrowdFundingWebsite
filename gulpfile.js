@@ -3,7 +3,7 @@ const gulp = require('gulp');
 const nodemon = require('gulp-nodemon');
 const istanbul = require('gulp-istanbul');
 const mocha = require('gulp-mocha');
-
+const server = require('./server');
 // HACK not recommended
 // set port
 // eslint-disable-next-line no-process-env
@@ -41,10 +41,12 @@ gulp.task('tests-all', ['pre-test'], (done) => {
         ])
         .pipe(mocha({
             reporter: 'spec',
+            timeout: 3000,
         }))
         .pipe(istanbul.writeReports({
             dir: './coverage/all',
         }))
+        .on('error', () => process.exit(1))
         .on('end', () => {
             process.exit();
         });
@@ -56,10 +58,12 @@ gulp.task('tests-unit', ['pre-test'], () => {
         ])
         .pipe(mocha({
             reporter: 'spec',
+            timeout: 3000,
         }))
         .pipe(istanbul.writeReports({
             dir: './coverage/unit',
         }))
+        .on('error', () => process.exit(1))
         .on('end', () => {
             process.exit();
         });
@@ -71,29 +75,44 @@ gulp.task('tests-integration', ['pre-test'], () => {
         ])
         .pipe(mocha({
             reporter: 'spec',
+            timeout: 3000,
         }))
         .pipe(istanbul.writeReports({
             dir: './coverage/integration',
         }))
+        .on('error', () => process.exit(1))
         .on('end', () => {
             process.exit();
         });
 });
 
-// gulp.task('serve', () => {
-//     console.log('serving -------------------');
-//     const app = require('./app');
-//     app.listen(port, () => console.log(`--- Server working at ${port} ---`));
-// });
+const testConfig = {
+    connectionString: 'mongodb://localhost/crowdfunding-db-test',
+    port: 3002,
+};
+const mongoClient = require('mongodb');
 
-// // !! Error: listen EADDRINUSE :::3001 if the tasks property is on
-// gulp.task('dev', ['serve'], () => {
-//     console.log('dev -------------------');
-//     return nodemon({
-//         ext: 'js pug',
-//         tasks: ['serve'],
-//         script: 'server.js',
-//     }).on('restart', () => {
-//         console.log('restarted -------------------');
-//     });
-// });
+gulp.task('server-start', () => {
+    return server(testConfig);
+});
+
+
+gulp.task('server-stop', () => {
+    return mongoClient.connect(testConfig.connectionString)
+        .then((db) => {
+            return db.dropDatabase();
+        });
+});
+
+gulp.task('tests:browser', ['server-start'], () => {
+    return gulp.src('./tests/browser/**/*.js')
+        .pipe(mocha({
+            reporter: 'spec',
+            timeout: 10000,
+        }))
+        .once('error', () => process.exit(1))
+        .once('end', () => {
+            gulp.start('server-stop');
+            process.exit();
+        });
+});

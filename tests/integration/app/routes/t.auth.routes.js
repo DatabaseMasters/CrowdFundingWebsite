@@ -33,7 +33,7 @@ describe('Auth routes tests', () => {
                 .get('/auth/register')
                 .expect(200)
                 .then((res) => {
-                    console.log(res.req["path"]);
+                    //console.log(res.req["path"]);
                     return done();
                 })
                 .catch((err) => {

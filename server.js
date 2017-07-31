@@ -1,5 +1,3 @@
-//const serverConfig = require('./config/server.config');
-
 const init = (serverConfig) => {
     Promise.resolve()
         .then(() => require('./db').init(serverConfig.connectionString))
@@ -17,7 +15,6 @@ const init = (serverConfig) => {
 };
 
 module.exports = init;
-
 
 // Demo1 code left for reference
 // TODO remove when app architecture is finished

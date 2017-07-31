@@ -1,2 +1,2 @@
-const serverConfig = require('./config/server.config');
-module.exports = require('./server')(serverConfig);
+const serverConfing = require('./config/server.config');
+const server = require('./server')(serverConfing);
