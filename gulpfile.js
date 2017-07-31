@@ -36,7 +36,7 @@ gulp.task('pre-test', () => {
         .pipe(istanbul.hookRequire());
 });
 
-gulp.task('tests-all', ['pre-test', 'tests-unit', 'tests-integration'], () => {
+gulp.task('tests-all', ['pre-test'], () => {
     return gulp.src([
             './tests/unit/**/*.js',
             './tests/integration/**/*.js',
