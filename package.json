@@ -9,7 +9,7 @@
         "populate": "mongo mongodb://localhost/crowdfunding-db ./config/populateData.js",
         "dev": "./node_modules/.bin/nodemon -e js server.js",
         "test": "./node_modules/.bin/mocha tests/**/*.js",
-        "test-istanbul": "./node_modules/.bin/istanbul cover ./node_modules/mocha/bin/_mocha tests/**/*.js",
+        "test-istanbul": "./node_modules/.bin/istanbul cover ./node_modules/mocha/bin/_mocha tests/**/*.js"
     },
     "dependencies": {
         "bcryptjs": "^2.4.3",
