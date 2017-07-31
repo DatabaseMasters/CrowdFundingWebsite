@@ -35,7 +35,10 @@ gulp.task('pre-test', () => {
 });
 
 gulp.task('tests-unit', ['pre-test'], () => {
-    return gulp.src('./tests/unit/**/*.js') // can accept an array of locations to test, inlcude integraiton too
+    return gulp.src([
+            './tests/unit/**/*.js',
+            './tests/integration/**/*.js',
+        ])
         .pipe(mocha({
             reporter: 'spec', // optional
         }))
