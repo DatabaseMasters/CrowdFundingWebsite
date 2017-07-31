@@ -2,13 +2,6 @@ const { expect } = require('chai');
 const sinon = require('sinon');
 const BaseData = require('../../../data/base/base.data.js');
 
-// Patial settings to run mocha in browser - mocha.html file
-// doesn't work with modules well
-// mocha.setup('bdd');
-// const expect = chai.expect;
-// // const sinon = sinon;
-// // const BaseData = BaseData;
-
 describe('BaseData.getAll()', () => {
     const db = {
         collection: () => {},
@@ -99,7 +92,3 @@ describe('BaseData.getAll()', () => {
         });
     });
 });
-
-// Partial settings to run mocha in browser
-// doesn't work completely
-//mocha.run();
