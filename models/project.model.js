@@ -7,6 +7,9 @@ class Project {
     get id() {
         return this._id;
     }
+    set id(value) {
+        this._id = value;
+    }
 
     static isValid(model) {
         return this._checkValidity(model)
