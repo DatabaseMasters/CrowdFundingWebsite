@@ -4,10 +4,10 @@ class User {
         // data layer validation
         return Promise.resolve({
             bool: (typeof model !== 'undefined' &&
-            typeof model.password === 'string' &&
-            model.password.length >= 5 &&
-            typeof model.username === 'string' &&
-            model.username.length >= 5), reason: 'Reason',
+                typeof model.password === 'string' &&
+                model.password.length >= 5 &&
+                typeof model.username === 'string' &&
+                model.username.length >= 5), reason: 'Reason',
         });
     }
 

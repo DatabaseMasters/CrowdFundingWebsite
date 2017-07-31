@@ -4,7 +4,7 @@
     "main": "index.js",
     "license": "MIT",
     "scripts": {
-        "start": "node server.js",
+        "start": "node index.js",
         "mong": "mongod --dbpath  ../mongodb",
         "populate": "mongo mongodb://localhost/crowdfunding-db ./config/populateData.js",
         "dev": "./node_modules/.bin/nodemon -e js server.js",

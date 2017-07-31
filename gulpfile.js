@@ -3,7 +3,10 @@ const gulp = require('gulp');
 const nodemon = require('gulp-nodemon');
 const istanbul = require('gulp-istanbul');
 const mocha = require('gulp-mocha');
+<<<<<<< HEAD
 const server = require('./server');
+=======
+>>>>>>> f108597247892b4cde2fda8deada9945b1b15ab8
 
 // HACK not recommended
 // set port
@@ -35,13 +38,13 @@ gulp.task('pre-test', () => {
         .pipe(istanbul.hookRequire());
 });
 
-gulp.task('tests-all', ['pre-test', 'tests-unit', 'tests-integration'], () => {
+gulp.task('tests-all', ['pre-test'], () => {
     return gulp.src([
         './tests/unit/**/*.js',
         './tests/integration/**/*.js',
     ])
         .pipe(mocha({
-            reporter: 'spec', // optional
+            reporter: 'spec',
         }))
         .pipe(istanbul.writeReports({
             dir: './coverage/all',
@@ -51,16 +54,26 @@ gulp.task('tests-all', ['pre-test', 'tests-unit', 'tests-integration'], () => {
 gulp.task('tests-unit', ['pre-test'], () => {
     return gulp.src([
         './tests/unit/**/*.js',
+    ])
+        .pipe(mocha({
+            reporter: 'spec',
+        }))
+        .pipe(istanbul.writeReports({
+            dir: './coverage/unit',
+        }));
+});
+
+gulp.task('tests-integration', ['pre-test'], () => {
+    return gulp.src([
         './tests/integration/**/*.js',
     ])
         .pipe(mocha({
-            reporter: 'spec', // optional
+            reporter: 'spec',
         }))
         .pipe(istanbul.writeReports({
             dir: './coverage/integration',
         }));
 });
-
 
 const testConfig = {
     connectionString: 'mongodb://localhost/crowdfunding-db-test',
@@ -92,22 +105,3 @@ gulp.task('tests:browser', ['server-start'], () => {
             process.exit();
         });
 });
-
-
-// gulp.task('serve', () => {
-//     console.log('serving -------------------');
-//     const app = require('./app');
-//     app.listen(port, () => console.log(`--- Server working at ${port} ---`));
-// });
-
-// // !! Error: listen EADDRINUSE :::3001 if the tasks property is on
-// gulp.task('dev', ['serve'], () => {
-//     console.log('dev -------------------');
-//     return nodemon({
-//         ext: 'js pug',
-//         tasks: ['serve'],
-//         script: 'server.js',
-//     }).on('restart', () => {
-//         console.log('restarted -------------------');
-//     });
-// });

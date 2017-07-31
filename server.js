@@ -1,6 +1,5 @@
-
 const init = (serverConfig) => {
-    return Promise.resolve()
+    Promise.resolve()
         .then(() => require('./db').init(serverConfig.connectionString))
         .then((db) => require('./data').init(db))
         .then((data) => require('./app').init(data))

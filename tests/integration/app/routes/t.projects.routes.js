@@ -18,8 +18,19 @@ describe('Projects routes tests', () => {
     describe('GET routes', () => {
         it('expect / to return 200', (done) => {
             superRequest(app)
-                .get('/projects/')
+                .get('/projects')
                 .expect(200)
+                .end((err, res) => {
+                    if (err) {
+                        return done(err);
+                    }
+                    return done();
+                });
+        });
+        it('expect /new to redirect with 302 if no user logged', (done) => {
+            superRequest(app)
+                .get('/projects/new')
+                .expect(302)
                 .end((err, res) => {
                     if (err) {
                         return done(err);
