@@ -15,6 +15,13 @@ Robo 3T (Robomongo) - to browse local db (need to have mongodb server started to
 Initial database populate data with `> npm run populate` (need to have mongodb server started first)
 
 
+AWS: 
+http://ec2-18-220-86-168.us-east-2.compute.amazonaws.com
+
+Instructions to create projects:
+- YouTube video needs to be an embed link
+- If validation error, need select the cover image again.
+
 ## Getting started
 | #   | Command                 | Description                |
 | --- | ----------------------- | -------------------------- |

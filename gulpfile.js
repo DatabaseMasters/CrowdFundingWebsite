@@ -3,6 +3,8 @@ const gulp = require('gulp');
 const nodemon = require('gulp-nodemon');
 const istanbul = require('gulp-istanbul');
 const mocha = require('gulp-mocha');
+const serverConfig = require('./config/server.config');
+const server = require('./server');
 
 // HACK not recommended
 // set port
@@ -13,7 +15,7 @@ gulp.task('dev', () => {
     console.log('dev -------------------');
     return nodemon({
         ext: 'js',
-        script: 'server.js',
+        script: server(serverConfig.connectionString),
     }).on('restart', () => {
         console.log('restarted -------------------');
     });
@@ -34,7 +36,7 @@ gulp.task('pre-test', () => {
         .pipe(istanbul.hookRequire());
 });
 
-gulp.task('tests-unit', ['pre-test'], () => {
+gulp.task('tests-all', ['pre-test', 'tests-unit', 'tests-integration'], () => {
     return gulp.src([
             './tests/unit/**/*.js',
             './tests/integration/**/*.js',
@@ -42,7 +44,33 @@ gulp.task('tests-unit', ['pre-test'], () => {
         .pipe(mocha({
             reporter: 'spec', // optional
         }))
-        .pipe(istanbul.writeReports());
+        .pipe(istanbul.writeReports({
+            dir: './coverage/all',
+        }));
+});
+
+gulp.task('tests-unit', ['pre-test'], () => {
+    return gulp.src([
+            './tests/unit/**/*.js',
+        ])
+        .pipe(mocha({
+            reporter: 'spec', // optional
+        }))
+        .pipe(istanbul.writeReports({
+            dir: './coverage/unit',
+        }));
+});
+
+gulp.task('tests-integration', ['pre-test'], () => {
+    return gulp.src([
+            './tests/integration/**/*.js',
+        ])
+        .pipe(mocha({
+            reporter: 'spec', // optional
+        }))
+        .pipe(istanbul.writeReports({
+            dir: './coverage/integration',
+        }));
 });
 
 // gulp.task('serve', () => {
