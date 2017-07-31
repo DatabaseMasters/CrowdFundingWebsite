@@ -10,14 +10,10 @@ const attachRoutes = (app, data) => {
         .get('/about', (req, res) => {
             return res.render('about');
         })
-        .get('/contact', (req, res) => {
-            return res.render('shared/contact');
-        })
         .get('/404', (req, res) => {
             return res.render('404');
         })
         .get('*', (req, res) => {
-            console.log('----- REDIRECTING -----');
             res.redirect('/404');
         });
 
