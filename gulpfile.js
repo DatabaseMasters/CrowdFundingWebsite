@@ -3,11 +3,7 @@ const gulp = require('gulp');
 const nodemon = require('gulp-nodemon');
 const istanbul = require('gulp-istanbul');
 const mocha = require('gulp-mocha');
-<<<<<<< HEAD
 const server = require('./server');
-=======
->>>>>>> f108597247892b4cde2fda8deada9945b1b15ab8
-
 // HACK not recommended
 // set port
 // eslint-disable-next-line no-process-env
