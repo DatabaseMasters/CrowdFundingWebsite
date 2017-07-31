@@ -52,6 +52,14 @@ const getTexts = (selector) => {
         });
 };
 
+const getElements = (selector) => {
+    return Promise.resolve()
+        .then(() => waitForMany(selector))
+        .then((elements) => {
+            return Promise.all(elements);
+        });
+};
+
 const getSelected = (selector) => {
     return Promise.resolve()
         .then(() => waitFor(selector))
@@ -74,5 +82,5 @@ module.exports = {
     setDriver(_driver) {
         driver = _driver;
     },
-    waitFor, getText, getTexts, getSelected, setValue, click,
+    waitFor, getText, getTexts, getElements, getSelected, setValue, click,
 };

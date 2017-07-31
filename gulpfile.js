@@ -92,7 +92,7 @@ gulp.task('server-stop', () => {
 gulp.task('tests:browser', ['server-start'], () => {
     return gulp.src('./tests/browser/**/*.js')
         .pipe(mocha({
-            reporter: 'nyan',
+            reporter: 'spec',
             timeout: 10000,
         }))
         .once('error', () => process.exit(1))
