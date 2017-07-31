@@ -40,9 +40,14 @@ Instructions to create projects:
 - `$ mongod --shutdown` close connection or Ctrl+C
 
 ## Testing:
-- Main command: **`gulp tests-unit`** - runs tests with coverage of all relevant js files (mocha, istanbul)
 - `npm test` - runs mocha tests
 - `npm run test-istanbul` - runs mocha tests with istanbul coverage only counting files which have tests
+
+**Gulp reports**:
+- **`gulp tests-all`** - runs integration and unit tests with coverage of all relevant js files (mocha, istanbul)
+- `gulp tests-unit` - runs unit tests
+- `gulp tests-integration` - runs integration tests
+
 
 ## To do
 Features:

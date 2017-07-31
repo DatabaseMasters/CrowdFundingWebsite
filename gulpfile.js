@@ -3,8 +3,6 @@ const gulp = require('gulp');
 const nodemon = require('gulp-nodemon');
 const istanbul = require('gulp-istanbul');
 const mocha = require('gulp-mocha');
-const serverConfig = require('./config/server.config');
-const server = require('./server');
 
 // HACK not recommended
 // set port
@@ -15,7 +13,7 @@ gulp.task('dev', () => {
     console.log('dev -------------------');
     return nodemon({
         ext: 'js',
-        script: server(serverConfig.connectionString),
+        script: 'index.js',
     }).on('restart', () => {
         console.log('restarted -------------------');
     });
@@ -36,17 +34,18 @@ gulp.task('pre-test', () => {
         .pipe(istanbul.hookRequire());
 });
 
-gulp.task('tests-all', ['pre-test', 'tests-unit', 'tests-integration'], () => {
+gulp.task('tests-all', ['pre-test'], () => {
     return gulp.src([
             './tests/unit/**/*.js',
             './tests/integration/**/*.js',
         ])
         .pipe(mocha({
-            reporter: 'spec', // optional
+            reporter: 'spec',
         }))
         .pipe(istanbul.writeReports({
             dir: './coverage/all',
-        }));
+        }))
+        .once('error', process.exit(1));
 });
 
 gulp.task('tests-unit', ['pre-test'], () => {
@@ -54,11 +53,12 @@ gulp.task('tests-unit', ['pre-test'], () => {
             './tests/unit/**/*.js',
         ])
         .pipe(mocha({
-            reporter: 'spec', // optional
+            reporter: 'spec',
         }))
         .pipe(istanbul.writeReports({
             dir: './coverage/unit',
-        }));
+        }))
+        .once('error', process.exit(1));
 });
 
 gulp.task('tests-integration', ['pre-test'], () => {
@@ -66,11 +66,12 @@ gulp.task('tests-integration', ['pre-test'], () => {
             './tests/integration/**/*.js',
         ])
         .pipe(mocha({
-            reporter: 'spec', // optional
+            reporter: 'spec',
         }))
         .pipe(istanbul.writeReports({
             dir: './coverage/integration',
-        }));
+        }))
+        .once('error', process.exit(1));
 });
 
 // gulp.task('serve', () => {

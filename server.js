@@ -1,6 +1,6 @@
-const serverConfig = require('./config/server.config');
+//const serverConfig = require('./config/server.config');
 
-const init = (connectionString) => {
+const init = (serverConfig) => {
     Promise.resolve()
         .then(() => require('./db').init(serverConfig.connectionString))
         .then((db) => require('./data').init(db))
