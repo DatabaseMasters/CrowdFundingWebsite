@@ -16,7 +16,7 @@ block main
                     label.input-group-btn
                         span.btn.btn-primary
                             | Browse… 
-                            input(type='file', name='img', style='display: none;', accept='image/*', required='required', value=data.file)
+                            input(type='file', name='img', id="file", style='display: none;', accept='image/*', required='required', value=data.file)
                     input.form-control(type='text', readonly='', placeholder='No file chosen', required='required')
                 input#video.form-control(type='text', name='video', placeholder='YOUTUBE VIDEO (URL)', maxlength="100", required='required', value=data.video)
                 textarea#motto.form-control(name='motto', placeholder='MOTTO', required='required', maxlength="170")=data.motto
