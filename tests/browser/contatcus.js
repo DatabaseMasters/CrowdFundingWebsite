@@ -37,60 +37,59 @@ describe('Contact Us Form', () => {
                         done();
                     });
             });
+
+        it('to have input "Your name:", "Subject:", "Message:"',
+            (done) => {
+                driver.get(appUrl)
+                    .then(() => {
+                        return ui.click('#main-navigation li:nth-child(3)');
+                    })
+                    .then(() => {
+                        return ui.waitSeconds(1);
+                    })
+                    .then(() => {
+                        return ui.getTexts('.modal-dialog label');
+                    })
+                    .then((texts) => {
+                        expect(texts).to.have.length(3);
+                        expect(texts).to.contain('Your name:');
+                        expect(texts).to.contain('Subject:');
+                        expect(texts).to.contain('Message:');
+                        done();
+                    });
+            });
+
+        it('when filled to show "Thank you for your feedback" message',
+            (done) => {
+                driver.get(appUrl)
+                    .then(() => {
+                        return ui.click('#main-navigation li:nth-child(3)');
+                    })
+                    .then(() => {
+                        return ui.waitSeconds(1);
+                    })
+                    .then(() => {
+                        return ui.setValue('#sender-name', 'Penka');
+                    })
+                    .then(() => {
+                        return ui.setValue('#subject-text', 'Testing');
+                    })
+                    .then(() => {
+                        return ui.setValue('#message-text', 'Test Message');
+                    })
+                    .then(() => {
+                        return ui.click('#feedback-submit');
+                    })
+                    .then(() => {
+                        return ui.waitSeconds(1);
+                    })
+                    .then(() => {
+                        return ui.getText('.modal-dialog h3');
+                    })
+                    .then((text) => {
+                        expect(text).to.equals('Thank you for your feedback');
+                        done();
+                    });
+            });
     });
-
-    it('to have input "Your name:", "Subject:", "Message:"',
-        (done) => {
-            driver.get(appUrl)
-                .then(() => {
-                    return ui.click('#main-navigation li:nth-child(3)');
-                })
-                .then(() => {
-                    return ui.waitSeconds(1);
-                })
-                .then(() => {
-                    return ui.getTexts('.modal-dialog label');
-                })
-                .then((texts) => {
-                    expect(texts).to.have.length(3);
-                    expect(texts).to.contain('Your name:');
-                    expect(texts).to.contain('Subject:');
-                    expect(texts).to.contain('Message:');
-                    done();
-                });
-        });
-
-    it('when filled to show "Thank you for your feedback" message',
-        (done) => {
-            driver.get(appUrl)
-                .then(() => {
-                    return ui.click('#main-navigation li:nth-child(3)');
-                })
-                .then(() => {
-                    return ui.waitSeconds(1);
-                })
-                .then(() => {
-                    return ui.setValue('#sender-name', 'Penka');
-                })
-                .then(() => {
-                    return ui.setValue('#subject-text', 'Testing');
-                })
-                .then(() => {
-                    return ui.setValue('#message-text', 'Test Message');
-                })
-                .then(() => {
-                    return ui.click('#feedback-submit');
-                })
-                .then(() => {
-                    return ui.waitSeconds(1);
-                })
-                .then(() => {
-                    return ui.getText('.modal-dialog h3');
-                })
-                .then((text) => {
-                    expect(text).to.equals('Thank you for your feedback');
-                    done();
-                });
-        });
 });
-

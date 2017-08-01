@@ -31,26 +31,6 @@ describe('BaseData.getAll()', () => {
             ModelClass = class {};
             // Arrange
             data = new BaseData(db, ModelClass, validator);
-            // Another option ot mock the db without declaring external constants
-            // sinon.stub(db, 'collection')
-            //     .callsFake(() => {
-            //         return {
-            //             find: () => {
-            //                 return {
-            //                     toArray: () => {
-            //                         return Promise.resolve(items);
-            //                     },
-            //                 };
-            //             },
-            //         };
-            //     });
-
-            // Mock inline class
-            //ModelClass = class {};
-            // validator not needed here, will be needed probably when testing create()
-            // validator = {
-            //     isValid: () => true,
-            // };
         });
 
         afterEach(() => {
