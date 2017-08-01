@@ -73,7 +73,7 @@ const loginUser = (user) => {
             return ui.click('.modal-dialog .btn.btn-default.center-block');
         })
         .then(() => {
-            return ui.waitSeconds(1);
+            return ui.waitSeconds(0.5);
         });
 };
 

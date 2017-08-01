@@ -21,13 +21,13 @@ gulp.task('dev', () => {
 
 gulp.task('pre-test', () => {
     return gulp.src([
-            './server.js',
-            './app/**/*.js',
-            '!./config/**/*.js',
-            './data/**/*.js',
-            './db/**/*.js',
-            './models/**/*.js',
-        ]) // to exclude folders '!./static/**'
+        './server.js',
+        './app/**/*.js',
+        '!./config/**/*.js',
+        './data/**/*.js',
+        './db/**/*.js',
+        './models/**/*.js',
+    ]) // to exclude folders '!./static/**'
         .pipe(istanbul({
             includeUntested: true,
         }))
@@ -36,9 +36,9 @@ gulp.task('pre-test', () => {
 
 gulp.task('tests-all', ['pre-test'], (done) => {
     return gulp.src([
-            './tests/unit/**/*.js',
-            './tests/integration/**/*.js',
-        ])
+        './tests/unit/**/*.js',
+        './tests/integration/**/*.js',
+    ])
         .pipe(mocha({
             reporter: 'spec',
             timeout: 3000,
@@ -54,8 +54,8 @@ gulp.task('tests-all', ['pre-test'], (done) => {
 
 gulp.task('tests-unit', ['pre-test'], () => {
     return gulp.src([
-            './tests/unit/**/*.js',
-        ])
+        './tests/unit/**/*.js',
+    ])
         .pipe(mocha({
             reporter: 'spec',
             timeout: 3000,
@@ -71,8 +71,8 @@ gulp.task('tests-unit', ['pre-test'], () => {
 
 gulp.task('tests-integration', ['pre-test'], () => {
     return gulp.src([
-            './tests/integration/**/*.js',
-        ])
+        './tests/integration/**/*.js',
+    ])
         .pipe(mocha({
             reporter: 'spec',
             timeout: 3000,
@@ -90,7 +90,7 @@ const testConfig = {
     connectionString: 'mongodb://localhost/crowdfunding-db-test',
     port: 3002,
 };
-const mongoClient = require('mongodb');
+const { MongoClient } = require('mongodb');
 
 gulp.task('server-start', () => {
     return server(testConfig);
@@ -98,7 +98,7 @@ gulp.task('server-start', () => {
 
 
 gulp.task('server-stop', () => {
-    return mongoClient.connect(testConfig.connectionString)
+    return MongoClient.connect(testConfig.connectionString)
         .then((db) => {
             return db.dropDatabase();
         });
@@ -112,10 +112,8 @@ gulp.task('tests:browser', ['server-start'], () => {
         }))
         .once('error', (er) => {
             console.log(er);
-            process.exit(1);
         })
         .once('end', () => {
             gulp.start('server-stop');
-            process.exit();
         });
 });
