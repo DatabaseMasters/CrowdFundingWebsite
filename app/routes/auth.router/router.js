@@ -1,7 +1,6 @@
 const { Router } = require('express');
 const passport = require('passport');
 const login = require('connect-ensure-login');
-const bcrypt = require('bcryptjs');
 const { init } = require('./controller');
 
 const attachRoutes = (app, data) => {
