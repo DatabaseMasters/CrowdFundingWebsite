@@ -14,8 +14,8 @@ describe('Projects routes tests', () => {
             });
     });
 
-    describe('Expect GET route', () => {
-        it('get / to return 200', (done) => {
+    describe('Expect route GET', () => {
+        it('/ to return 200', (done) => {
             superRequest(app)
                 .get('/projects')
                 .expect(200)
@@ -26,7 +26,7 @@ describe('Projects routes tests', () => {
                     return done();
                 });
         });
-        it('get /new to redirect with 302 if no user logged', (done) => {
+        it('/new to redirect with 302 if no user logged', (done) => {
             superRequest(app)
                 .get('/projects/new')
                 .expect(302)
@@ -37,7 +37,7 @@ describe('Projects routes tests', () => {
                     return done();
                 });
         });
-        it('get /:id to redirect with 302 when wrong project passed', (done) => {
+        it('/:id to redirect with 302 when wrong project passed', (done) => {
             superRequest(app)
                 .get('/projects/88')
                 .expect(302)
@@ -50,8 +50,8 @@ describe('Projects routes tests', () => {
         });
     });
 
-    describe('Expect POST route', () => {
-        it('post / to return 200 when no file passed', (done) => {
+    describe('Expect route POST', () => {
+        it('/ to return 200 when no file passed', (done) => {
             superRequest(app)
                 .post('/projects')
                 .expect(200)
@@ -62,7 +62,7 @@ describe('Projects routes tests', () => {
                     return done();
                 });
         });
-        it('post / to return 200 when file passed', (done) => {
+        it('/ to return 200 when file passed', (done) => {
             superRequest(app)
                 .post('/projects')
                 .send({ 'file': '1234' }) //

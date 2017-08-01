@@ -14,8 +14,8 @@ describe('Sever routes tests', () => {
             });
     });
 
-    describe('Expect route', () => {
-        it('get / to return 200', (done) => {
+    describe('Expect route GET', () => {
+        it('/ to return 200', (done) => {
             superRequest(app)
                 .get('/')
                 .expect(200)
@@ -26,7 +26,7 @@ describe('Sever routes tests', () => {
                     return done();
                 });
         });
-        it('get /about to return 200', (done) => {
+        it('/about to return 200', (done) => {
             superRequest(app)
                 .get('/about')
                 .expect(200)
@@ -37,7 +37,7 @@ describe('Sever routes tests', () => {
                     return done();
                 });
         });
-        it('get /404 to return 200', (done) => {
+        it('/404 to return 200', (done) => {
             superRequest(app)
                 .get('/404')
                 .expect(200)
@@ -48,7 +48,7 @@ describe('Sever routes tests', () => {
                     return done();
                 });
         });
-        it('get /wrongURL to return 302', (done) => {
+        it('/wrongURL to return 302', (done) => {
             superRequest(app)
                 .get('/wrongURL')
                 .expect(302)

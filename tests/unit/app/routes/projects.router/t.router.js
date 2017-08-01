@@ -25,6 +25,7 @@ describe('Projects router tets', () => {
         res = require('../../../../unit/req-res').getResponseMock();
     });
 
+    // TODO remove this whole file
     // Attempt to unit test routes without supertest!
     // it('Expect /projects to render projects/explore', () => {
     //     const result = app.func.get('/');
