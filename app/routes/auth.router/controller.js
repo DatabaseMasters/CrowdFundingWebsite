@@ -1,31 +1,8 @@
-const { Router } = require('express');
-const passport = require('passport');
-const login = require('connect-ensure-login');
 const bcrypt = require('bcryptjs');
 
-const attachRoutes = (app, data) => {
-    const router = new Router();
-
-    router
-        .get('/log-in', (req, res) => {
-            return res.render('auth/log-in');
-        })
-        .post('/log-in',
-        passport.authenticate('local', {
-            successReturnToOrRedirect: '/',
-            failureRedirect: '/auth/log-in',
-            failureFlash: true,
-            successFlash: 'Welcome!',
-        })
-        )
-        .get('/log-out', (req, res) => {
-            req.logout();
-            res.redirect('/');
-        })
-        .get('/register', (req, res) => {
-            return res.render('auth/register');
-        })
-        .post('/register', (req, res) => {
+const init = (data) => {
+    const controller = {
+        postRegister(req, res) {
             const bodyUser = req.body;
             bodyUser.username = bodyUser.username.trim();
             bodyUser.password = bodyUser.password.trim();
@@ -34,37 +11,42 @@ const attachRoutes = (app, data) => {
 
             if (bodyUser.username === '') {
                 req.flash('error', 'Enter username please');
-                res.redirect('/auth/register');
-            }
-            if (bodyUser.password === '') {
+                return res.redirect('/auth/register');
+            } else if (bodyUser.password === '') {
                 req.flash('error', 'Enter password please');
-                res.redirect('/auth/register');
-            }
-            if (isNaN(initialAmount) || initialAmount < 0) {
+                return res.redirect('/auth/register');
+            } else if (isNaN(initialAmount) || initialAmount < 0) {
                 req.flash('error', 'Amount should be between 0 and 10 000!');
-                res.redirect('/auth/register');
+                return res.redirect('/auth/register');
             }
 
-            data.users.findByUsername(bodyUser.username)
+            return data.users.findByUsername(bodyUser.username)
                 .then((user) => {
+                    // console.log('===0===');
+                    // console.log(user);
                     if (user) {
                         req.flash('error', 'There is user with this username!');
                         res.redirect('/auth/register');
-                    } else {
-                        bodyUser.password = bcrypt.hashSync(bodyUser.password, 10);
-                        return data.users.create(bodyUser);
+                        return Promise.reject(res);
                     }
+                    // console.log('===1===');
+                    bodyUser.password = bcrypt.hashSync(bodyUser.password, 10);
+                    return data.users.create(bodyUser);
                 })
                 .then((insertedUser) => {
+                    // console.log('===2===');
                     req.login(insertedUser, (err) => {
                         if (err) {
                             res.redirect('/auth/register');
                         }
-                        res.redirect('/');
+                        return res.redirect('/');
                     });
+                })
+                .catch((err) => {
+                    // console.log(err);
                 });
-        })
-        .get('/profile', login.ensureLoggedIn('/auth/log-in'), (req, res) => {
+        },
+        getProfile(req, res) {
             const username = req.user.username.trim();
             const favs = data.users.getFavouriteProjects(username);
             const myPrjcts = data.projects.getAll({ 'username': username });
@@ -81,8 +63,8 @@ const attachRoutes = (app, data) => {
                             });
                         });
                 });
-        })
-        .put('/favourites', login.ensureLoggedIn('/auth/log-in'), (req, res) => {
+        },
+        postFavorites(req, res) {
             const username = res.locals.user.username.trim();
             const favs = [req.body.favourites];
 
@@ -103,8 +85,8 @@ const attachRoutes = (app, data) => {
                     res.locals.messages = req.flash();
                     return res.render('flash_message_template');
                 });
-        })
-        .delete('/favourites', login.ensureLoggedIn('/auth/log-in'), (req, res) => {
+        },
+        deleteFavorites(req, res) {
             const username = res.locals.user.username.trim();
             const favs = [req.body.favourites];
 
@@ -125,10 +107,10 @@ const attachRoutes = (app, data) => {
                     res.locals.messages = req.flash();
                     return res.render('flash_message_template');
                 });
-        });
+        },
+    };
 
-
-    app.use('/auth', router);
+    return controller;
 };
 
-module.exports = attachRoutes;
+module.exports = { init };

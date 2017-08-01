@@ -1,6 +1,6 @@
 const { expect } = require('chai');
 const { init } = require(
-    '../../../../../app/routes/projects.router/controller');
+    '../../../../app/routes/projects.router/controller');
 
 describe('Projects controller tests', () => {
     let data = null;
@@ -19,9 +19,14 @@ describe('Projects controller tests', () => {
         };
 
         controller = init(data);
-        req = require('../../../../unit/req-res').getRequestMock();
-        res = require('../../../../unit/req-res').getResponseMock();
+        req = require('../../../unit/req-res').getRequestMock();
+        res = require('../../../unit/req-res').getResponseMock();
     });
+
+    // REVIEW??
+    // afterEach(() => {
+    //     data.projects.restore();
+    // });
 
     describe('Expect getProject', () => {
         it('to return project if project is in database', () => {

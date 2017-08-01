@@ -49,7 +49,8 @@ class BaseData {
             .then(() => this.ModelClass.toViewModel(model))
             .catch((err) => {
                 console.log('base.data.js create method');
-                throw err;
+                console.log(err);
+                //throw err;
             });
     }
 

@@ -5,15 +5,16 @@ const init = (data) => {
             return data.projects.getAll({ ref: id })
                 .then((projects) => {
                     if (!projects || projects.length < 1) {
+                        // TODO remove
                         console.log('----- WRONG PROJECT ID -----');
                         return res.redirect('/404');
                     }
                     return res.render('projects/details', {
                         model: projects[0],
-                    }, (err, html) => {});
+                    });
                 })
                 .catch((err) => {
-                    // Check if this flash works!
+                    // REVIEW Check if this flash works!
                     req.flash('error', err);
                 });
         },

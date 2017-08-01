@@ -5,6 +5,7 @@ const getRequestMock = (options = {}) => {
         .forEach((key) => {
             req[key] = options[key];
         });
+
     return options;
 };
 
