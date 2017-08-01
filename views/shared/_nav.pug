@@ -29,7 +29,7 @@ mixin nav()
                 ul.nav.navbar-nav.navbar-right
                     if user
                         li#profile-nav
-                            a#profile-name(href="/auth/profile/")=user.username
+                            a#profile-name(href="/auth/profile")=user.username
                         li
                             a#log-out(href="/auth/log-out") Log-out
                     else
