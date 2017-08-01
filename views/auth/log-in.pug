@@ -11,8 +11,8 @@ block main
                 h3.headerSign.col-md-6.type
                     | Welcome back
             form(action='/auth/log-in', method='post').form
-                input#title.form-control(type='text', name='username', placeholder='Username')
-                input#title.form-control(type='password', name='password', placeholder='Password')
+                input#username.form-control(type='text', name='username', placeholder='Username')
+                input#password.form-control(type='password', name='password', placeholder='Password')
                 .modal-footer
                     button.submitbtn.btn.btn-secondary(type='submit') 
                         | Log in

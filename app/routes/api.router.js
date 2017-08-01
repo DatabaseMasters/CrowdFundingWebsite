@@ -55,7 +55,7 @@ const attachRoutes = (app, data) => {
                     }
                 })
                 .catch((err) => {
-                    console.log('--- ERROR in api.router.js getAll --- ' + err);
+                    // console.log('--- ERROR in api.router.js getAll --- ' + err);
                 });
         })
         .put('/users/profile/:username',
