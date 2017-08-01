@@ -12,9 +12,9 @@ const getResponseMock = () => {
     return {
         viewName: '',
         model: null,
-        render(viewName, context) {
+        render(viewName, model) {
             this.viewName = viewName;
-            this.context = context;
+            this.model = model;
             return this;
         },
         status(statusCode) {

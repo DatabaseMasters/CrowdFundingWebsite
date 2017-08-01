@@ -65,8 +65,8 @@ const configApp = (app) => {
             }
 
             req.flash('error',
-                'Error: File upload only supports the following filetypes - '
-                + filetypes);
+                'Error: File upload only supports the following filetypes - ' +
+                filetypes);
 
             return cb(null, false);
         },
@@ -86,10 +86,10 @@ const configApp = (app) => {
         ));
 
     // makes favicon.ico visible. Check if ok?
-    app.use('/',
-        express.static(
-            path.join(__dirname, '../../')
-        ));
+    // app.use('/',
+    //     express.static(
+    //         path.join(__dirname, '../../')
+    //     ));
 };
 
 module.exports = { configApp };
