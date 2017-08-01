@@ -3,8 +3,19 @@ const init = (data) => {
         getSearch(req, res) {
             let searchValue = req.query.searchValue;
             const filter = {
-                $or: [{ 'name': { '$regex': searchValue, '$options': 'i' } },
-                    { 'description': { '$regex': searchValue, '$options': 'i' } },
+                $or: [
+                    {
+                        'name': {
+                            '$regex': searchValue,
+                            '$options': 'i',
+                        },
+                    },
+                    {
+                        'description': {
+                            '$regex': searchValue,
+                            '$options': 'i',
+                        },
+                    },
                 ],
             };
             return data.projects.getAll(filter)
@@ -13,11 +24,11 @@ const init = (data) => {
                         searchValue = `No results found for "${searchValue}"`;
                     }
                     return res.render('projects/search', {
-                            model: {
-                                value: `${searchValue}`,
-                                projects: projects,
-                            },
+                        model: {
+                            value: `${searchValue}`,
+                            projects: projects,
                         },
+                    },
                         (err, html) => {
                             res.send(html);
                         });
@@ -36,19 +47,23 @@ const init = (data) => {
             return data.projects.getAll(category)
                 .then((projects) => {
                     if (projects.length < 1) {
-                        // TODO FIX!!
-                        res.send('<h3>No projects in category ' + category.category.charAt(0).toUpperCase() + category.category.slice(1) + '</h3>');
-                    } else {
-                        // TODO: consider limiting the number of projects returned from db
-                        projects = projects.slice((page - 1) * size, page * size);
-                        res.render('projects/projects', { model: projects },
-                            (err, html) => {
-                                res.send(html);
-                            });
+                        const fPart = '<h3>No projects in category ' +
+                            '<span class="capitalize">';
+                        const sPart = '</span></h3>';
+                        return res.send(fPart + category.category + sPart);
                     }
+                    const one = (page - 1) * size;
+                    const two = page * size;
+                    projects = projects.slice(one, two);
+                    return res.render('projects/projects',
+                        { model: projects },
+                        (err, html) => {
+                            res.send(html);
+                        });
                 })
                 .catch((err) => {
-                    // console.log('--- ERROR in api.router.js getAll --- ' + err);
+                    console.log('--- ERROR in api.router.js getAll --- ');
+                    console.log(err);
                 });
         },
         updateUser(req, res) {
@@ -121,7 +136,8 @@ const init = (data) => {
                                 .send({ message: 'Thank you for subscribing' });
                         })
                         .catch((err) => {
-                            return res.send({ message: 'Invalid email format' });
+                            const msg = 'Invalid email format';
+                            return res.send({ message: msg });
                         });
                 });
         },
@@ -174,9 +190,9 @@ const init = (data) => {
                     return res.send(response);
                 })
 
-            .catch((err) => {
-                console.log('--- ERROR in api.router.js donate --- ' + err);
-            });
+                .catch((err) => {
+                    console.log('--- ERROR in api.router.js donate --- ' + err);
+                });
         },
     };
 

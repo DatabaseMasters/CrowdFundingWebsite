@@ -15,12 +15,3 @@ const init = (serverConfig) => {
 };
 
 module.exports = init;
-
-// Demo1 code left for reference
-// TODO remove when app architecture is finished
-// const express = require('express');
-// const app = express();
-// const port = 3001;
-
-// app.listen(port, () =>
-//     console.log(`--- Server working at ${port} ---`));

@@ -41,22 +41,32 @@ class Project {
 
         if (!this._isTitleValid(model.title)) {
             valid = false;
-            reason += 'Incorrect title! The title must be be between 10 and 120 symbols (latin letters, numbers and _%.!?-).\n';
+            const msg = 'Incorrect title! ' +
+                'The title must be be between 10 and 120 symbols ' +
+                '(latin letters, numbers and _%.!?-).\n';
+            reason += msg;
         }
 
         if (!this._isMottoValid(model.motto)) {
             valid = false;
-            reason += 'Invalid motto! The motto must be be between 10 and 170 symbols.\n';
+            const msg = 'Invalid motto! ' +
+                'The motto must be be between 10 and 170 symbols.\n';
+            reason += msg;
         }
 
         if (!this._isDescriptionValid(model.description)) {
             valid = false;
-            reason += 'Invalid description! The project description must be be between 300 and 1,000 symbols.\n';
+            const msg = 'Invalid description! ' +
+                'The project description must be be' +
+                ' between 300 and 1,000 symbols.\n';
+            reason += msg;
         }
 
         if (!this._isAmountValid(model.amount)) {
             valid = false;
-            reason += 'Invalid amount! The project amount must be be between $1,000 and $1,000,000.\n';
+            const msg = 'Invalid amount! The project' +
+            ' amount must be be between $1,000 and $1,000,000.\n';
+            reason += msg;
         }
 
         if (!this._isDateValid(model.ending)) {

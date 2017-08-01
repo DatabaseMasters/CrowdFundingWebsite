@@ -2,7 +2,7 @@ const { expect } = require('chai');
 const sinon = require('sinon');
 const SubscribersData = require('../../../data/subscribers.data.js');
 
-describe('subscribers.data.js', () => {
+describe('Subscribers data tests', () => {
     const db = {
         collection: () => { },
     };
@@ -18,7 +18,7 @@ describe('subscribers.data.js', () => {
         return Promise.resolve(null);
     };
 
-    describe('findByUsername', () => {
+    describe('Expect findByUsername', () => {
         beforeEach(() => {
             items = [
                 { username: 'pesho', email: 'pesho@abv.bg' },
@@ -35,7 +35,7 @@ describe('subscribers.data.js', () => {
             data = new SubscribersData(db);
         });
 
-        it('Expect to return correct user when is in collection', () => {
+        it('to return correct user when is in collection', () => {
             // Act
             const expectedObject = { username: 'penka', email: 'penka@abv.bg' };
             return data.findByEmail('penka@abv.bg')
@@ -45,7 +45,7 @@ describe('subscribers.data.js', () => {
                 });
         });
 
-        it('Expect to return null when email is not in collection', () => {
+        it('to return null when email is not in collection', () => {
             // Act
             return data.findByEmail('notInCollection@abv.bg')
                 .then((result) => {

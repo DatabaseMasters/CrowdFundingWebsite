@@ -1,6 +1,6 @@
 class Feedback {
     static isValid(model) {
-        // TODO validation
+        // add validation
         return Promise.resolve({ bool: true });
     }
 

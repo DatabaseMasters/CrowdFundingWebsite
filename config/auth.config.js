@@ -21,10 +21,14 @@ const configAuth = (app, { users }) => {
                         if (obj) {
                             return done(null, user);
                         }
-                        return done(null, false, { message: 'Wrong password!' });
+                        return done(null, false, {
+                            message: 'Wrong password!',
+                        });
                     })
                     .catch((err) => {
-                        return done(err, false, { message: 'Something went wrong.' });
+                        return done(err, false, {
+                            message: 'Something went wrong.',
+                        });
                     });
             });
     }));

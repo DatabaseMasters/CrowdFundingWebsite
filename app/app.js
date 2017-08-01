@@ -6,21 +6,11 @@ const init = (data) => {
     require('../config/app.config').configApp(app);
     require('./routes')(app, data);
 
-    // TODO remove?
-    app.use((req, res, next) => {
-        console.log('---- Current user -----');
-        console.log(req.user);
-        next();
-    });
-
-    // app.get('/404', (req, res) => {
-    //     return res.send('<h1>Error</h1>');
-    // });
-    // This get never fires because 
-    // all wrong urls are caught by the get('/:id')
-    // app.get('*', (req, res) => {
-    //     console.log('----- REDIRECTING -----');
-    //     res.redirect('/404');
+    // logs to the console the current user
+    // app.use((req, res, next) => {
+    //     console.log('---- Current user -----');
+    //     console.log(req.user);
+    //     next();
     // });
 
     return Promise.resolve(app);

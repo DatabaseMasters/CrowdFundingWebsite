@@ -7,7 +7,6 @@ class UsersData extends BaseData {
         super(db, User, User);
     }
 
-    // REVIEW: This is a demo method, test, modify as needed        
     findByUsername(username) {
         return this.collection
             .findOne({ username: username })
@@ -19,7 +18,8 @@ class UsersData extends BaseData {
             });
     }
 
-    // Finds user by username and updates it's projects. Projects must be an array!
+    // Finds user by username and updates it's projects.
+    // Projects must be an array!
     addFavourites(username, projects) {
         return this.collection.update(
             { 'username': username },
@@ -101,7 +101,7 @@ class UsersData extends BaseData {
     }
 
     _isModelValid(model) {
-        // TODO: add more validation, specific to user
+        // аdd more validation, specific to user
         // then call base method
         return super._isModelValid(model);
     }
