@@ -3,8 +3,19 @@ const init = (data) => {
         getSearch(req, res) {
             let searchValue = req.query.searchValue;
             const filter = {
-                $or: [{ 'name': { '$regex': searchValue, '$options': 'i' } },
-                    { 'description': { '$regex': searchValue, '$options': 'i' } },
+                $or: [
+                    {
+                        'name': {
+                            '$regex': searchValue,
+                            '$options': 'i',
+                        },
+                    },
+                    {
+                        'description': {
+                            '$regex': searchValue,
+                            '$options': 'i',
+                        },
+                    },
                 ],
             };
             return data.projects.getAll(filter)
@@ -13,11 +24,11 @@ const init = (data) => {
                         searchValue = `No results found for "${searchValue}"`;
                     }
                     return res.render('projects/search', {
-                            model: {
-                                value: `${searchValue}`,
-                                projects: projects,
-                            },
+                        model: {
+                            value: `${searchValue}`,
+                            projects: projects,
                         },
+                    },
                         (err, html) => {
                             res.send(html);
                         });
@@ -120,7 +131,8 @@ const init = (data) => {
                                 .send({ message: 'Thank you for subscribing' });
                         })
                         .catch((err) => {
-                            return res.send({ message: 'Invalid email format' });
+                            const msg = 'Invalid email format';
+                            return res.send({ message: msg });
                         });
                 });
         },
@@ -173,9 +185,9 @@ const init = (data) => {
                     return res.send(response);
                 })
 
-            .catch((err) => {
-                console.log('--- ERROR in api.router.js donate --- ' + err);
-            });
+                .catch((err) => {
+                    console.log('--- ERROR in api.router.js donate --- ' + err);
+                });
         },
     };
 

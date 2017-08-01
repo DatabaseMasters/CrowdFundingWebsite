@@ -93,10 +93,13 @@ const init = (data) => {
 
             return data.users.removeFavourites(username, favs)
                 .then((result) => {
+                    let msg = '';
                     if (!result.result.ok) {
-                        req.flash('error', 'Failed to remove from favourites..');
+                        msg = 'Failed to remove from favourites..';
+                        req.flash('error', msg);
                     } else {
-                        req.flash('info', 'Successfully removed from favourites!');
+                        msg = 'Successfully removed from favourites!';
+                        req.flash('info', msg);
                     }
                     return data.projects.removeUserFromLikes(favs[0], username);
                 }).then(() => {
