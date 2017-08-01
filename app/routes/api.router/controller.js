@@ -47,22 +47,18 @@ const init = (data) => {
             return data.projects.getAll(category)
                 .then((projects) => {
                     if (projects.length < 1) {
-                        const first = category.category.charAt(0).toUpperCase();
-                        const categoryName = category.category.slice(1);
-                        const r = first + categoryName;
-                        res.send('<h3>No projects in category ' + r + '</h3>');
+                        return res.send('<h3>No projects in category <span class="capitalize">' + category.category + '</span></h3>');
                     } else {
-                        const one = (page - 1) * size;
-                        const two = page * size;
-                        projects = projects.slice(one, two);
-                        res.render('projects/projects', { model: projects },
+                        projects = projects.slice((page - 1) * size, page * size);
+                        return res.render('projects/projects', { model: projects },
                             (err, html) => {
                                 res.send(html);
                             });
                     }
                 })
                 .catch((err) => {
-                    return res.send({ message: 'api.router.js getAll error' });
+                    console.log('--- ERROR in api.router.js getAll --- ');
+                    console.log(err);
                 });
         },
         updateUser(req, res) {

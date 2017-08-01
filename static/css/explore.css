@@ -28,3 +28,11 @@
 .exploreFilter.active p {
     border-bottom: 2px solid #2fa4e7;
 }
+
+.exploreFilter.inactive p {
+    color: #ccc;
+}
+
+.capitalize {
+    text-transform: capitalize;
+}

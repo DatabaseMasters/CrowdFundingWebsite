@@ -19,8 +19,8 @@ describe('Projects controller tests', () => {
         };
 
         controller = init(data);
-        req = require('../../../unit/req-res').getRequestMock();
-        res = require('../../../unit/req-res').getResponseMock();
+        req = require('../../../unit/utils/req-res').getRequestMock();
+        res = require('../../../unit/utils/req-res').getResponseMock();
     });
 
     // REVIEW??
