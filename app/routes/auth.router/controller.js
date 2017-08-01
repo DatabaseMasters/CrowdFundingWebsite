@@ -11,35 +11,35 @@ const init = (data) => {
 
             if (bodyUser.username === '') {
                 req.flash('error', 'Enter username please');
-                return res.redirect('/auth/register');
+                res.redirect('/auth/register');
+                return Promise.resolve(res);
             } else if (bodyUser.password === '') {
                 req.flash('error', 'Enter password please');
-                return res.redirect('/auth/register');
+                res.redirect('/auth/register');
+                return Promise.resolve(res);
             } else if (isNaN(initialAmount) || initialAmount < 0) {
                 req.flash('error', 'Amount should be between 0 and 10 000!');
-                return res.redirect('/auth/register');
+                res.redirect('/auth/register');
+                return Promise.resolve(res);
             }
 
             return data.users.findByUsername(bodyUser.username)
                 .then((user) => {
-                    // console.log('===0===');
-                    // console.log(user);
                     if (user) {
                         req.flash('error', 'There is user with this username!');
                         res.redirect('/auth/register');
-                        return Promise.reject(res);
+                        return Promise.reject(req.flash);
                     }
-                    // console.log('===1===');
                     bodyUser.password = bcrypt.hashSync(bodyUser.password, 10);
                     return data.users.create(bodyUser);
                 })
                 .then((insertedUser) => {
-                    // console.log('===2===');
                     req.login(insertedUser, (err) => {
                         if (err) {
                             res.redirect('/auth/register');
                         }
-                        return res.redirect('/');
+                        res.redirect('/');
+                        return Promise.resolve(res);
                     });
                 })
                 .catch((err) => {
@@ -51,7 +51,7 @@ const init = (data) => {
             const favs = data.users.getFavouriteProjects(username);
             const myPrjcts = data.projects.getAll({ 'username': username });
 
-            Promise.all([myPrjcts, favs])
+            return Promise.all([myPrjcts, favs])
                 .then((values) => {
                     const favsRefs = values[1][0].favourites || [];
 
@@ -68,17 +68,18 @@ const init = (data) => {
             const username = res.locals.user.username.trim();
             const favs = [req.body.favourites];
 
-            data.users.addFavourites(username, favs)
+            return data.users.addFavourites(username, favs)
                 .then((result) => {
                     if (!result.result.ok) {
                         req.flash('error', 'Failed to add to favourites..');
                     } else {
-                        req.flash('info', 'Succesfuly added to favourites!');
+                        req.flash('info', 'Successfully added to favourites!');
                     }
                     res.locals.messages = req.flash();
                     return data.projects.addUserToLiked(favs[0], username);
                 }).then(() => {
-                    return res.render('flash_message_template');
+                    res.render('flash_message_template');
+                    return Promise.resolve(res);
                 })
                 .catch(() => {
                     req.flash('error', 'Something happened');
@@ -90,12 +91,12 @@ const init = (data) => {
             const username = res.locals.user.username.trim();
             const favs = [req.body.favourites];
 
-            data.users.removeFavourites(username, favs)
+            return data.users.removeFavourites(username, favs)
                 .then((result) => {
                     if (!result.result.ok) {
                         req.flash('error', 'Failed to remove from favourites..');
                     } else {
-                        req.flash('info', 'Succesfuly removed from favourites!');
+                        req.flash('info', 'Successfully removed from favourites!');
                     }
                     return data.projects.removeUserFromLikes(favs[0], username);
                 }).then(() => {

@@ -105,6 +105,5 @@ describe('Auth routes tests', () => {
                     return done();
                 });
         });
-
     });
 });
