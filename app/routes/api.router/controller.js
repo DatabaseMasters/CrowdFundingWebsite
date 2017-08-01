@@ -3,8 +3,19 @@ const init = (data) => {
         getSearch(req, res) {
             let searchValue = req.query.searchValue;
             const filter = {
-                $or: [{ 'name': { '$regex': searchValue, '$options': 'i' } },
-                    { 'description': { '$regex': searchValue, '$options': 'i' } },
+                $or: [
+                    {
+                        'name': {
+                            '$regex': searchValue,
+                            '$options': 'i',
+                        },
+                    },
+                    {
+                        'description': {
+                            '$regex': searchValue,
+                            '$options': 'i',
+                        },
+                    },
                 ],
             };
             return data.projects.getAll(filter)
@@ -13,11 +24,11 @@ const init = (data) => {
                         searchValue = `No results found for "${searchValue}"`;
                     }
                     return res.render('projects/search', {
-                            model: {
-                                value: `${searchValue}`,
-                                projects: projects,
-                            },
+                        model: {
+                            value: `${searchValue}`,
+                            projects: projects,
                         },
+                    },
                         (err, html) => {
                             res.send(html);
                         });
@@ -36,10 +47,14 @@ const init = (data) => {
             return data.projects.getAll(category)
                 .then((projects) => {
                     if (projects.length < 1) {
-                        res.send('<h3>No projects in category ' + category.category.charAt(0).toUpperCase() + category.category.slice(1) + '</h3>');
+                        const first = category.category.charAt(0).toUpperCase();
+                        const categoryName = category.category.slice(1);
+                        const r = first + categoryName;
+                        res.send('<h3>No projects in category ' + r + '</h3>');
                     } else {
-                        // consider limiting the number of projects returned from db
-                        projects = projects.slice((page - 1) * size, page * size);
+                        const one = (page - 1) * size;
+                        const two = page * size;
+                        projects = projects.slice(one, two);
                         res.render('projects/projects', { model: projects },
                             (err, html) => {
                                 res.send(html);
@@ -47,7 +62,7 @@ const init = (data) => {
                     }
                 })
                 .catch((err) => {
-                    // console.log('--- ERROR in api.router.js getAll --- ' + err);
+                    return res.send({ message: 'api.router.js getAll error' });
                 });
         },
         updateUser(req, res) {
@@ -120,7 +135,8 @@ const init = (data) => {
                                 .send({ message: 'Thank you for subscribing' });
                         })
                         .catch((err) => {
-                            return res.send({ message: 'Invalid email format' });
+                            const msg = 'Invalid email format';
+                            return res.send({ message: msg });
                         });
                 });
         },
@@ -173,9 +189,9 @@ const init = (data) => {
                     return res.send(response);
                 })
 
-            .catch((err) => {
-                console.log('--- ERROR in api.router.js donate --- ' + err);
-            });
+                .catch((err) => {
+                    console.log('--- ERROR in api.router.js donate --- ' + err);
+                });
         },
     };
 

@@ -1,7 +1,6 @@
 /* globals __dirname */
 const bodyParser = require('body-parser');
 const express = require('express');
-const morgan = require('morgan');
 const flash = require('connect-flash');
 const multer = require('multer');
 const path = require('path');
@@ -10,9 +9,6 @@ const fs = require('fs');
 const configApp = (app) => {
     // defines the view engine
     app.set('view engine', 'pug');
-
-    // logs requests
-    // app.use(morgan('combined'));
 
     // enables (post) requests body parsing for json
     app.use(bodyParser.json());

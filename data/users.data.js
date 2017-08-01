@@ -6,7 +6,7 @@ class UsersData extends BaseData {
         /* Second User param passed as validator, see BaseData*/
         super(db, User, User);
     }
-      
+
     findByUsername(username) {
         return this.collection
             .findOne({ username: username })
@@ -18,7 +18,8 @@ class UsersData extends BaseData {
             });
     }
 
-    // Finds user by username and updates it's projects. Projects must be an array!
+    // Finds user by username and updates it's projects.
+    // Projects must be an array!
     addFavourites(username, projects) {
         return this.collection.update(
             { 'username': username },

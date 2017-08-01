@@ -11,12 +11,12 @@ const attachRoutes = (app, data) => {
             return res.render('auth/log-in');
         })
         .post('/log-in',
-            passport.authenticate('local', {
-                successReturnToOrRedirect: '/',
-                failureRedirect: '/auth/log-in',
-                failureFlash: true,
-                successFlash: 'Welcome!',
-            })
+        passport.authenticate('local', {
+            successReturnToOrRedirect: '/',
+            failureRedirect: '/auth/log-in',
+            failureFlash: true,
+            successFlash: 'Welcome!',
+        })
         )
         .get('/log-out', (req, res) => {
             req.logout();
@@ -31,10 +31,14 @@ const attachRoutes = (app, data) => {
         .get('/profile', login.ensureLoggedIn('/auth/log-in'), (req, res) => {
             controller.getProfile(req, res);
         })
-        .put('/favourites', login.ensureLoggedIn('/auth/log-in'), (req, res) => {
+        .put('/favourites',
+        login.ensureLoggedIn('/auth/log-in'),
+        (req, res) => {
             controller.postFavorites(req, res);
         })
-        .delete('/favourites', login.ensureLoggedIn('/auth/log-in'), (req, res) => {
+        .delete('/favourites',
+        login.ensureLoggedIn('/auth/log-in'),
+        (req, res) => {
             controller.deleteFavorites(req, res);
         });
 
