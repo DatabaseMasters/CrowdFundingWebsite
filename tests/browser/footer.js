@@ -3,7 +3,7 @@ const { setupDriver } = require('./utils/setup-driver');
 const ui = require('./utils/ui');
 const test = require('./utils/test-utils');
 
-describe('Navigation', () => {
+describe('Footer', () => {
     const appUrl = 'http://localhost:3002';
     let driver = null;
 

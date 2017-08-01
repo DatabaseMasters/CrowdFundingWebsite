@@ -21,10 +21,10 @@ class BaseData {
         // otherwise will throw errors
         if (this.ModelClass.toViewModel) {
             result = result.then((models) => {
-                    return models
-                        .map((model) => this.ModelClass
-                            .toViewModel(model));
-                })
+                return models
+                    .map((model) => this.ModelClass
+                        .toViewModel(model));
+            })
                 .catch((err) => {
                     console.log('base.data.js error');
                     console.log(err);
@@ -39,7 +39,6 @@ class BaseData {
     create(model) {
         return this._isModelValid(model)
             .then((validity) => {
-                console.log(validity);
                 if (!validity.bool) {
                     return Promise.reject(validity.reason);
                 }
