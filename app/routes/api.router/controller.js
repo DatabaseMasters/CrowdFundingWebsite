@@ -47,14 +47,19 @@ const init = (data) => {
             return data.projects.getAll(category)
                 .then((projects) => {
                     if (projects.length < 1) {
-                        return res.send('<h3>No projects in category <span class="capitalize">' + category.category + '</span></h3>');
-                    } else {
-                        projects = projects.slice((page - 1) * size, page * size);
-                        return res.render('projects/projects', { model: projects },
-                            (err, html) => {
-                                res.send(html);
-                            });
+                        const fPart = '<h3>No projects in category ' +
+                            '<span class="capitalize">';
+                        const sPart = '</span></h3>';
+                        return res.send(fPart + category.category + sPart);
                     }
+                    const one = (page - 1) * size;
+                    const two = page * size;
+                    projects = projects.slice(one, two);
+                    return res.render('projects/projects',
+                        { model: projects },
+                        (err, html) => {
+                            res.send(html);
+                        });
                 })
                 .catch((err) => {
                     console.log('--- ERROR in api.router.js getAll --- ');
