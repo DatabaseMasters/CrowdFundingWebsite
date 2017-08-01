@@ -7,12 +7,12 @@ const init = (data) => {
                     { 'description': { '$regex': searchValue, '$options': 'i' } },
                 ],
             };
-            data.projects.getAll(filter)
+            return data.projects.getAll(filter)
                 .then((projects) => {
                     if (projects.length < 1) {
                         searchValue = `No results found for "${searchValue}"`;
                     }
-                    res.render('projects/search', {
+                    return res.render('projects/search', {
                             model: {
                                 value: `${searchValue}`,
                                 projects: projects,
@@ -28,15 +28,12 @@ const init = (data) => {
         },
         getProjects(req, res) {
             let { category, page } = req.query;
-            // TODO add filter/options by newest, popular, most funded
-            // REVIEW remove page parsing?
             page = parseInt(page, 10) || 1;
             const size = 8;
 
-            // Checks if request contains a category, assign empty object if not
             category = category ? { category: category } : {};
 
-            data.projects.getAll(category)
+            return data.projects.getAll(category)
                 .then((projects) => {
                     if (projects.length < 1) {
                         // TODO FIX!!
@@ -88,7 +85,7 @@ const init = (data) => {
                 };
             }
 
-            data.users.updateProfile(username, obj)
+            return data.users.updateProfile(username, obj)
                 .then((result) => {
                     if (!result.value) {
                         req.flash('error', 'Failed to update profile..');
@@ -106,7 +103,7 @@ const init = (data) => {
         },
         postSubscribe(req, res) {
             const email = req.body.email;
-            data.subscribers.findByEmail(email)
+            return data.subscribers.findByEmail(email)
                 .then((subscriber) => {
                     if (subscriber) {
                         return res
@@ -117,7 +114,7 @@ const init = (data) => {
                         email: email,
                         name: '',
                     };
-                    data.subscribers
+                    return data.subscribers
                         .create(newSubscriber)
                         .then(() => {
                             return res
@@ -129,7 +126,7 @@ const init = (data) => {
                 });
         },
         postFeedback(req, res) {
-            data.feedback
+            return data.feedback
                 .create(req.body)
                 .then((result) => {
                     req.flash('info', 'Thank you for your feedback');
@@ -159,7 +156,7 @@ const init = (data) => {
             const project = req.body.project;
             const donation = parseInt(req.body.donation, 10);
 
-            data.projects.donateToProject(project, donation)
+            return data.projects.donateToProject(project, donation)
                 .then((proj) => {
                     if (!proj) {
                         return res.send({ message: 'Invalid project ref' });
