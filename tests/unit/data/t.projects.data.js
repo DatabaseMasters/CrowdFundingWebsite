@@ -2,7 +2,7 @@ const { expect } = require('chai');
 const sinon = require('sinon');
 const ProjectsData = require('../../../data/projects.data.js');
 
-describe('projects.data.js', () => {
+describe('Projects data tests', () => {
     const db = {
         collection: () => { },
     };
@@ -18,7 +18,7 @@ describe('projects.data.js', () => {
         return Promise.resolve(null);
     };
 
-    describe('donateToProject', () => {
+    describe('Expect donateToProject', () => {
         beforeEach(() => {
             items = [
                 { ref: 1, donated: 10 },
@@ -35,7 +35,7 @@ describe('projects.data.js', () => {
             data = new ProjectsData(db);
         });
 
-        it('Expect to increment donations to project', () => {
+        it('to add donations to project', () => {
             // Act
             const expectedObject = { ref: 1, donated: 17 };
             return data.donateToProject(1, 7)

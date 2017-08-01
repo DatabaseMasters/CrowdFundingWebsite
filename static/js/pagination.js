@@ -1,6 +1,6 @@
 /* globals $ */
 
-// TODO not completed - must change page count
+// not completed - must change page count
 $('#pagination').twbsPagination({
     totalPages: 35,
     visiblePages: 5,

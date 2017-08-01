@@ -6,8 +6,7 @@ class UsersData extends BaseData {
         /* Second User param passed as validator, see BaseData*/
         super(db, User, User);
     }
-
-    // REVIEW: This is a demo method, test, modify as needed        
+      
     findByUsername(username) {
         return this.collection
             .findOne({ username: username })
@@ -101,7 +100,7 @@ class UsersData extends BaseData {
     }
 
     _isModelValid(model) {
-        // TODO: add more validation, specific to user
+        // аdd more validation, specific to user
         // then call base method
         return super._isModelValid(model);
     }

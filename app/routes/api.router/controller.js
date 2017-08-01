@@ -36,10 +36,9 @@ const init = (data) => {
             return data.projects.getAll(category)
                 .then((projects) => {
                     if (projects.length < 1) {
-                        // TODO FIX!!
                         res.send('<h3>No projects in category ' + category.category.charAt(0).toUpperCase() + category.category.slice(1) + '</h3>');
                     } else {
-                        // TODO: consider limiting the number of projects returned from db
+                        // consider limiting the number of projects returned from db
                         projects = projects.slice((page - 1) * size, page * size);
                         res.render('projects/projects', { model: projects },
                             (err, html) => {

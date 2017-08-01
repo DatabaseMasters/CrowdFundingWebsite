@@ -34,7 +34,7 @@ function refreshProjects(html) {
 
 // Loading applies to home and explore pages
 // Load all projects
-// TODO: add filtering by rating
+// should add filtering by rating
 function loadMain(params) {
     var options = {
         data: {
@@ -67,21 +67,8 @@ function loadCategory(params) {
 
 clientRouter
     .on('', function(params) {
-        // console.log('EMPTY # PARAMS');
-        // console.log(params);
-        // console.log(window.location.search);
-        // if (window.location.search) {
-        //     console.log('=== CAUGHT SEARCH ===  ');
-        //     console.log(params);
-        //     loadSerachResults(window.location.search)
-        // } else {
         loadMain(params);
-        //}
     })
-    // .on('/search', function(params) {
-    //     console.log('=== CAUGHT SEARCH HASH ===');
-    //     console.log(params);
-    // })
     .on('/:category', function(params) {
         console.log('HAS # CATEGORY');
         console.log(params);

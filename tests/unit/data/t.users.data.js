@@ -2,7 +2,7 @@ const { expect } = require('chai');
 const sinon = require('sinon');
 const UsersData = require('../../../data/users.data.js');
 
-describe('users.data.js', () => {
+describe('Users data tests', () => {
     const db = {
         collection: () => { },
     };
@@ -17,7 +17,7 @@ describe('users.data.js', () => {
         return Promise.resolve(null);
     };
 
-    describe('findByUsername', () => {
+    describe('Expect findByUsername', () => {
         beforeEach(() => {
             items = ['pesho', 'gosho', 'penka', 'iliikata'];
             // Mock what db.collection returns
@@ -29,7 +29,7 @@ describe('users.data.js', () => {
             data = new UsersData(db);
         });
 
-        it('Expect to return username when is in collection', () => {
+        it('to return username when is in collection', () => {
             // Act
             return data.findByUsername('gosho')
                 .then((result) => {
@@ -38,7 +38,7 @@ describe('users.data.js', () => {
                 });
         });
 
-        it('Expect to return null when username is not in collection', () => {
+        it('to return null when username is not in collection', () => {
             // Act
             return data.findByUsername('not in collection')
                 .then((result) => {
@@ -55,7 +55,7 @@ describe('users.data.js', () => {
         });
     });
 
-    describe('hasEnoughMoney', () => {
+    describe('Expect hasEnoughMoney', () => {
         beforeEach(() => {
             items = ['pesho', 'gosho', 'penka', 'iliikata'];
             // Mock what db.collection returns
@@ -67,7 +67,7 @@ describe('users.data.js', () => {
             data = new UsersData(db);
         });
 
-        it('Should return true when user has money', () => {
+        it('to return true when user has money', () => {
             // Act
             return data.findByUsername('gosho')
                 .then((result) => {
@@ -76,7 +76,7 @@ describe('users.data.js', () => {
                 });
         });
 
-        it('Expect to return null when username is not in collection', () => {
+        it('to return null when username is not in collection', () => {
             // Act
             return data.findByUsername('not in collection')
                 .then((result) => {
