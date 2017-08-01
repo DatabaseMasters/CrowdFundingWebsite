@@ -82,5 +82,5 @@ module.exports = {
     setDriver(_driver) {
         driver = _driver;
     },
-    waitFor, getText, getTexts, getElements, getSelected, setValue, click,
+    waitFor, getText, getTexts, getElements, getSelected, setValue, click, waitSeconds,
 };

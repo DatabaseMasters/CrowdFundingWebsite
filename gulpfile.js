@@ -95,7 +95,10 @@ gulp.task('tests:browser', ['server-start'], () => {
             reporter: 'spec',
             timeout: 10000,
         }))
-        .once('error', () => process.exit(1))
+        .once('error', (er) => {
+            console.log(er);
+            process.exit(1);
+        })
         .once('end', () => {
             gulp.start('server-stop');
             process.exit();

@@ -1,7 +1,7 @@
 const { expect } = require('chai');
 const { setupDriver } = require('./utils/setup-driver');
 const ui = require('./utils/ui');
-const webdriver = require('selenium-webdriver');
+const test = require('./utils/test-utils');
 
 describe('Home page', () => {
     const appUrl = 'http://localhost:3002';
@@ -10,6 +10,8 @@ describe('Home page', () => {
     beforeEach(() => {
         driver = setupDriver('chrome');
         ui.setDriver(driver);
+        test.setDriver(driver);
+        test.setAppUrl(appUrl);
     });
 
     afterEach(() => {
@@ -93,44 +95,28 @@ describe('Home page', () => {
                 });
         });
 
-        const categories = ['Medical', 'Animals', 'Community', 'Other'];
-
-        categories.forEach((category) => {
-            it(` category "${category}"`, (done) => {
-                driver.get(appUrl)
-                    .then(() => {
-                        return ui.getTexts('#main .homeCategories p');
-                    })
-                    .then((elements) => {
-                        expect(elements).to.contain(category);
-                        done();
-                    });
-            });
-        });
-
-        categories.forEach((category) => {
-            const categoryLower = category.toLowerCase();
-            it(` when clicked on ${category} ` +
-                `button to redirect to /projects#/${categoryLower}`,
-                (done) => {
-                    driver.get(appUrl)
-                        .then(() => {
-                            const index = categories.indexOf(category);
-                            return ui
-                                .click('#main .homeCategories:nth-of-type(' +
-                                `${index + 1})`);
-                        })
-                        .then(() => {
-                            return driver.getCurrentUrl();
-                        })
-                        .then((url) => {
-                            expect(url).to.
-                                equals(appUrl + `/projects#/${categoryLower}`);
-                            done();
-                        });
-                });
-        });
-
+        const categories = [
+            {
+                selector: '#main .homeCategories:nth-of-type(1)',
+                text: 'Medical',
+                redirect: '/projects#/medical',
+            },
+            {
+                selector: '#main .homeCategories:nth-of-type(2)',
+                text: 'Animals',
+                redirect: '/projects#/animals',
+            },
+            {
+                selector: '#main .homeCategories:nth-of-type(3)',
+                text: 'Community',
+                redirect: '/projects#/community',
+            },
+            {
+                selector: '#main .homeCategories:nth-of-type(4)',
+                text: 'Other',
+                redirect: '/projects#/other',
+            }];
+        categories.forEach((btn) => test.button(btn));
 
         it(' heading "Popular/new projects"', (done) => {
             driver.get(appUrl)
