@@ -1,15 +1,10 @@
-const { Router } = require('express');
-const login = require('connect-ensure-login');
-
-const attachRoutes = (app, data) => {
-    const router = new Router();
-
-    router
-        .get('/projects/search', (req, res) => {
+const init = (data) => {
+    const controller = {
+        getSearch(req, res) {
             let searchValue = req.query.searchValue;
             const filter = {
                 $or: [{ 'name': { '$regex': searchValue, '$options': 'i' } },
-                { 'description': { '$regex': searchValue, '$options': 'i' } },
+                    { 'description': { '$regex': searchValue, '$options': 'i' } },
                 ],
             };
             data.projects.getAll(filter)
@@ -18,11 +13,11 @@ const attachRoutes = (app, data) => {
                         searchValue = `No results found for "${searchValue}"`;
                     }
                     res.render('projects/search', {
-                        model: {
-                            value: `${searchValue}`,
-                            projects: projects,
+                            model: {
+                                value: `${searchValue}`,
+                                projects: projects,
+                            },
                         },
-                    },
                         (err, html) => {
                             res.send(html);
                         });
@@ -30,8 +25,8 @@ const attachRoutes = (app, data) => {
                 .catch((err) => {
                     console.log(err);
                 });
-        })
-        .get('/projects', (req, res) => {
+        },
+        getProjects(req, res) {
             let { category, page } = req.query;
             // TODO add filter/options by newest, popular, most funded
             // REVIEW remove page parsing?
@@ -44,6 +39,7 @@ const attachRoutes = (app, data) => {
             data.projects.getAll(category)
                 .then((projects) => {
                     if (projects.length < 1) {
+                        // TODO FIX!!
                         res.send('<h3>No projects in category ' + category.category.charAt(0).toUpperCase() + category.category.slice(1) + '</h3>');
                     } else {
                         // TODO: consider limiting the number of projects returned from db
@@ -57,10 +53,8 @@ const attachRoutes = (app, data) => {
                 .catch((err) => {
                     // console.log('--- ERROR in api.router.js getAll --- ' + err);
                 });
-        })
-        .put('/users/profile/:username',
-        login.ensureLoggedIn('/auth/log-in'),
-        (req, res) => {
+        },
+        updateUser(req, res) {
             const username = req.params.username;
             console.log(new Date().toLocaleTimeString());
             let obj = {};
@@ -109,8 +103,8 @@ const attachRoutes = (app, data) => {
                     res.locals.messages = req.flash();
                     return res.render('flash_message_template');
                 });
-        })
-        .post('/subscribe', (req, res) => {
+        },
+        postSubscribe(req, res) {
             const email = req.body.email;
             data.subscribers.findByEmail(email)
                 .then((subscriber) => {
@@ -133,8 +127,8 @@ const attachRoutes = (app, data) => {
                             return res.send({ message: 'Invalid email format' });
                         });
                 });
-        })
-        .post('/feedback', (req, res) => {
+        },
+        postFeedback(req, res) {
             data.feedback
                 .create(req.body)
                 .then((result) => {
@@ -149,8 +143,8 @@ const attachRoutes = (app, data) => {
 
                     return res.render('flash_message_template');
                 });
-        })
-        .post('/donate', (req, res) => {
+        },
+        postDonation(req, res) {
             const user = req.user;
             if (!user) {
                 const msg = 'You need to be logged to donate!';
@@ -183,11 +177,13 @@ const attachRoutes = (app, data) => {
                     return res.send(response);
                 })
 
-                .catch((err) => {
-                    console.log('--- ERROR in api.router.js donate --- ' + err);
-                });
-        });
-    app.use('/api', router);
+            .catch((err) => {
+                console.log('--- ERROR in api.router.js donate --- ' + err);
+            });
+        },
+    };
+
+    return controller;
 };
 
-module.exports = attachRoutes;
+module.exports = { init };

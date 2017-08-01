@@ -1,12 +1,22 @@
 const getRequestMock = (options = {}) => {
-    const req = {};
+    const req = {
+        flash(type, message) {
+            if (type) {
+                this.errType = type;
+            }
+            if (message) {
+                this.errMsg = message;
+            }
+            return { errType: this.errType, errMsg: this.errMsg };
+        },
+        //login(user, errorCallback) {},
+    };
 
     Object.keys(options)
         .forEach((key) => {
             req[key] = options[key];
         });
-
-    return options;
+    return req;
 };
 
 const getResponseMock = () => {
